@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="22.95px" width="14.15px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 7.45, 6.2)">
+    <path d="M-4.2 -4.8 Q-2.2 -4.9 0.05 -5.7 L2.85 -3.2 Q4.85 -2.2 5.7 -0.45 6.25 0.65 6.2 1.45 L5.8 3.25 Q5.1 5.65 3.3 8.85 L1.25 8.15 0.7 7.95 0.5 4.2 -2.15 3.3 -4.6 6.1 -6.95 4.1 Q-6.75 1.95 -5.45 -1.8 L-4.2 -4.8 M3.65 3.6 L2.45 6.6 3.65 3.6 M1.4 1.0 L1.15 -0.1 1.4 1.0 M3.0 1.2 L2.7 0.15 3.0 1.2 M-1.05 -2.3 L-2.95 -2.7 Q-4.2 -0.5 -5.15 3.75 -4.2 -0.5 -2.95 -2.7 L-1.05 -2.3" fill="#cccccc" fill-rule="evenodd" stroke="none"/>
+    <path d="M0.5 4.2 L0.7 7.95 -0.55 10.35 Q-2.4 11.0 -3.85 9.95 L-5.0 8.75 -4.6 6.1 -2.15 3.3 -2.35 5.2 -0.4 5.9 0.5 4.2 M-1.6 8.9 L-3.35 8.25 -1.6 8.9" fill="#666666" fill-rule="evenodd" stroke="none"/>
+    <path d="M1.25 8.15 Q-0.7 13.15 -2.6 15.15 -4.5 17.05 -6.0 15.7 -7.5 14.2 -4.6 6.1 L-5.0 8.75 -3.85 9.95 Q-2.4 11.0 -0.55 10.35 L0.7 7.95 1.25 8.15" fill="#e3e6e8" fill-rule="evenodd" stroke="none"/>
+    <path d="M0.5 4.2 L-0.4 5.9 -2.35 5.2 -2.15 3.3 0.5 4.2" fill="#3cbbe5" fill-rule="evenodd" stroke="none"/>
+    <path d="M-4.2 -4.8 Q-2.2 -4.9 0.05 -5.7 L2.85 -3.2 Q4.85 -2.2 5.7 -0.45 6.25 0.65 6.2 1.45 L5.8 3.25 Q5.1 5.65 3.3 8.85 L1.25 8.15 0.7 7.95 M2.45 6.6 L3.65 3.6 M-5.15 3.75 Q-4.2 -0.5 -2.95 -2.7 L-1.05 -2.3" fill="none" stroke="#777777" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M-4.6 6.1 L-6.95 4.1 Q-6.75 1.95 -5.45 -1.8 L-4.2 -4.8 M0.7 7.95 L0.5 4.2 M-2.15 3.3 L-4.6 6.1 -5.0 8.75 -3.85 9.95 Q-2.4 11.0 -0.55 10.35 L0.7 7.95" fill="none" stroke="#383838" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M-3.35 8.25 L-1.6 8.9" fill="none" stroke="#373737" stroke-linecap="round" stroke-linejoin="miter-clip" stroke-miterlimit="4.0" stroke-width="1.0"/>
+    <path d="M0.5 4.2 L-0.4 5.9 -2.35 5.2 -2.15 3.3 0.5 4.2" fill="none" stroke="#0e566d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M1.25 8.15 Q-0.7 13.15 -2.6 15.15 -4.5 17.05 -6.0 15.7 -7.5 14.2 -4.6 6.1" fill="none" stroke="#72757f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M2.7 0.15 L3.0 1.2 M1.15 -0.1 L1.4 1.0" fill="none" stroke="#777777" stroke-linecap="round" stroke-linejoin="miter-clip" stroke-miterlimit="4.0" stroke-width="1.0"/>
+  </g>
+</svg>

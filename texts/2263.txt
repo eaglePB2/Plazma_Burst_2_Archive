@@ -1,0 +1,3 @@
+You are about to join old version of Multiplayer (can seem better or worse than new one). It uses separate lobby on same servers.
+--- RECORDSEPARATOR ---
+It is available to you because you've completed all campaign levels. It was added on some old players' demand.
