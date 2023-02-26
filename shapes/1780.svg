@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="195.3px" width="230.0px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 115.0, 262.15)">
+    <path d="M20.0 -231.0 L30.0 -245.0 20.0 -231.0 M57.0 -244.0 L29.0 -215.0 Q3.45 -224.85 -29.0 -216.0 L-56.0 -244.0 Q-1.0 -274.3 57.0 -244.0 M-19.0 -231.0 L-32.0 -246.0 -19.0 -231.0 M1.0 -233.0 L1.0 -251.0 1.0 -233.0" fill="#494949" fill-rule="evenodd" stroke="none"/>
+    <path d="M-56.0 -244.0 L-29.0 -216.0 Q3.45 -224.85 29.0 -215.0 L57.0 -244.0 Q97.6 -217.2 112.0 -171.0 L86.0 -155.0 Q84.9 -128.9 75.95 -107.2 L74.1 -102.95 Q70.95 -96.2 67.1 -89.95 60.2 -79.0 51.0 -69.85 L40.0 -73.0 10.0 -149.0 -11.0 -149.0 -40.0 -73.0 -50.1 -70.1 Q-64.0 -83.1 -69.9 -93.05 -74.15 -100.35 -77.3 -107.85 -86.65 -130.3 -86.0 -155.0 L-112.0 -170.0 Q-97.4 -217.95 -56.0 -244.0" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
+    <path d="M30.0 -245.0 L20.0 -231.0 M57.0 -244.0 L29.0 -215.0 Q3.45 -224.85 -29.0 -216.0 L-56.0 -244.0 Q-1.0 -274.3 57.0 -244.0 M1.0 -251.0 L1.0 -233.0 M-32.0 -246.0 L-19.0 -231.0" fill="none" stroke="#3b3b3b" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+    <path d="M-56.0 -244.0 Q-97.4 -217.95 -112.0 -170.0 L-86.0 -155.0 Q-86.65 -130.3 -77.3 -107.85 -74.15 -100.35 -69.9 -93.05 -64.0 -83.1 -50.1 -70.1 L-40.0 -73.0 -11.0 -149.0 10.0 -149.0 40.0 -73.0 51.0 -69.85 Q60.2 -79.0 67.1 -89.95 70.95 -96.2 74.1 -102.95 L75.95 -107.2 Q84.9 -128.9 86.0 -155.0 L112.0 -171.0 Q97.6 -217.2 57.0 -244.0" fill="none" stroke="#264366" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.0"/>
+  </g>
+  <defs>
+    <radialGradient cx="0" cy="0" gradientTransform="matrix(0.1292, 0.0, 0.0, 0.1292, -0.5, -149.0)" gradientUnits="userSpaceOnUse" id="gradient0" r="819.2" spreadMethod="pad">
+      <stop offset="0.0" stop-color="#b6e1e7"/>
+      <stop offset="1.0" stop-color="#3d6483"/>
+    </radialGradient>
+  </defs>
+</svg>
