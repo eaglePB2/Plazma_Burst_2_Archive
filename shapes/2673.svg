@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="400.0px" width="118.0px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)">
-    <pattern height="118" id="PatternID_2673_1" overflow="visible" patternTransform="matrix(0.0, -1.0, 1.0, 0.0, 0.0, 400.0)" patternUnits="userSpaceOnUse" viewBox="0 0 400 118" width="400">
-      <image height="118" width="400" xlink:href="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAB2CAYAAADm1cXnAAACwklEQVR4Xu3Vu8sWBBjG4ZuOdjBRlEJCIkSCEEIIAkEahCAIGpKGoEFoaGgIHBqCHBoaGhoaDBoaGiIaGkIchIJAhyIiiiiK6APDjqZfX54a+p75Xd77na8fXM/w/AN3/kuuAkArm+cKALRmQC4DQGsGZAMAWjMg6wDQmgG5CACtGZALANCaAfkTAFozIL8BQGsG5DwAtGZAzgFAawZkDQBaMyA/AUBrBuQHAGjNgHwHAK0ZkG8AoDUD8hUAtGZAvgCA1gzIZwDQmgE5CwCtGZBPAaA1A/IJALSyeU4DQGsG5BQAtGZAPgKA1gzIhwDQmgH5AABauZ68BwCtGZB3AaA1A/IOALSyed4GgNYMyAkAaM2AvAkArRmQNwCgNQPyOgC0ZkBeA4DWDMirANCaATkOAK1cS14GgNYMyEsA0JoBOQYArRmQFwGgNQPyAgC0ZkCeB4BWribPAUBrBuQoALRmQJ4FgNYMyDMA0JoBeRoAWrmSPAUArRmQJwGgNQPyBAC0ZkAeB4BWLiePAUBrBuQwALRmQB4FgFb+TQ4BQGsG5CAAtLKRPAIArRmQhwGglX+SAwDQmgF5CABaWU/2A0BrBuRBAGjlUvIAALRyMdkHAK38newFgNYMyP0A0MqF5D4AaOWvZA8AtPJHci8AtPJ7shsAWvk1uQcAWjmf3A0ArfyS7AKAVs4lOwGglbVkBwC08nOyHQBa+THZBgCtfJ/cBQCtfJtsBYBWvk7uBIBWvkzuAIBWPk9uB4BWziS3AUArHydbAKCVk8mtANAyIACsJO8ntwBAy4AAsJK8ldwMAK28ktwEAC0DAsBKDAgAK8mR5EYAaBkQAFZiQABYSTa7AQBWsPAAgGUsPABgGQsPAFjGwgMAlrHwAIBlSJIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIW+x+ymsBb7sMeLwAAAABJRU5ErkJggg=="/>
-    </pattern>
-    <path d="M0.0 400.0 L0.0 0.0 118.0 0.0 118.0 400.0 0.0 400.0" style="fill:url(#PatternID_2673_1)"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="25.0px" width="25.0px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 12.5, 12.5)">
+    <path d="M12.0 -5.0 L12.0 5.05 5.0 5.05 5.0 12.0 -5.05 12.0 -5.05 5.05 -12.0 5.05 -12.0 -5.0 -5.05 -5.0 -5.05 -12.0 5.0 -12.0 5.0 -5.0 12.0 -5.0" fill="#ff1a1a" fill-rule="evenodd" stroke="none"/>
+    <path d="M12.0 -5.0 L12.0 5.05 5.0 5.05 5.0 12.0 -5.05 12.0 -5.05 5.05 -12.0 5.05 -12.0 -5.0 -5.05 -5.0 -5.05 -12.0 5.0 -12.0 5.0 -5.0 12.0 -5.0 Z" fill="none" stroke="#140e0e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
   </g>
 </svg>

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="30.0px" width="30.0px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 15.0, 15.0)">
-    <path d="M1.75 -1.75 Q2.5 -1.0 2.5 0.0 2.5 1.0 1.75 1.75 1.0 2.5 0.0 2.5 -1.0 2.5 -1.75 1.75 -2.5 1.0 -2.5 0.0 -2.5 -1.0 -1.75 -1.75 -1.0 -2.5 0.0 -2.5 1.0 -2.5 1.75 -1.75" fill="#ffffff" fill-rule="evenodd" stroke="none"/>
-    <path d="M1.75 -1.75 Q2.5 -1.0 2.5 0.0 2.5 1.0 1.75 1.75 1.0 2.5 0.0 2.5 -1.0 2.5 -1.75 1.75 -2.5 1.0 -2.5 0.0 -2.5 -1.0 -1.75 -1.75 -1.0 -2.5 0.0 -2.5 1.0 -2.5 1.75 -1.75 Z" fill="none" stroke="#3c9dff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M10.6 -10.65 Q15.0 -6.25 15.0 0.0 15.0 6.2 10.6 10.55 6.25 15.0 0.0 15.0 -6.2 15.0 -10.65 10.55 -15.0 6.2 -15.0 0.0 -15.0 -6.25 -10.65 -10.65 -6.2 -15.0 0.0 -15.0 6.25 -15.0 10.6 -10.65" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="49.3px" width="49.3px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 26.45, 25.75)">
+    <path d="M22.85 -1.1 Q22.85 9.15 15.65 16.35 8.4 23.55 -1.8 23.55 -12.0 23.55 -19.25 16.35 -26.45 9.15 -26.45 -1.1 -26.45 -11.3 -19.25 -18.5 -12.0 -25.75 -1.8 -25.75 8.4 -25.75 15.65 -18.5 22.85 -11.3 22.85 -1.1" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
   </g>
   <defs>
-    <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0178, 0.0, 0.0, 0.0178, 0.0, 0.0)" gradientUnits="userSpaceOnUse" id="gradient0" r="819.2" spreadMethod="pad">
-      <stop offset="0.0" stop-color="#ffffff" stop-opacity="0.4"/>
-      <stop offset="1.0" stop-color="#ffffff" stop-opacity="0.0"/>
+    <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0303, 0.0, 0.0, 0.0303, -1.8, -1.1)" gradientUnits="userSpaceOnUse" id="gradient0" r="819.2" spreadMethod="pad">
+      <stop offset="0.0" stop-color="#aefd79" stop-opacity="0.5019608"/>
+      <stop offset="1.0" stop-color="#eaffd5" stop-opacity="0.0"/>
     </radialGradient>
   </defs>
 </svg>

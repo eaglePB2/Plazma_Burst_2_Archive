@@ -4953,6 +4953,10 @@ package pb2_re34_fla
                         this.NoMouse2(this.temp.txt6);
                         this.NoMouse2(this.temp.txt7);
                         this.NoMouse2(this.temp.txt8);
+                        this.NoMouse2(this.temp.mpmode);
+                        this.NoMouse2(this.temp.phymode);
+                        this.NoMouse2(this.temp.servertxt);
+                        this.NoMouse2(this.temp.pingtxt);
                         if(b["#a"] != null)
                         {
                            if(b["#a"] == "0")
@@ -9271,7 +9275,7 @@ package pb2_re34_fla
             param1.blood_green = 0;
             param1.blood_blue = 0;
          }
-         else if(param1.char == 12 || param1.char == 17)
+         else if(param1.char == 12 || param1.char == 17 || param1.char == 156)
          {
             param1.armored = 1;
             param1.voice = this.voices.ghost;
@@ -17361,21 +17365,6 @@ package pb2_re34_fla
             }
             ++this.i6;
          }
-         if(!this.stable)
-         {
-            if(this.MP_mode)
-            {
-               if(!this.MP_favor_the_shooter)
-               {
-                  if(Math.random() > 0.9)
-                  {
-                     param1 = Number(this.mens[this.MP_myid].x);
-                     param2 = Number(this.mens[this.MP_myid].y);
-                     param5 *= 1000;
-                  }
-               }
-            }
-         }
          _loc9_ = null;
          if(this.MP_mode && this.MP_favor_the_shooter)
          {
@@ -19890,6 +19879,8 @@ package pb2_re34_fla
                         {
                            this.herolist.f5.text = "";
                         }
+                        this.herolist.f7.text = this.MP_favor_the_shooter ? "new" : "old";
+                        this.herolist.f8.text = this.MP_app ? "new" : "old";
                      }
                      if(this.DEBUG_MODE)
                      {
@@ -27936,28 +27927,6 @@ package pb2_re34_fla
                                              {
                                                 this.mc2 = this.mens[_loc4_];
                                                 this.i3 = -1;
-                                                if(!this.stable)
-                                                {
-                                                   if(this.MP_mode)
-                                                   {
-                                                      if(!this.MP_favor_the_shooter)
-                                                      {
-                                                         if(Math.random() > 0.95)
-                                                         {
-                                                            if(Math.random() > 0.5)
-                                                            {
-                                                               this.puls[_loc1_].nx = this.mens[this.MP_myid].x;
-                                                               this.puls[_loc1_].ny = this.mens[this.MP_myid].y;
-                                                            }
-                                                            else
-                                                            {
-                                                               this.puls[_loc1_].lx = this.mens[this.MP_myid].x;
-                                                               this.puls[_loc1_].ly = this.mens[this.MP_myid].y;
-                                                            }
-                                                         }
-                                                      }
-                                                   }
-                                                }
                                                 if(this.CheckHit(_loc1_,this.mc2.b_head_end) || this.CheckHit(_loc1_,this.mc2.b_head_start))
                                                 {
                                                    this.i3 = this.mc2.b_head_end;
@@ -40417,11 +40386,8 @@ package pb2_re34_fla
       
       public function proceed() : void
       {
-         if(this.override_login_password)
-         {
-            this.def_login = this.flogin.text;
-            this.def_password = this.fpassword.text;
-         }
+         this.def_login = this.flogin.text;
+         this.def_password = this.fpassword.text;
          if(this.MP_socket.connected)
          {
             if(this.servers_name.length > 0)
@@ -41731,7 +41697,7 @@ package pb2_re34_fla
       internal function frame1() : *
       {
          this.GAME_VERSION = "1.23";
-         this.GAME_VERSION_SIMPLE = "1.40 A";
+         this.GAME_VERSION_SIMPLE = "1.40 B";
          try
          {
             fscommand("trapallkeys","true");
@@ -46292,7 +46258,7 @@ package pb2_re34_fla
          {
             try
             {
-               navigateToURL(new URLRequest("https://plazmaburst2.com/?s=3#netcode"),"_blank");
+               navigateToURL(new URLRequest("https://www.plazmaburst2.com/?s=3#netcode"),"_blank");
             }
             catch(e:Error)
             {
@@ -46302,7 +46268,7 @@ package pb2_re34_fla
          {
             try
             {
-               navigateToURL(new URLRequest("https://plazmaburst2.com/?s=3#physics"),"_blank");
+               navigateToURL(new URLRequest("https://www.plazmaburst2.com/?s=3#physics"),"_blank");
             }
             catch(e:Error)
             {

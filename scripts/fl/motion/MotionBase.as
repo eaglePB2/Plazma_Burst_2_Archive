@@ -1,10 +1,10 @@
 package fl.motion
 {
-   import flash.filters.BitmapFilter;
+   import flash.filters.*;
    import flash.geom.ColorTransform;
    import flash.geom.Matrix;
    import flash.geom.Point;
-   import flash.utils.getDefinitionByName;
+   import flash.utils.*;
    
    public class MotionBase
    {

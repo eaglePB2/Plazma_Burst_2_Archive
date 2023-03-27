@@ -17,11 +17,11 @@ package fl.motion
       private static var enterFrameBeacon:MovieClip = new MovieClip();
        
       
-      private var _motion:MotionBase;
+      private var _motion:fl.motion.MotionBase;
       
       private var _motionArray:Array;
       
-      protected var _lastMotionUsed:MotionBase;
+      protected var _lastMotionUsed:fl.motion.MotionBase;
       
       protected var _lastColorTransformApplied:ColorTransform;
       
@@ -73,7 +73,7 @@ package fl.motion
       
       private var _lastRenderedTime:int = -1;
       
-      private var _lastRenderedMotion:MotionBase = null;
+      private var _lastRenderedMotion:fl.motion.MotionBase = null;
       
       private var _time:int = -1;
       
@@ -306,12 +306,12 @@ package fl.motion
          }
       }
       
-      public function get motion() : MotionBase
+      public function get motion() : fl.motion.MotionBase
       {
          return this._motion;
       }
       
-      public function set motion(param1:MotionBase) : void
+      public function set motion(param1:fl.motion.MotionBase) : void
       {
          this._motion = param1;
          if(param1)
@@ -430,7 +430,7 @@ package fl.motion
                this._targetParent.addChildAt(this._target,this._targetParent.getChildIndex(_loc6_) + 1);
             }
          }
-         var _loc2_:MotionBase = this.motion;
+         var _loc2_:fl.motion.MotionBase = this.motion;
          if(_loc2_)
          {
             if(param1 > _loc2_.duration - 1)
@@ -546,12 +546,12 @@ package fl.motion
          this.dispatchEvent(new MotionEvent(MotionEvent.MOTION_UPDATE));
       }
       
-      protected function setTime3D(param1:int, param2:MotionBase) : Boolean
+      protected function setTime3D(param1:int, param2:fl.motion.MotionBase) : Boolean
       {
          return false;
       }
       
-      protected function setTimeClassic(param1:int, param2:MotionBase, param3:KeyframeBase) : Boolean
+      protected function setTimeClassic(param1:int, param2:fl.motion.MotionBase, param3:KeyframeBase) : Boolean
       {
          return false;
       }

@@ -10,8 +10,8 @@
     <path d="M8.25 13.5 Q9.3 13.35 9.9 14.65 L10.6 16.1 Q11.3 17.7 10.35 18.05 L10.2 18.1" fill="none" stroke="#151c23" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M10.2 18.1 Q10.5 20.0 9.5 20.75 L6.55 20.8 Q4.55 20.0 3.8 17.95 2.95 15.95 3.8 14.3" fill="none" stroke="#1a1a19" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M3.4 10.05 L3.2 9.75 M1.9 9.6 L1.7 9.3 M2.6 11.15 L2.4 10.85 M-0.85 3.6 Q-0.6 4.95 0.05 5.25" fill="none" stroke="#36485b" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M8.25 13.5 L7.85 13.9 Q6.9 14.45 5.5 14.6" fill="none" stroke="#2c3c4a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M5.5 14.6 Q4.8 15.9 5.2 16.65 5.75 18.0 7.15 18.3 L10.2 18.1" fill="none" stroke="#242f3a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M5.5 14.6 Q6.9 14.45 7.85 13.9 L8.25 13.5" fill="none" stroke="#2c3c4a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M10.2 18.1 L7.15 18.3 Q5.75 18.0 5.2 16.65 4.8 15.9 5.5 14.6" fill="none" stroke="#242f3a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M-2.05 -0.05 Q-1.6 -1.05 0.2 -1.05 1.95 -1.05 3.2 0.35" fill="none" stroke="#2a2a2a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
   </g>
   <defs>

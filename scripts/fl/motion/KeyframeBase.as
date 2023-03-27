@@ -2,7 +2,7 @@ package fl.motion
 {
    import flash.filters.ColorMatrixFilter;
    import flash.geom.Matrix;
-   import flash.utils.Dictionary;
+   import flash.utils.*;
    
    public class KeyframeBase
    {
@@ -28,7 +28,7 @@ package fl.motion
       
       public var filters:Array;
       
-      public var color:Color;
+      public var color:fl.motion.Color;
       
       public var label:String = "";
       
@@ -139,7 +139,7 @@ package fl.motion
          }
          if(!this.color)
          {
-            this.color = new Color();
+            this.color = new fl.motion.Color();
          }
       }
       

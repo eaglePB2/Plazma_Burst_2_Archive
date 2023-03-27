@@ -1,5 +1,6 @@
 package fl.motion
 {
+   import flash.display.*;
    import flash.geom.ColorTransform;
    
    public class Color extends ColorTransform

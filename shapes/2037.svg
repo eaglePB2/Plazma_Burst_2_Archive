@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="9.2px" width="9.4px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, -7.2, -8.65)">
-    <path d="M7.7 9.15 L16.1 9.15 16.1 16.45 7.7 17.35 7.7 9.15" fill="#837f7c" fill-rule="evenodd" stroke="none"/>
-    <path d="M16.1 9.15 L16.1 16.45 7.7 17.35 7.7 9.15" fill="none" stroke="#373838" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M7.7 9.15 L16.1 9.15" fill="none" stroke="#201f1d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="5.5px" width="12.35px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 24.0, 3.2)">
+    <path d="M-23.5 1.8 L-23.5 -1.8 -22.55 -2.65 -12.15 -2.7 -12.35 -0.85 -17.75 1.8 -23.5 1.8" fill="#555351" fill-rule="evenodd" stroke="none"/>
+    <path d="M-12.15 -2.7 L-12.35 -0.85 -17.75 1.8 -23.5 1.8" fill="none" stroke="#373838" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M-23.5 1.8 L-23.5 -1.8 -22.55 -2.65 -12.15 -2.7" fill="none" stroke="#292a2a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
   </g>
 </svg>

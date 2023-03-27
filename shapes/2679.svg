@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="4.0px" width="200.0px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 0.0, 2.0)">
-    <path d="M200.0 -2.0 L200.0 2.0 0.0 2.0 0.0 -2.0 200.0 -2.0" fill="#ffffff" fill-rule="evenodd" stroke="none"/>
-    <path d="M200.0 -2.0 L200.0 2.0 0.0 2.0 0.0 -2.0 200.0 -2.0 Z" fill="none" stroke="#999999" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.05"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="400.0px" width="118.0px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 0.0, 0.0)">
+    <pattern height="118" id="PatternID_2679_1" overflow="visible" patternTransform="matrix(0.0, -1.0, 1.0, 0.0, 0.0, 400.0)" patternUnits="userSpaceOnUse" viewBox="0 0 400 118" width="400">
+      <image height="118" width="400" xlink:href="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAB2CAYAAADm1cXnAAACvElEQVR42u3Vu6sQBBjG4RfT0q4oRRIhESGBBCIEQhANQRAEDkaD0CA0ODgEDg5BDQ4NDg0NCg0NDhIODhINQUGgQxERhRRFeMBQ8348eckhv8HJ6T2D0/OD5/sDvuXN7eQmALRy59wAgNYMyHUAaM2ALAFAawZkEQBaMyBXAKA1A3IJAFozIBcAoDUDcg4AWjMgZwCgNQNyGgBaMyALANCaAfkLAFozIH8AQGsG5DcAaM2A/AoArRmQnwGgNQPyIwC0ZkC+B4DWDMgJAGjNgHwHAK0ZkG8BoDUD8jUAtGZAvgKA1gzIMQBozYAcBYDWDMgRAGjlv+QwALRmQA4BQGsG5HMAaM2AfAYArRmQAwDQmgH5FABaMyCfAEBrBmQ/ALRmQD4GgNYMyD4AaM2AfAQArdxKPgCA1gzIXgBozYDsAYDWDMj7ANCaAdkNAK0ZkF0A0MrN5D0AaM2A7ASA1gzIuwDQmgHZAQCtGZB3AKCVG8l2AGjNgGwDgNYMyFsA0JoBeRMAWrmevAEArRmQ1wGgNQPyGgC08m/yKgC0ZkBeAYBWlpKtANCaAXkZAFq5lmwBgNYMyGYAaGUxeQkAWjMgmwCglavJiwDQypVkIwC0cjl5AQBaMyDPA0Arl5LnAKCVi8kGAGjlfPIsALTyT/IMALRyNlkPAK2cSZ4GgFb+Tp4CgFZOJ08CQCsLyToAaOVUshYAWvkzeQIAWvk9eRwAWjmZPAYArfySPAoArfyUPAIArfyQPAwArRxP1gBAK98kqwGglS+ThwCgZUAAWN6AfJE8CAAtAwLA8gbkYLIKAFr5MFkJAC0DAoABAeA+DsjbyQMA0DIgABgQAO7jgNxpBQAsgycAYEAAMCAAGBAADAgA3B0QSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSZIkSdI9/Q+ymsBbV8UBHAAAAABJRU5ErkJggg=="/>
+    </pattern>
+    <path d="M0.0 400.0 L0.0 0.0 118.0 0.0 118.0 400.0 0.0 400.0" style="fill:url(#PatternID_2679_1)"/>
   </g>
 </svg>

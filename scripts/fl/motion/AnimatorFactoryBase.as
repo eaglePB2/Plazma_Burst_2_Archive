@@ -13,7 +13,7 @@ package fl.motion
    {
        
       
-      private var _motion:MotionBase;
+      private var _motion:fl.motion.MotionBase;
       
       private var _motionArray:Array;
       
@@ -27,7 +27,7 @@ package fl.motion
       
       protected var _sceneName:String;
       
-      public function AnimatorFactoryBase(param1:MotionBase, param2:Array = null)
+      public function AnimatorFactoryBase(param1:fl.motion.MotionBase, param2:Array = null)
       {
          super();
          this._motion = param1;
@@ -39,7 +39,7 @@ package fl.motion
          this._sceneName = "";
       }
       
-      public function get motion() : MotionBase
+      public function get motion() : fl.motion.MotionBase
       {
          return this._motion;
       }
