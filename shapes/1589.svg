@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="5.9px" width="19.6px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, -8.4, 5.95)">
-    <path d="M11.0 -5.45 L27.5 -5.45 24.65 -0.55 13.05 -0.55 8.9 -1.35 11.0 -5.45" fill="#0a7be6" fill-rule="evenodd" stroke="none"/>
-    <path d="M11.0 -5.45 L27.5 -5.45 24.65 -0.55 13.05 -0.55 8.9 -1.35 11.0 -5.45 Z" fill="none" stroke="#1a2553" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="17.0px" width="16.0px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 8.0, 8.5)">
+    <pattern height="17" id="PatternID_1589_1" overflow="visible" patternTransform="matrix(1.0, 0.0, 0.0, 1.0, -8.0, -8.5)" patternUnits="userSpaceOnUse" viewBox="0 0 16 17" width="16">
+      <image height="17" width="16" xlink:href="data:image/PNG;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAARCAYAAADUryzEAAAA+klEQVR42pWTWw+DIAyFFSniNUtm1Ad3Sfz/v7GzDJCqkM3kJD5wvp7SkmWJL88zJGX/fM4kBNdPsNBYFGclQc5MB6XcBcG/gzhQ1EwmgBxVIJA5gzAAN38NpdpUWikLgQtIWJ0qO3OlBfa9NGqbwoCOSRjAV9/MuhR4uwFOk8Z5rvB+V9jUhQEfUxiAj2+r0+FhKPH9anFd+w2iTRKXIgmgBHUlTNVlqfH5aHAcNXad9HdxAuwt2DvYKpGBICRqh9qKtsCmYFMQhC6S0rBJ2J1gozym8DugrICbffXUFoKdCgSjuzTH3kG4zs4YNadeYrj/SfMVKFTs7AfsUtu8sTlBDAAAAABJRU5ErkJggg=="/>
+    </pattern>
+    <path d="M-8.0 -8.5 L8.0 -8.5 8.0 8.5 -8.0 8.5 -8.0 -8.5" style="fill:url(#PatternID_1589_1)"/>
   </g>
 </svg>

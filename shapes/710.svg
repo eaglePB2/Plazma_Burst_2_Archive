@@ -8,6 +8,6 @@
     <path d="M2.5 0.1 L1.9 3.25 M0.75 -0.25 L0.15 1.75 M-0.75 -0.4 L-2.1 2.5" fill="none" stroke="#80704d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M-5.05 6.9 Q-4.65 1.95 -3.3 0.05 -1.95 -1.8 -0.1 -2.35 1.8 -3.0 3.4 -1.75 4.95 -0.6 3.7 3.15 2.4 6.85 0.05 8.45 M0.05 8.4 Q-1.3 7.25 -3.05 7.1 L-4.9 6.95" fill="none" stroke="#65583d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M0.05 8.45 L-1.4 12.25 -1.9 13.4 -2.55 14.2 M-2.55 14.35 L-2.5 15.6 M-6.6 15.6 L-6.65 14.15 -6.65 13.15 -6.0 10.2 Q-5.75 8.85 -4.95 7.0 M-4.1 9.5 L-2.25 10.25 M-4.75 11.5 L-3.1 12.0" fill="none" stroke="#403526" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M-2.55 14.2 Q-4.7 12.75 -6.65 13.15 M0.05 8.4 Q-3.2 9.1 -4.95 7.0" fill="none" stroke="#504330" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M-2.55 14.2 Q-4.7 12.75 -6.65 13.15 M-4.95 7.0 Q-3.2 9.1 0.05 8.4" fill="none" stroke="#504330" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
   </g>
 </svg>

@@ -1,9 +1,1 @@
-ENTER
---- RECORDSEPARATOR ---
-TAB
---- RECORDSEPARATOR ---
-Z
---- RECORDSEPARATOR ---
-C
---- RECORDSEPARATOR ---
-G
+Play Coolbuddy Games

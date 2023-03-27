@@ -39,7 +39,7 @@ package pb2_re34_fla
          MovieClip(root).PhysicsExplosion(this.parent.x,this.parent.y - 40,50 * 5,25 * 0.6,20 * 10,-1,"ship");
          MovieClip(root).PhysicsExplosion(this.parent.x - 150,this.parent.y - 40,30 * 5,15 * 0.6,10 * 10,-1,"ship");
          MovieClip(root).PhysicsExplosion(this.parent.x + 150,this.parent.y - 40,30 * 5,15 * 0.6,10 * 10,-1,"ship");
-         if(!MovieClip(root).MP_mode && MovieClip(root).CMPG_THIS_LEVEL == 40)
+         if(!MovieClip(root).MP_mode && MovieClip(root).CMPG_THIS_LEVEL == 39)
          {
             MovieClip(root).EXEC_TRIGGER(1);
          }

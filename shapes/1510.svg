@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="7.3px" width="21.65px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 10.8, 3.65)">
-    <path d="M-8.6 1.85 L-10.3 1.85 -10.3 -1.85 -8.6 -1.85 -8.6 1.85" fill="#46433a" fill-rule="evenodd" stroke="none"/>
-    <path d="M-8.6 1.85 L-10.3 1.85 -10.3 -1.85 -8.6 -1.85" fill="none" stroke="#312e29" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M9.5 1.05 L5.65 2.4 2.85 3.05 1.05 3.15 -6.2 2.05 -7.8 2.5 Q-8.85 3.0 -8.6 1.85 L-8.6 -1.85 Q-8.85 -3.0 -7.8 -2.5 L-6.2 -2.05 1.05 -3.15 2.85 -3.05 5.65 -2.4 9.5 -1.05 Q9.9 -0.65 9.9 0.0 9.9 0.65 9.5 1.05 M1.05 3.15 L1.05 -3.15 1.05 3.15 M2.85 -3.05 L2.85 3.05 2.85 -3.05" fill="#565447" fill-rule="evenodd" stroke="none"/>
-    <path d="M9.5 1.05 L5.65 2.4 2.85 3.05 1.05 3.15 -6.2 2.05 -7.8 2.5 Q-8.85 3.0 -8.6 1.85 L-8.6 -1.85 Q-8.85 -3.0 -7.8 -2.5 L-6.2 -2.05 1.05 -3.15 2.85 -3.05 5.65 -2.4 9.5 -1.05 9.7 -1.0 Q10.35 -0.65 10.35 0.0 10.35 0.65 9.7 1.0 L9.5 1.05 Q9.9 0.65 9.9 0.0 9.9 -0.65 9.5 -1.05 M2.85 3.05 L2.85 -3.05 M1.05 -3.15 L1.05 3.15" fill="none" stroke="#3b382f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="17.8px" width="17.8px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 9.0, 8.95)">
+    <path d="M8.8 -0.05 Q8.8 3.65 6.2 6.25 3.6 8.85 -0.1 8.85 -3.8 8.85 -6.4 6.25 -9.0 3.65 -9.0 -0.05 -9.0 -3.75 -6.4 -6.35 -3.8 -8.95 -0.1 -8.95 3.6 -8.95 6.2 -6.35 8.8 -3.75 8.8 -0.05" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
+    <path d="M1.15 -1.2 Q1.65 -0.7 1.65 0.0 1.65 0.7 1.15 1.15 0.7 1.65 0.0 1.65 -0.7 1.65 -1.2 1.15 L-1.65 0.0 Q-1.65 -0.7 -1.2 -1.2 -0.7 -1.65 0.0 -1.65 L1.15 -1.2" fill="#00ffe9" fill-rule="evenodd" stroke="none"/>
+    <path d="M1.15 -1.2 Q1.65 -0.7 1.65 0.0 1.65 0.7 1.15 1.15 0.7 1.65 0.0 1.65 -0.7 1.65 -1.2 1.15 L-1.65 0.0 Q-1.65 -0.7 -1.2 -1.2 -0.7 -1.65 0.0 -1.65 L1.15 -1.2 Z" fill="none" stroke="#00a5aa" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
   </g>
+  <defs>
+    <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0102, 0.0, 0.0, 0.0102, -0.1, -0.05)" gradientUnits="userSpaceOnUse" id="gradient0" r="819.2" spreadMethod="pad">
+      <stop offset="0.0" stop-color="#00ffe9" stop-opacity="0.3019608"/>
+      <stop offset="1.0" stop-color="#00ffe9" stop-opacity="0.0"/>
+    </radialGradient>
+  </defs>
 </svg>

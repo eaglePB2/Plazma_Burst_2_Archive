@@ -1,1 +1,1 @@
-SHOW PROGRESS BAR:
+Settings & Performance > Controls overview

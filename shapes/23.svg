@@ -2,7 +2,7 @@
 <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="74.0px" width="219.0px" xmlns="http://www.w3.org/2000/svg">
   <g transform="matrix(1.0, 0.0, 0.0, 1.0, 109.5, 37.0)">
     <path d="M26.15 -26.2 Q37.0 -15.35 37.0 0.0 37.0 15.35 26.15 26.15 15.35 37.0 0.0 37.0 -15.35 37.0 -26.2 26.15 -37.0 15.35 -37.0 0.0 -37.0 -15.35 -26.2 -26.2 -15.35 -37.0 0.0 -37.0 15.35 -37.0 26.15 -26.2" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
-    <path d="M109.5 -1.0 L109.5 0.0 109.5 1.0 -109.5 1.0 -109.5 0.0 -109.5 -1.0 109.5 -1.0" fill="url(#gradient1)" fill-rule="evenodd" stroke="none"/>
+    <path d="M109.5 1.0 L-109.5 1.0 -109.5 0.0 -109.5 -1.0 109.5 -1.0 109.5 0.0 109.5 1.0" fill="url(#gradient1)" fill-rule="evenodd" stroke="none"/>
   </g>
   <defs>
     <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0455, 0.0, 0.0, 0.0455, 0.0, 0.0)" gradientUnits="userSpaceOnUse" id="gradient0" r="819.2" spreadMethod="pad">

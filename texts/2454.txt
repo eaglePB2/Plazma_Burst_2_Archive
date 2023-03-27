@@ -1,11 +1,23 @@
-ENTER
+Director & Development:
 --- RECORDSEPARATOR ---
-T
+Concept Art:
 --- RECORDSEPARATOR ---
-TAB
+Music:
 --- RECORDSEPARATOR ---
-Z
+Sound FX:
 --- RECORDSEPARATOR ---
-C
+Community art contribution:
 --- RECORDSEPARATOR ---
-G
+used in Custom Maps & Multiplayer 
+--- RECORDSEPARATOR ---
+Community art adaptation:
+--- RECORDSEPARATOR ---
+Voice acting: 
+--- RECORDSEPARATOR ---
+Special thanks:
+--- RECORDSEPARATOR ---
+Creative ideas & Story line:
+--- RECORDSEPARATOR ---
+Text verification:
+--- RECORDSEPARATOR ---
+Level design:

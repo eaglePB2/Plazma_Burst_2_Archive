@@ -1,1 +1,1 @@
-PHYSICS QUALITY:
+You can disable "AUTO-LOGIN" at Settings & Performance

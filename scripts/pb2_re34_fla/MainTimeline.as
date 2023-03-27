@@ -5990,6 +5990,7 @@ package pb2_re34_fla
          {
             LAST_ERROR = "Warning: Save data might be not available without account (Flash Player and/or web browser issue).";
          }
+         this.NetworkSave();
       }
       
       public function ShowNoAch() : void
@@ -9562,7 +9563,7 @@ package pb2_re34_fla
             param1.blood_green = 0;
             param1.blood_blue = 0;
          }
-         else if(param1.char == 151 || param1.char == 152 || param1.char == 153 || param1.char == 154 || param1.char == 155)
+         else if(param1.char == 151 || param1.char == 152 || param1.char == 153 || param1.char == 154 || param1.char == 155 || param1.char == 157 || param1.char == 158 || param1.char == 159 || param1.char == 160 || param1.char == 161)
          {
             param1.armored = 1;
             param1.voice = this.voices.xin;
@@ -16909,7 +16910,7 @@ package pb2_re34_fla
       
       public function Alerted(param1:MovieClip) : void
       {
-         if(!param1.dying && (!param1.isplayer || !this.MP_mode || param1.team == this.mens[this.MP_myid].team))
+         if(!param1.dying && (!param1.isplayer || !this.MP_mode || param1.team == this.mens[this.MP_myid].team || param1.voice.always_enemy_spotted))
          {
             param1.last_contact = 0;
             if(param1.hunt == -1)
@@ -20619,7 +20620,23 @@ package pb2_re34_fla
                                     }
                                     if(this.mc.hunt != int(this.param["p" + this.i + "hn"]))
                                     {
-                                       this.Alerted(this.mc);
+                                       if(int(this.param["p" + this.i + "hn"]) == -1)
+                                       {
+                                          if(this.mens[this.mc.hunt])
+                                          {
+                                             if(this.mens[this.mc.hunt].hea <= 0)
+                                             {
+                                                if(this.MP_myid == -1 || this.mc.team == this.mens[this.MP_myid].team || Boolean(this.mc.voice.always_enemy_down))
+                                                {
+                                                   this.MakeHappy(this.mc);
+                                                }
+                                             }
+                                          }
+                                       }
+                                       else
+                                       {
+                                          this.Alerted(this.mc);
+                                       }
                                        this.mc.hunt = int(this.param["p" + this.i + "hn"]);
                                     }
                                     if(this.param["p" + this.i + "nk"] != "")
@@ -41697,7 +41714,7 @@ package pb2_re34_fla
       internal function frame1() : *
       {
          this.GAME_VERSION = "1.23";
-         this.GAME_VERSION_SIMPLE = "1.40 B";
+         this.GAME_VERSION_SIMPLE = "1.40 C";
          try
          {
             fscommand("trapallkeys","true");
@@ -42999,7 +43016,9 @@ package pb2_re34_fla
                "enemy_down":this.LibSoundStringArray(1,["xin_celebrate"]),
                "enemy_spotted":this.LibSoundStringArray(1,["xin_enemy_spotted"]),
                "hurt":this.LibSoundStringArray(2,["xin_hit"]),
-               "dying":[]
+               "dying":[],
+               "always_enemy_down":true,
+               "always_enemy_spotted":true
             }
          };
          this.hit_frame_damage = 0;
