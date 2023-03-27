@@ -1,6 +1,6 @@
 # Plazma Burst 2 Archive
 
-> The Archives of Plazma Burst 2 Flash with the newest open sourced resources.
+> The Archives of Plazma Burst 2 Flash with the newest open sourced resources. 
 
 ![GitHub all releases](https://img.shields.io/github/downloads/eaglepb2/Plazma-Burst-2-Archive/total?style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/eaglepb2/Plazma-Burst-2-Archive?style=for-the-badge)
 
