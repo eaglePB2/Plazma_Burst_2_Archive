@@ -19128,7 +19128,7 @@ package pb2_re34_fla
          this.gamechatbox2["item" + this.chat_i2].y = this.gamechatbox2["item" + this.chat_i3].y + 19;
          this.gamechatbox2["item" + this.chat_i2].visible = true;
          this.gamechatbox2["item" + this.chat_i2].alpha = 1;
-         this.gamechatbox2["item" + this.chat_i2].timer = 300;
+         this.gamechatbox2["item" + this.chat_i2].timer = 750;
          this.gamechatbox2["item" + this.chat_i2].txt.htmlText = "<b>" + param1 + "</b>";
          if(this.gamechatbox2["item" + this.chat_i2].y > 38)
          {
@@ -33885,7 +33885,7 @@ package pb2_re34_fla
                      {
                         if(!this.mc.dead)
                         {
-                           if(!this.MP_mode || !this.MP_app)
+                           if(!this.MP_mode || !this.MP_giveguns)
                            {
                               if(this.mc.alpha > 0)
                               {
@@ -33900,7 +33900,7 @@ package pb2_re34_fla
                      }
                      if(this.mc.char == 5)
                      {
-                        if(!this.MP_mode || !this.MP_app)
+                        if(!this.MP_mode || !this.MP_giveguns)
                         {
                            if(this.mc.alpha > 0)
                            {
@@ -40699,6 +40699,14 @@ package pb2_re34_fla
          {
             _loc1_ = 16;
          }
+         if(this.ggg.gmax24.currentFrame == 2)
+         {
+            _loc1_ = 24;
+         }
+         if(this.ggg.gmax32.currentFrame == 2)
+         {
+            _loc1_ = 32;
+         }
          if(this.ggg.gjoin1.currentFrame == 2)
          {
             _loc2_ = "true";
@@ -41096,11 +41104,17 @@ package pb2_re34_fla
                      this.temp.scaleY = 1;
                      this.temp.txt.scaleX = 1;
                   }
-                  else
+                  else if(this.MP_playerstotal <= 16)
                   {
                      this.temp.y = 23 * this.ch_total * 0.5;
                      this.temp.scaleY = 0.5;
                      this.temp.txt.scaleX = 0.5;
+                  }
+                  else
+                  {
+                     this.temp.y = 23 * this.ch_total * 0.25;
+                     this.temp.scaleY = 0.25;
+                     this.temp.txt.scaleX = 0.25;
                   }
                   this.NoMouse2(this.temp.txt);
                   this.temp.visible = true;
@@ -41207,9 +41221,13 @@ package pb2_re34_fla
                         {
                            this.temp2[teams[team][i]].y = 23 * slot;
                         }
-                        else
+                        else if(this.MP_playerstotal <= 16)
                         {
                            this.temp2[teams[team][i]].y = 23 * slot * 0.5;
+                        }
+                        else
+                        {
+                           this.temp2[teams[team][i]].y = 23 * slot * 0.25;
                         }
                         slot++;
                         i++;
@@ -41714,7 +41732,7 @@ package pb2_re34_fla
       internal function frame1() : *
       {
          this.GAME_VERSION = "1.23";
-         this.GAME_VERSION_SIMPLE = "1.40 C";
+         this.GAME_VERSION_SIMPLE = "1.40 E";
          try
          {
             fscommand("trapallkeys","true");
@@ -46107,8 +46125,8 @@ package pb2_re34_fla
             }
             else
             {
-               ggg.gjoin1.gotoAndStop(2);
-               ggg.gjoin2.gotoAndStop(1);
+               ggg.gjoin1.gotoAndStop(1);
+               ggg.gjoin2.gotoAndStop(2);
                gm_ranked = "true";
             }
             ggg.gtype1.gotoAndStop(2);
@@ -46122,6 +46140,8 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(2);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             gm_max = 4;
             ggg.gmap.text = "random approved in rotation";
             ggg.gatt.text = "";
@@ -46130,8 +46150,8 @@ package pb2_re34_fla
             ggg.codeold.gotoAndStop(1);
             ggg.codenew.gotoAndStop(2);
             ggg.codefaq.gotoAndStop(1);
-            ggg.phyold.gotoAndStop(1);
-            ggg.phynew.gotoAndStop(2);
+            ggg.phyold.gotoAndStop(2);
+            ggg.phynew.gotoAndStop(1);
             ggg.phyfaq.gotoAndStop(1);
             ggg.server1.gotoAndStop(2);
             ggg.server2.gotoAndStop(1);
@@ -46185,6 +46205,8 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             ggg.gmax2.gotoAndStop(2);
          });
          this.ggg.gmax3.addEventListener(MouseEvent.CLICK,function():*
@@ -46196,6 +46218,8 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             ggg.gmax3.gotoAndStop(2);
          });
          this.ggg.gmax4.addEventListener(MouseEvent.CLICK,function():*
@@ -46207,6 +46231,8 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             ggg.gmax4.gotoAndStop(2);
          });
          this.ggg.gmax5.addEventListener(MouseEvent.CLICK,function():*
@@ -46218,6 +46244,8 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             ggg.gmax5.gotoAndStop(2);
          });
          this.ggg.gmax6.addEventListener(MouseEvent.CLICK,function():*
@@ -46229,6 +46257,8 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             ggg.gmax6.gotoAndStop(2);
          });
          this.ggg.gmax8.addEventListener(MouseEvent.CLICK,function():*
@@ -46240,6 +46270,8 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(2);
          });
          this.ggg.gmax16.addEventListener(MouseEvent.CLICK,function():*
@@ -46251,7 +46283,35 @@ package pb2_re34_fla
             ggg.gmax6.gotoAndStop(1);
             ggg.gmax8.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
             ggg.gmax16.gotoAndStop(2);
+         });
+         this.ggg.gmax24.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ggg.gmax2.gotoAndStop(1);
+            ggg.gmax3.gotoAndStop(1);
+            ggg.gmax4.gotoAndStop(1);
+            ggg.gmax5.gotoAndStop(1);
+            ggg.gmax6.gotoAndStop(1);
+            ggg.gmax8.gotoAndStop(1);
+            ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(2);
+         });
+         this.ggg.gmax32.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ggg.gmax2.gotoAndStop(1);
+            ggg.gmax3.gotoAndStop(1);
+            ggg.gmax4.gotoAndStop(1);
+            ggg.gmax5.gotoAndStop(1);
+            ggg.gmax6.gotoAndStop(1);
+            ggg.gmax8.gotoAndStop(1);
+            ggg.gmax16.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(1);
+            ggg.gmax24.gotoAndStop(1);
+            ggg.gmax32.gotoAndStop(2);
          });
          this.ggg.codeold.addEventListener(MouseEvent.CLICK,function():*
          {
@@ -46300,6 +46360,7 @@ package pb2_re34_fla
             ggg.server3.gotoAndStop(1);
             ggg.server4.gotoAndStop(1);
             ggg.server5.gotoAndStop(1);
+            ggg.server6.gotoAndStop(1);
             ggg.server6.gotoAndStop(1);
          });
          this.ggg.server2.addEventListener(MouseEvent.CLICK,function():*
@@ -48015,6 +48076,11 @@ package pb2_re34_fla
             {
                this.hero_list_scale = 0.5;
                this.hero_list_frame_offset = 3;
+            }
+            if(this.MP_playerstotal > 16)
+            {
+               this.hero_list_scale = 0.25;
+               this.hero_list_frame_offset = 6;
             }
             this.i = 0;
             while(this.i < this.MP_playerstotal)

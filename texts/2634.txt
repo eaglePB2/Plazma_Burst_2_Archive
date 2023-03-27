@@ -1,5 +1,0 @@
-Only approved maps can be ranked. Ping limit on ranked matches will be 
---- RECORDSEPARATOR ---
-automaticaly lowered and can't be changed durning game. Ranked matches have 
---- RECORDSEPARATOR ---
-no Match Owner.
