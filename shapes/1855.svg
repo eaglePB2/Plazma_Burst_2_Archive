@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="3.3px" width="94.0px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, -39.25, 2.35)">
-    <path d="M40.45 -2.25 L52.2 -2.35 Q85.65 -2.35 109.2 -1.8 L133.25 -0.7 109.2 0.45 Q85.65 0.95 52.2 0.95 L40.45 0.95 39.25 0.95 39.25 -2.25 40.45 -2.25" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="11.85px" width="15.3px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, -34.75, 6.95)">
+    <path d="M39.6 4.9 Q37.75 4.6 36.65 3.15 34.75 1.5 34.75 -0.95 34.75 -3.4 36.65 -5.15 37.75 -6.65 39.6 -6.75 L39.6 4.9" fill="url(#gradient0)" fill-rule="evenodd" stroke="none"/>
+    <path d="M39.6 -6.75 L39.7 -6.75 41.0 -6.95 Q44.75 -6.95 47.35 -5.15 50.05 -3.4 50.05 -0.95 50.05 1.5 47.35 3.15 44.75 4.9 41.0 4.9 L39.7 4.9 39.6 4.9 39.6 -6.75" fill="url(#gradient1)" fill-rule="evenodd" stroke="none"/>
   </g>
   <defs>
-    <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0, 0.0018, -0.0997, 0.0, 52.2, -0.7)" gradientUnits="userSpaceOnUse" id="gradient0" r="819.2" spreadMethod="pad">
-      <stop offset="0.0" stop-color="#8ffff6" stop-opacity="0.49803922"/>
-      <stop offset="0.4235294117647059" stop-color="#8ffff6" stop-opacity="0.14901961"/>
+    <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0, 0.0064, -0.0068, 0.0, 40.35, -0.95)" gradientUnits="userSpaceOnUse" id="gradient0" r="819.2" spreadMethod="pad">
+      <stop offset="0.17647058823529413" stop-color="#8ffff6"/>
+      <stop offset="0.5529411764705883" stop-color="#8ffff6" stop-opacity="0.76862746"/>
+      <stop offset="1.0" stop-color="#8ffff6" stop-opacity="0.0"/>
+    </radialGradient>
+    <radialGradient cx="0" cy="0" gradientTransform="matrix(0.0, 0.0064, -0.0111, 0.0, 41.0, -0.95)" gradientUnits="userSpaceOnUse" id="gradient1" r="819.2" spreadMethod="pad">
+      <stop offset="0.17647058823529413" stop-color="#8ffff6"/>
+      <stop offset="0.5529411764705883" stop-color="#8ffff6" stop-opacity="0.76862746"/>
       <stop offset="1.0" stop-color="#8ffff6" stop-opacity="0.0"/>
     </radialGradient>
   </defs>

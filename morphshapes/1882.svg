@@ -18,9 +18,9 @@
       <animateTransform additive="sum" attributeName="gradientTransform" dur="2s" from="90.0" repeatCount="indefinite" to="90.0" type="rotate"/>
       <animateTransform additive="sum" attributeName="gradientTransform" dur="2s" from="0.0092 0.0297" repeatCount="indefinite" to="0.0092 0.0297" type="scale"/>
       <animateTransform additive="sum" attributeName="gradientTransform" dur="2s" from="0.0" repeatCount="indefinite" to="0.0" type="skewX"/>
-      <stop offset="0.0" stop-color="#d7e3f4">
+      <stop offset="0.0" stop-color="#ffffff">
         <animate attributeName="offset" dur="2s" repeatCount="indefinite" values="0.0;0.0"/>
-        <animate attributeName="stop-color" dur="2s" repeatCount="indefinite" values="#d7e3f4;#ffffff"/>
+        <animate attributeName="stop-color" dur="2s" repeatCount="indefinite" values="#ffffff;#d7e3f5"/>
         <animate attributeName="stop-opacity" dur="2s" repeatCount="indefinite" values="1.0;1.0"/>
       </stop>
       <stop offset="1.0" stop-color="#ffffff">
