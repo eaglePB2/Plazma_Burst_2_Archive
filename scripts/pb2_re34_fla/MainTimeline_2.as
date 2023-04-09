@@ -424,6 +424,8 @@ package pb2_re34_fla
       
       public var rec_2:MovieClip;
       
+      public var rmmatch:MovieClip;
+      
       public var rready:MovieClip;
       
       public var rrefresh:SimpleButton;
@@ -471,8 +473,6 @@ package pb2_re34_fla
       public var team_red:MovieClip;
       
       public var tinted_hp_prog:MovieClip;
-      
-      public var toolswindow:MovieClip;
       
       public var tooltip_dif:TextField;
       
@@ -654,9 +654,19 @@ package pb2_re34_fla
       
       public var lobby_chat_intervalId:uint;
       
+      public var lobby_chat_list_intervalId:uint;
+      
       public var lobby_chat_enabled:Boolean;
       
       public var lobby_chat_log:String;
+      
+      public var lobby_chat_last_sent:int;
+      
+      public var patternMasks:Object;
+      
+      public var patternUnMasks:Object;
+      
+      public var CHATLOG_SIZE:int;
       
       public var override_login_password:Boolean;
       
@@ -1119,8 +1129,6 @@ package pb2_re34_fla
       public var ch_map:Array;
       
       public var ch_regions:Array;
-      
-      public var ch_regions_uid:Array;
       
       public var ch_netcode:Array;
       
@@ -3480,9 +3488,35 @@ package pb2_re34_fla
          }
       }
       
+      public function maskChatInput(param1:String) : String
+      {
+         var _loc2_:String = null;
+         for(_loc2_ in this.patternMasks)
+         {
+            if(param1.indexOf(_loc2_) >= 0)
+            {
+               param1 = param1.split(_loc2_).join(this.patternMasks[_loc2_]);
+            }
+         }
+         return param1;
+      }
+      
+      public function unmaskChatInput(param1:String) : String
+      {
+         var _loc2_:String = null;
+         for(_loc2_ in this.patternUnMasks)
+         {
+            if(param1.indexOf(this.patternUnMasks[_loc2_]) >= 0)
+            {
+               param1 = param1.split(this.patternUnMasks[_loc2_]).join(_loc2_);
+            }
+         }
+         return param1;
+      }
+      
       public function getFriendlist() : void
       {
-         this.MP_socket_send("rq=onlinelist");
+         this.MP_socket_send("rq=list");
       }
       
       public function enableLobbyChat() : void
@@ -3493,7 +3527,8 @@ package pb2_re34_fla
          }
          this.lobby_chat_enabled = true;
          this.getFriendlist();
-         this.lobby_chat_intervalId = setInterval(this.getLobbyMessages,250);
+         this.lobby_chat_intervalId = setInterval(this.getLobbyMessages,500);
+         this.lobby_chat_list_intervalId = setInterval(this.getFriendlist,5000);
       }
       
       public function disableLobbyChat() : void
@@ -3501,19 +3536,38 @@ package pb2_re34_fla
          this.lobby_chat_enabled = false;
          this.lobbywindow.visible = false;
          clearInterval(this.lobby_chat_intervalId);
+         clearInterval(this.lobby_chat_list_intervalId);
       }
       
       public function sendLobbyMessage() : void
       {
-         this.MP_socket_send("rq=lobby_chat&action=send&text=" + this.lobbywindow.chatinput.text);
-         this.lobbywindow.chatinput.text = "";
+         var glow_timeout:int = 0;
+         if(getTimer() - this.lobby_chat_last_sent > 3000 && this.lobbywindow.chatinput.text != "" && this.lobbywindow.chatinput_glow.currentFrame == 1)
+         {
+            this.MP_socket_send("rq=mchat&action=send&text=" + this.maskChatInput(this.lobbywindow.chatinput.text));
+            this.lobbywindow.chatinput.text = "";
+            this.lobby_chat_last_sent = getTimer();
+         }
+         else if(this.lobbywindow.chatinput_glow.currentFrame == 1)
+         {
+            glow_timeout = 3000 - (getTimer() - this.lobby_chat_last_sent);
+            if(glow_timeout < 2000)
+            {
+               glow_timeout = 2000;
+            }
+            this.lobbywindow.chatinput_glow.play();
+            setTimeout(function():*
+            {
+               lobbywindow.chatinput_glow.gotoAndStop(1);
+            },glow_timeout);
+         }
       }
       
       public function getLobbyMessages() : void
       {
          if(this.lobbywindow.visible)
          {
-            this.MP_socket_send("rq=lobby_chat&action=get");
+            this.MP_socket_send("rq=mchat&action=get");
          }
       }
       
@@ -3632,7 +3686,7 @@ package pb2_re34_fla
             _loc1_.addEventListener(ProgressEvent.SOCKET_DATA,this.ping_SocketData);
             _loc1_.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.ping_securityErrorHandler);
             _loc1_.addEventListener(IOErrorEvent.IO_ERROR,this.ping_ioErrorHandler);
-            this.serversList[this.IntervalCounter][5] = _loc1_;
+            this.serversList[this.IntervalCounter][4] = _loc1_;
             _loc1_.connect(this.serversList[this.IntervalCounter][1],parseInt(this.serversList[this.IntervalCounter][2],10));
             ++this.IntervalCounter;
          }
@@ -3647,7 +3701,7 @@ package pb2_re34_fla
          {
             for(timer_start_num in this.serversList)
             {
-               if(this.serversList[timer_start_num][5] == _current_sock)
+               if(this.serversList[timer_start_num][4] == _current_sock)
                {
                   this.time_start[timer_start_num] = getTimer();
                   break;
@@ -3674,7 +3728,7 @@ package pb2_re34_fla
          var _loc4_:int = int(null);
          for(_loc5_ in this.serversList)
          {
-            if(this.serversList[_loc5_][5] == _loc3_)
+            if(this.serversList[_loc5_][4] == _loc3_)
             {
                _loc4_ = _loc5_;
                break;
@@ -3700,12 +3754,58 @@ package pb2_re34_fla
       
       public function ping_ioErrorHandler(param1:IOErrorEvent) : void
       {
+         var _loc4_:* = undefined;
+         var _loc2_:Socket = param1.currentTarget;
          current_ping = "N/A";
+         var _loc3_:int = int(null);
+         for(_loc4_ in this.serversList)
+         {
+            if(this.serversList[_loc4_][4] != undefined && this.serversList[_loc4_][4] == _loc2_)
+            {
+               _loc3_ = _loc4_;
+            }
+         }
+         if(Boolean(_loc3_) && Boolean(this.ggg))
+         {
+            this.ggg["server" + _loc3_.toString()].enabled = false;
+            this.ggg["server" + _loc3_.toString()].mouseEnabled = false;
+            this.ggg["server" + _loc3_.toString()].alpha = 0.5;
+         }
       }
       
       public function ping_securityErrorHandler(param1:SecurityErrorEvent) : void
       {
+         var _loc4_:* = undefined;
+         var _loc2_:Socket = param1.currentTarget;
          current_ping = "N/A";
+         var _loc3_:int = int(null);
+         for(_loc4_ in this.serversList)
+         {
+            if(this.serversList[_loc4_][4] != undefined && this.serversList[_loc4_][4] == _loc2_)
+            {
+               _loc3_ = _loc4_;
+            }
+         }
+         if(Boolean(_loc3_) && Boolean(this.ggg))
+         {
+            this.ggg["server" + _loc3_.toString()].enabled = false;
+            this.ggg["server" + _loc3_.toString()].mouseEnabled = false;
+            this.ggg["server" + _loc3_.toString()].alpha = 0.5;
+         }
+      }
+      
+      public function connectToGameServer(param1:String, param2:int) : void
+      {
+         var MP_host:String = param1;
+         var MP_port:int = param2;
+         this.MP_game_socket.connect(MP_host,MP_port);
+         setTimeout(function():*
+         {
+            if(!MP_game_socket.connected)
+            {
+               connectToGameServer(MP_host,MP_port);
+            }
+         },1000);
       }
       
       public function connect_to_region(param1:Boolean = false) : void
@@ -3734,19 +3834,20 @@ package pb2_re34_fla
          }
          this.joinmenu_mp.timetxt.text = "00:00:00";
          this.connectTime = 0;
+         this.connectTime_display();
          this.connectTimeIntervalId = setInterval(this.connectTime_display,1000);
          if(create_match)
          {
             setTimeout(function():*
             {
                joinmenu_mp.txt.text = "Connecting..";
-               MP_game_socket.connect(MP_game_server,MP_game_port);
+               connectToGameServer(MP_game_server,MP_game_port);
             },1000);
          }
          else
          {
             this.joinmenu_mp.txt.text = "Connecting..";
-            this.MP_game_socket.connect(this.MP_game_server,this.MP_game_port);
+            this.connectToGameServer(this.MP_game_server,this.MP_game_port);
          }
       }
       
@@ -4623,10 +4724,6 @@ package pb2_re34_fla
          {
             proceed_join();
          },20);
-         if(this.connectTimeIntervalId)
-         {
-            clearInterval(this.connectTimeIntervalId);
-         }
       }
       
       public function MP_s_ioErrorHandler(param1:IOErrorEvent) : void
@@ -4635,6 +4732,21 @@ package pb2_re34_fla
          {
             this.errtxt.text = "CONNECTION ERROR";
             this.msgtxt.text = "";
+         }
+      }
+      
+      public function MP_game_ioErrorHandler(param1:IOErrorEvent) : void
+      {
+         if(currentLabel == "channel")
+         {
+            this.MP_game_socket.close();
+            this.joinmenu_mp.visible = false;
+            if(this.connectTimeIntervalId)
+            {
+               clearInterval(this.connectTimeIntervalId);
+            }
+            this.errmenu_mp.visible = true;
+            this.errmenu_mp.txt.text = "Region seems to be unavailable.\nTry again or choose different one?\nIf this problem persists, contact administrator.";
          }
       }
       
@@ -4684,19 +4796,15 @@ package pb2_re34_fla
          var bookInfo:XML = null;
          var bookInfo2:XML = null;
          var firsttag:Boolean = false;
-         var region_id:uint = 0;
-         var servers:Array = null;
-         var newServers:Boolean = false;
-         var i:* = undefined;
-         var server_data:Array = null;
-         var server_uid:String = null;
-         var messages:Array = null;
+         var gamelist_start:Array = null;
+         var region_id:int = 0;
          var newMessages:Boolean = false;
-         var messageContent:* = undefined;
+         var chatlog_length:int = 0;
          var msg_htmltext:String = null;
-         var logins:Array = null;
-         var online_logins:Array = null;
-         var friends_logins:Array = null;
+         var new_lobby_chat_log:* = undefined;
+         var newServers:Boolean = false;
+         var server_id:int = 0;
+         var server_info:Array = null;
          var a_join:Array = null;
          var event4:ProgressEvent = param1;
          try
@@ -4782,7 +4890,7 @@ package pb2_re34_fla
                }
                if(this.MP_SERVER_GOT.charAt(0) == "$")
                {
-                  if(currentLabel == "channel")
+                  if((currentLabel == "channel" || currentLabel == "gaming") && !is_game_socket)
                   {
                      this.MP_SERVER_GOT = this.MP_SERVER_GOT.slice(1,this.MP_SERVER_GOT.length);
                   }
@@ -4955,353 +5063,362 @@ package pb2_re34_fla
                      }
                   }
                }
-               else if(currentLabel == "channel" && this.MP_SERVER_GOT.charAt(0) == "<")
+               else if((currentLabel == "channel" || currentLabel == "gaming") && this.MP_SERVER_GOT.charAt(0) == "<" && !is_game_socket)
                {
-                  this.list2.addEventListener(MouseEvent.CLICK,this.gl_clk);
+                  if(currentLabel == "channel")
+                  {
+                     this.list2.addEventListener(MouseEvent.CLICK,this.gl_clk);
+                  }
                   firsttag = true;
                   xml = new XML("<r>" + this.MP_SERVER_GOT + "</r>");
-                  for each(bookInfo in xml.children())
+                  gamelist_start = ["s","c","j"];
+                  if(gamelist_start.indexOf(this.MP_SERVER_GOT.charAt(1)) >= 0)
                   {
-                     a = bookInfo.name();
-                     b = new Array();
-                     for each(bookInfo2 in bookInfo.attributes())
+                     for each(bookInfo in xml.children())
                      {
-                        b["#" + bookInfo2.name()] = bookInfo2;
-                     }
-                     if(a == "st")
-                     {
-                        i = 0;
-                        while(i < this.ch_total)
+                        a = bookInfo.name();
+                        b = new Array();
+                        for each(bookInfo2 in bookInfo.attributes())
                         {
-                           this.temp2[i].visible = false;
-                           i++;
+                           b["#" + bookInfo2.name()] = bookInfo2;
                         }
-                        this.ch_total = 0;
-                        this.list2.visible = true;
-                     }
-                     if(a == "o")
-                     {
-                        if(this.ch_total == 0)
+                        if(a == "st")
                         {
-                           this.temp = this.list2.ch0;
-                        }
-                        else
-                        {
-                           this.temp = this.list2.addChild(new mp_room_list2());
-                        }
-                        this.temp.visible = true;
-                        this.temp2[this.ch_total] = this.temp;
-                        this.temp.y = 32 * this.ch_total;
-                        this.temp.gotoAndStop(1);
-                        if(b["#a"] == "2")
-                        {
-                           this.temp.gotoAndStop(2);
-                        }
-                        this.temp.txt.text = this.Censored(b["#n"]);
-                        this.temp.txt2.text = this.Censored(b["#t"]);
-                        if(b["#p"] == "yes")
-                        {
-                           this.temp.txt3.text = "private";
-                        }
-                        else
-                        {
-                           this.temp.txt3.text = "public";
-                        }
-                        this.temp.txt4.text = this.Censored(b["#m"]);
-                        this.NoMouse2(this.temp.txt);
-                        this.NoMouse2(this.temp.txt2);
-                        this.NoMouse2(this.temp.txt3);
-                        this.NoMouse2(this.temp.txt4);
-                        this.NoMouse2(this.temp.txt5);
-                        this.NoMouse2(this.temp.txt6);
-                        this.NoMouse2(this.temp.txt7);
-                        this.NoMouse2(this.temp.txt8);
-                        this.NoMouse2(this.temp.mpmode);
-                        this.NoMouse2(this.temp.phymode);
-                        this.NoMouse2(this.temp.servertxt);
-                        this.NoMouse2(this.temp.pingtxt);
-                        if(b["#a"] != null)
-                        {
-                           if(b["#a"] == "0")
+                           this.i = 0;
+                           while(this.i < this.ch_total)
                            {
-                              this.temp.txt5.text = "no";
+                              this.temp2[this.i].visible = false;
+                              ++this.i;
+                           }
+                           this.ch_total = 0;
+                           this.list2.visible = true;
+                        }
+                        if(a == "o")
+                        {
+                           if(this.ch_total == 0)
+                           {
+                              this.temp = this.list2.ch0;
                            }
                            else
                            {
-                              this.temp.txt5.text = "yes";
+                              this.temp = this.list2.addChild(new mp_room_list2());
                            }
-                        }
-                        if(b["#g"] != null)
-                        {
-                           this.temp.txt6.text = "?";
-                           if(b["#g"] == 1)
+                           this.temp.removematch_pic.visible = false;
+                           this.temp.removematch.visible = false;
+                           this.temp.visible = true;
+                           if(this.MP_clan == "1")
                            {
-                              this.temp.txt6.text = "DM";
-                           }
-                           if(b["#g"] == 2)
-                           {
-                              this.temp.txt6.text = "COOP";
-                           }
-                           if(b["#g"] == 3)
-                           {
-                              this.temp.txt6.text = "TDM";
-                           }
-                           if(b["#g"] == 4)
-                           {
-                              this.temp.txt6.text = "CTF";
-                           }
-                           if(b["#g"] == 5)
-                           {
-                              this.temp.txt6.text = "CTP";
-                           }
-                           if(b["#mods"] == "1")
-                           {
-                              this.temp.txt6.text += " *guns";
-                           }
-                        }
-                        if(b["#q"] != null)
-                        {
-                           this.temp.txt7.text = this.Censored(b["#q"]);
-                        }
-                        if(b["#s"] != null)
-                        {
-                           this.temp.txt8.text = this.Censored(b["#s"]);
-                        }
-                        if(b["#u"] != null)
-                        {
-                           region_id = uint(parseInt(b["#u"]));
-                           if(this.serversList.length > region_id)
-                           {
-                              this.temp.servertxt.text = this.Censored(this.serversList[region_id][0]);
-                              this.temp.pingtxt.text = this.Censored(this.serversList[region_id][3]);
-                           }
-                        }
-                        if(b["#c"] != null)
-                        {
-                           if(b["#c"] == 0)
-                           {
-                              this.temp.mpmode.text = "Old NetCode";
-                           }
-                           if(b["#c"] == 1)
-                           {
-                              this.temp.mpmode.text = "New NetCode";
-                           }
-                        }
-                        if(b["#phy"] != null)
-                        {
-                           if(b["#phy"] == 0)
-                           {
-                              this.temp.phymode.text = "Old Physics";
-                           }
-                           if(b["#phy"] == 1)
-                           {
-                              this.temp.phymode.text = "New Physics";
-                           }
-                        }
-                        this.ch_links[this.ch_total] = b["#f"];
-                        this.ch_names[this.ch_total] = b["#n"];
-                        this.ch_app[this.ch_total] = b["#phy"];
-                        this.ch_netcode[this.ch_total] = b["#c"];
-                        this.ch_pass[this.ch_total] = b["#p"];
-                        this.ch_map[this.ch_total] = b["#m"];
-                        this.ch_regions[this.ch_total] = b["#u"];
-                        this.ch_regions_uid[this.ch_total] = b["#ud"];
-                        (function():*
-                        {
-                           var loader:*;
-                           var where_to_add:* = undefined;
-                           where_to_add = temp.img_placeholder;
-                           if(where_to_add.current_animator_cancel != undefined)
-                           {
-                              where_to_add.current_animator_cancel();
-                           }
-                           while(temp.img_placeholder.numChildren > 0)
-                           {
-                              temp.img_placeholder.removeChildAt(0);
-                           }
-                           NoMouse(where_to_add);
-                           loader = new Loader();
-                           loader.contentLoaderInfo.addEventListener(Event.COMPLETE,function(param1:Event):void
-                           {
-                              var bitmap:* = undefined;
-                              var loc_tim:* = undefined;
-                              var img_inter:* = undefined;
-                              var event:Event = param1;
-                              bitmap = Bitmap(LoaderInfo(event.target).content);
-                              bitmap.pixelSnapping = PixelSnapping.NEVER;
-                              bitmap.smoothing = true;
-                              bitmap.scaleX = 0.25;
-                              bitmap.scaleY = 0.25;
-                              bitmap.alpha = 0.2;
-                              bitmap.y = -10;
-                              loc_tim = 0;
-                              where_to_add.current_animator_cancel = function():*
+                              this.temp.removematch_pic.visible = true;
+                              this.temp.removematch.visible = true;
+                              this.temp.removematch.addEventListener(MouseEvent.MOUSE_OVER,function():*
                               {
-                                 clearInterval(img_inter);
-                                 where_to_add.current_animator_cancel = undefined;
-                              };
-                              img_inter = setInterval(function():*
+                                 PlaySound_full(ss_info);
+                              });
+                           }
+                           this.temp2[this.ch_total] = this.temp;
+                           this.temp.y = 32 * this.ch_total;
+                           this.temp.gotoAndStop(1);
+                           if(b["#a"] == "2")
+                           {
+                              this.temp.gotoAndStop(2);
+                           }
+                           if(b["#i"] == "yes")
+                           {
+                              this.temp.gotoAndStop(3);
+                           }
+                           if(b["#e"] == "yes")
+                           {
+                              this.temp.gotoAndStop(4);
+                           }
+                           this.temp.txt.text = this.Censored(b["#n"]);
+                           this.temp.txt2.text = this.Censored(b["#t"]);
+                           if(b["#p"] == "yes")
+                           {
+                              this.temp.txt3.text = "private";
+                           }
+                           else
+                           {
+                              this.temp.txt3.text = "public";
+                           }
+                           this.temp.txt4.text = this.Censored(b["#m"]);
+                           this.NoMouse2(this.temp.txt);
+                           this.NoMouse2(this.temp.txt2);
+                           this.NoMouse2(this.temp.txt3);
+                           this.NoMouse2(this.temp.txt4);
+                           this.NoMouse2(this.temp.txt5);
+                           this.NoMouse2(this.temp.txt6);
+                           this.NoMouse2(this.temp.txt7);
+                           this.NoMouse2(this.temp.txt8);
+                           this.NoMouse2(this.temp.mpmode);
+                           this.NoMouse2(this.temp.phymode);
+                           this.NoMouse2(this.temp.servertxt);
+                           this.NoMouse2(this.temp.pingtxt);
+                           if(b["#a"] != null)
+                           {
+                              if(b["#a"] == "0")
                               {
-                                 if(currentLabel != "channel")
+                                 this.temp.txt5.text = "no";
+                              }
+                              else
+                              {
+                                 this.temp.txt5.text = "yes";
+                              }
+                           }
+                           if(b["#g"] != null)
+                           {
+                              this.temp.txt6.text = "?";
+                              if(b["#g"] == 1)
+                              {
+                                 this.temp.txt6.text = "DM";
+                              }
+                              if(b["#g"] == 2)
+                              {
+                                 this.temp.txt6.text = "COOP";
+                              }
+                              if(b["#g"] == 3)
+                              {
+                                 this.temp.txt6.text = "TDM";
+                              }
+                              if(b["#g"] == 4)
+                              {
+                                 this.temp.txt6.text = "CTF";
+                              }
+                              if(b["#g"] == 5)
+                              {
+                                 this.temp.txt6.text = "CTP";
+                              }
+                              if(b["#mods"] == "1")
+                              {
+                                 this.temp.txt6.text += " *guns";
+                              }
+                           }
+                           if(b["#q"] != null)
+                           {
+                              this.temp.txt7.text = this.Censored(b["#q"]);
+                           }
+                           if(b["#s"] != null)
+                           {
+                              this.temp.txt8.text = this.Censored(b["#s"]);
+                           }
+                           if(b["#r"] != null)
+                           {
+                              region_id = int(parseInt(b["#r"]));
+                              if(this.serversList.length > region_id)
+                              {
+                                 this.temp.servertxt.text = this.Censored(this.serversList[region_id][0]);
+                                 this.temp.pingtxt.text = this.Censored(this.serversList[region_id][3]);
+                              }
+                           }
+                           if(b["#c"] != null)
+                           {
+                              if(b["#c"] == 0)
+                              {
+                                 this.temp.mpmode.text = "Old NetCode";
+                              }
+                              if(b["#c"] == 1)
+                              {
+                                 this.temp.mpmode.text = "New NetCode";
+                              }
+                           }
+                           if(b["#phy"] != null)
+                           {
+                              if(b["#phy"] == 0)
+                              {
+                                 this.temp.phymode.text = "Old Physics";
+                              }
+                              if(b["#phy"] == 1)
+                              {
+                                 this.temp.phymode.text = "New Physics";
+                              }
+                           }
+                           this.ch_links[this.ch_total] = b["#f"];
+                           this.ch_names[this.ch_total] = b["#n"];
+                           this.ch_app[this.ch_total] = b["#phy"];
+                           this.ch_netcode[this.ch_total] = b["#c"];
+                           this.ch_pass[this.ch_total] = b["#p"];
+                           this.ch_map[this.ch_total] = b["#m"];
+                           this.ch_regions[this.ch_total] = region_id;
+                           (function():*
+                           {
+                              var loader:*;
+                              var where_to_add:* = undefined;
+                              where_to_add = temp.img_placeholder;
+                              if(where_to_add.current_animator_cancel != undefined)
+                              {
+                                 where_to_add.current_animator_cancel();
+                              }
+                              while(temp.img_placeholder.numChildren > 0)
+                              {
+                                 temp.img_placeholder.removeChildAt(0);
+                              }
+                              NoMouse(where_to_add);
+                              loader = new Loader();
+                              loader.contentLoaderInfo.addEventListener(Event.COMPLETE,function(param1:Event):void
+                              {
+                                 var bitmap:* = undefined;
+                                 var loc_tim:* = undefined;
+                                 var img_inter:* = undefined;
+                                 var event:Event = param1;
+                                 bitmap = Bitmap(LoaderInfo(event.target).content);
+                                 bitmap.pixelSnapping = PixelSnapping.NEVER;
+                                 bitmap.smoothing = true;
+                                 bitmap.scaleX = 0.25;
+                                 bitmap.scaleY = 0.25;
+                                 bitmap.alpha = 0.2;
+                                 bitmap.y = -10;
+                                 loc_tim = 0;
+                                 where_to_add.current_animator_cancel = function():*
                                  {
-                                    if(where_to_add.current_animator_cancel != undefined)
+                                    clearInterval(img_inter);
+                                    where_to_add.current_animator_cancel = undefined;
+                                 };
+                                 img_inter = setInterval(function():*
+                                 {
+                                    if(currentLabel != "channel")
                                     {
-                                       where_to_add.current_animator_cancel();
+                                       if(where_to_add.current_animator_cancel != undefined)
+                                       {
+                                          where_to_add.current_animator_cancel();
+                                       }
+                                       return;
                                     }
-                                    return;
-                                 }
-                                 if(bitmap.alpha < 0.7)
-                                 {
-                                    bitmap.alpha = Math.min(0.7,bitmap.alpha + 0.2);
-                                 }
-                                 bitmap.y = -10 + Math.sin(loc_tim) * 10;
-                                 loc_tim += 0.0066;
-                              },16);
-                              where_to_add.addChild(bitmap);
-                           });
-                           loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,function(param1:IOErrorEvent):*
-                           {
-                           });
-                           if(https_probability >= http_probability)
-                           {
-                              loader.load(new URLRequest("https://www.plazmaburst2.com/map_preview_by_id.php?id=" + b["#m"]));
-                           }
-                           else
-                           {
-                              loader.load(new URLRequest("http://www.plazmaburst2.com/map_preview_by_id.php?id=" + b["#m"]));
-                           }
-                        })();
-                        ++this.ch_total;
-                     }
-                     if(a == "cok")
-                     {
-                        chat_msg.type = TextFieldType.INPUT;
-                        chat_send.enabled = true;
-                     }
-                     if(a == "jrm")
-                     {
-                        this.list2.removeEventListener(MouseEvent.CLICK,this.gl_clk);
-                        this.MP_room = b["#to"];
-                        removeEventListener(Event.ENTER_FRAME,this.onEnterFrame_ac2);
-                        this.connect_to_region(true);
-                     }
-                  }
-               }
-               else if(currentLabel == "channel" && this.MP_SERVER_GOT.charAt(0) == "/")
-               {
-                  this.MP_SERVER_GOT = this.MP_SERVER_GOT.slice(1);
-                  servers = this.MP_SERVER_GOT.split(";");
-                  newServers = false;
-                  this.IntervalCounter = 0;
-                  this.IntervalStopCount = servers.length - 1;
-                  if(this.serversList.length != servers.length - 1)
-                  {
-                     newServers = true;
-                  }
-                  i = 0;
-                  while(i < servers.length - 1)
-                  {
-                     server_data = servers[i].split("|");
-                     server_uid = String(server_data[3]);
-                     if(this.serversList.length > i)
-                     {
-                        if(server_uid != this.serversList[i][4])
+                                    if(bitmap.alpha < 0.7)
+                                    {
+                                       bitmap.alpha = Math.min(0.7,bitmap.alpha + 0.2);
+                                    }
+                                    bitmap.y = -10 + Math.sin(loc_tim) * 10;
+                                    loc_tim += 0.0066;
+                                 },16);
+                                 where_to_add.addChild(bitmap);
+                              });
+                              loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,function(param1:IOErrorEvent):*
+                              {
+                              });
+                              if(https_probability >= http_probability)
+                              {
+                                 loader.load(new URLRequest("https://www.plazmaburst2.com/map_preview_by_id.php?id=" + b["#m"]));
+                              }
+                              else
+                              {
+                                 loader.load(new URLRequest("http://www.plazmaburst2.com/map_preview_by_id.php?id=" + b["#m"]));
+                              }
+                           })();
+                           ++this.ch_total;
+                        }
+                        if(a == "cok")
                         {
-                           newServers = true;
+                           chat_msg.type = TextFieldType.INPUT;
+                           chat_send.enabled = true;
+                        }
+                        if(a == "jrm")
+                        {
+                           this.list2.removeEventListener(MouseEvent.CLICK,this.gl_clk);
+                           this.MP_room = b["#to"];
+                           removeEventListener(Event.ENTER_FRAME,this.onEnterFrame_ac2);
+                           this.connect_to_region(true);
                         }
                      }
-                     if(newServers)
-                     {
-                        this.serversList[i] = [server_data[0],server_data[1],server_data[2],"N/A",server_uid];
-                     }
-                     switch(i)
-                     {
-                        case 0:
-                           this.ggg.servertxt1.text = server_data[0];
-                           this.ggg.servertxt1.mouseEnabled = false;
-                           break;
-                        case 1:
-                           this.ggg.servertxt2.text = server_data[0];
-                           this.ggg.servertxt2.mouseEnabled = false;
-                           break;
-                        case 2:
-                           this.ggg.servertxt3.text = server_data[0];
-                           this.ggg.servertxt3.mouseEnabled = false;
-                           break;
-                        case 3:
-                           this.ggg.servertxt4.text = server_data[0];
-                           this.ggg.servertxt4.mouseEnabled = false;
-                           break;
-                        case 4:
-                           this.ggg.servertxt5.text = server_data[0];
-                           this.ggg.servertxt5.mouseEnabled = false;
-                           break;
-                        case 5:
-                           this.ggg.servertxt6.text = server_data[0];
-                           this.ggg.servertxt6.mouseEnabled = false;
-                           break;
-                     }
-                     i++;
                   }
-                  if(this.intervalId)
+                  else if(this.MP_SERVER_GOT.charAt(1) === "m")
                   {
-                     clearInterval(this.intervalId);
-                  }
-                  if(newServers)
-                  {
-                     this.ping();
-                     this.intervalId = setInterval(this.ping,100);
-                  }
-               }
-               else if((currentLabel == "channel" || currentLabel == "gaming") && this.MP_SERVER_GOT.charAt(0) == "@")
-               {
-                  this.MP_SERVER_GOT = this.MP_SERVER_GOT.slice(1);
-                  messages = this.MP_SERVER_GOT.split(";");
-                  newMessages = false;
-                  i = 0;
-                  while(i < messages.length)
-                  {
-                     messageContent = messages[i].split("|");
-                     if(messageContent.length == 2)
+                     newMessages = false;
+                     for each(bookInfo in xml.children())
                      {
-                        msg_htmltext = "<FONT COLOR=\"#78DBE2\">" + messageContent[0] + "</FONT>" + ": " + this.Censored(messageContent[1]) + "\n";
+                        b = new Array();
+                        for each(bookInfo2 in bookInfo.attributes())
+                        {
+                           b["#" + bookInfo2.name()] = bookInfo2;
+                        }
+                        msg_htmltext = "<FONT COLOR=\"#78DBE2\">" + b["#f"] + "</FONT>" + ": " + this.unmaskChatInput(b["#t"]) + "\n";
                         this.lobbywindow.chatmessages.htmlText += msg_htmltext;
                         this.lobby_chat_log += msg_htmltext;
                         newMessages = true;
                      }
-                     i++;
+                     if(newMessages && this.lobbywindow.chatmessages.numLines > 13)
+                     {
+                        this.lobbywindow.chatmessages.scrollV = this.lobbywindow.chatmessages.numLines;
+                     }
+                     chatlog_length = int(this.lobby_chat_log.split("\n").length);
+                     if(chatlog_length > this.CHATLOG_SIZE)
+                     {
+                        new_lobby_chat_log = this.lobby_chat_log.split("\n").slice(chatlog_length - this.CHATLOG_SIZE - 1,-1).join("\n");
+                        this.lobbywindow.chatmessages.htmlText = new_lobby_chat_log;
+                     }
                   }
-                  if(newMessages && this.lobbywindow.chatmessages.numLines > 13)
+                  else if(this.MP_SERVER_GOT.charAt(1) === "o")
                   {
-                     this.lobbywindow.chatmessages.scrollV = this.lobbywindow.chatmessages.numLines;
+                     this.lobbywindow.onlinelist.htmlText = "";
+                     for each(bookInfo in xml.children())
+                     {
+                        b = new Array();
+                        for each(bookInfo2 in bookInfo.attributes())
+                        {
+                           b["#" + bookInfo2.name()] = bookInfo2;
+                        }
+                        if(b["#a"] == "yes")
+                        {
+                           this.lobbywindow.onlinelist.htmlText += "<FONT COLOR=\"#DA0E0E\">" + b["#l"] + "</FONT>\n";
+                        }
+                        else if(b["#f"] == "yes")
+                        {
+                           this.lobbywindow.onlinelist.htmlText += "<FONT COLOR=\"#00FF00\">" + b["#l"] + "</FONT>\n";
+                        }
+                        else if(b["#m"] == "yes")
+                        {
+                           this.lobbywindow.onlinelist.htmlText += "<FONT COLOR=\"#7B7B7B\">" + b["#l"] + "</FONT>\n";
+                        }
+                        else
+                        {
+                           this.lobbywindow.onlinelist.htmlText += "<FONT COLOR=\"#00FFFF\">" + b["#l"] + "</FONT>\n";
+                        }
+                     }
                   }
-                  if(this.lobbywindow.chatmessages.htmlText.length > 10000)
+                  else if(this.MP_SERVER_GOT.charAt(1) === "a")
                   {
-                     this.lobbywindow.chatmessages.htmlText.slice(this.lobbywindow.chatmessages.htmlText.length - 10000,this.lobbywindow.chatmessages.htmlText.length);
+                     newServers = false;
+                     for each(bookInfo in xml.children())
+                     {
+                        b = new Array();
+                        for each(bookInfo2 in bookInfo.attributes())
+                        {
+                           b["#" + bookInfo2.name()] = bookInfo2;
+                        }
+                        server_id = int(parseInt(b["#i"]));
+                        if(server_id >= 0 && server_id <= 5)
+                        {
+                           server_info = [b["#n"],b["#h"],parseInt(b["#p"])];
+                           if(this.serversList[server_id] == undefined)
+                           {
+                              newServers = true;
+                           }
+                           else if(server_info != this.serversList[server_id].slice(0,2))
+                           {
+                              newServers = true;
+                           }
+                           if(newServers)
+                           {
+                              this.serversList[server_id] = server_info;
+                              this.serversList[server_id][3] = "..";
+                              this.ggg["servertxt" + server_id.toString()].text = b["#n"];
+                              this.ggg["servertxt" + server_id.toString()].mouseEnabled = false;
+                           }
+                        }
+                     }
+                     if(newServers)
+                     {
+                        if(this.intervalId)
+                        {
+                           clearInterval(this.intervalId);
+                        }
+                        this.GL_Refresh();
+                        this.IntervalCounter = 0;
+                        this.IntervalStopCount = this.serversList.length;
+                        this.ping();
+                        this.intervalId = setInterval(this.ping,100);
+                     }
                   }
                }
-               else if((currentLabel == "channel" || currentLabel == "gaming") && this.MP_SERVER_GOT.charAt(0) == "w")
-               {
-                  this.MP_SERVER_GOT = this.MP_SERVER_GOT.slice(1);
-                  logins = this.MP_SERVER_GOT.split("|");
-                  online_logins = logins[0].split(";");
-                  friends_logins = logins[1].split(";");
-                  this.lobbywindow.onlinelist.htmlText = "";
-                  i = 0;
-                  while(i < online_logins.length)
-                  {
-                     if(friends_logins.indexOf(online_logins[i]) >= 0)
-                     {
-                        this.lobbywindow.onlinelist.htmlText += "<FONT COLOR=\"#00FF00\">" + online_logins[i] + "</FONT>\n";
-                     }
-                     else
-                     {
-                        this.lobbywindow.onlinelist.htmlText += "<FONT COLOR=\"#00FFFF\">" + online_logins[i] + "</FONT>\n";
-                     }
-                     i++;
-                  }
-               }
-               else if(currentLabel == "channel" && is_game_socket)
+               else if(currentLabel == "channel" && is_game_socket && this.MP_SERVER_GOT != "")
                {
                   if(!this.game_socket_passed)
                   {
@@ -5312,8 +5429,11 @@ package pb2_re34_fla
                         this.MP_nick = this.replace("[^I]","|",a_join[1]);
                         this.skin_model[2] = new int(a_join[2]);
                         this.skin_model[3] = new int(a_join[3]);
-                        this.MP_clan = a_join[4];
                         this.game_socket_passed = true;
+                        if(this.connectTimeIntervalId)
+                        {
+                           clearInterval(this.connectTimeIntervalId);
+                        }
                         gotoAndStop("room");
                      }
                      else if(a_join[0] == "chcking")
@@ -5393,6 +5513,10 @@ package pb2_re34_fla
             this.myRequest.data = this.myVariables;
             this.myLoader2noserver.load(this.myRequest);
          }
+      }
+      
+      public function MP_game_securityErrorHandler(param1:SecurityErrorEvent) : void
+      {
       }
       
       public function IgnoreGunPickTemp(param1:*) : void
@@ -40807,12 +40931,12 @@ package pb2_re34_fla
       
       public function location_reset() : *
       {
+         this.ggg.server0.gotoAndStop(1);
          this.ggg.server1.gotoAndStop(1);
          this.ggg.server2.gotoAndStop(1);
          this.ggg.server3.gotoAndStop(1);
          this.ggg.server4.gotoAndStop(1);
          this.ggg.server5.gotoAndStop(1);
-         this.ggg.server6.gotoAndStop(1);
       }
       
       public function gl_clk2() : void
@@ -40823,7 +40947,6 @@ package pb2_re34_fla
          var _loc4_:int = 0;
          var _loc5_:int = 0;
          var _loc6_:int = 0;
-         var _loc7_:String = null;
          if(this.lobby_chat_enabled)
          {
             this.disableLobbyChat();
@@ -40834,7 +40957,7 @@ package pb2_re34_fla
          _loc4_ = 1;
          _loc5_ = 1;
          _loc6_ = 1;
-         _loc7_ = "";
+         var _loc7_:String = "";
          if(this.ggg.gmax2.currentFrame == 2)
          {
             _loc1_ = 2;
@@ -40899,27 +41022,27 @@ package pb2_re34_fla
          {
             _loc4_ = 1;
          }
-         if(this.ggg.server1.currentFrame == 2)
+         if(this.ggg.server0.currentFrame == 2)
          {
             _loc6_ = 0;
          }
-         else if(this.ggg.server2.currentFrame == 2)
+         else if(this.ggg.server1.currentFrame == 2)
          {
             _loc6_ = 1;
          }
-         else if(this.ggg.server3.currentFrame == 2)
+         else if(this.ggg.server2.currentFrame == 2)
          {
             _loc6_ = 2;
          }
-         else if(this.ggg.server4.currentFrame == 2)
+         else if(this.ggg.server3.currentFrame == 2)
          {
             _loc6_ = 3;
          }
-         else if(this.ggg.server5.currentFrame == 2)
+         else if(this.ggg.server4.currentFrame == 2)
          {
             _loc6_ = 4;
          }
-         else if(this.ggg.server6.currentFrame == 2)
+         else if(this.ggg.server5.currentFrame == 2)
          {
             _loc6_ = 5;
          }
@@ -40938,12 +41061,11 @@ package pb2_re34_fla
          this.MP_favor_the_shooter = !!_loc5_ ? true : false;
          this.MP_game_server = this.serversList[_loc6_][1];
          this.MP_game_port = new int(this.serversList[_loc6_][2]);
-         _loc7_ = String(this.serversList[_loc6_][4]);
          this.RememberMapID(this.MP_map_name,2);
          if(this.MP_socket.connected)
          {
             this.MP_pass = this.ggg.gatt.text;
-            this.MP_socket_send("rq=game_make&channel=" + _loc5_ + "&gn=" + this.ggg.gtitle.text + "&maxplayers=" + _loc1_ + "&ttype=" + _loc3_ + "&mmap=" + this.ggg.gmap.text + "&att=" + this.ggg.gatt.text + "&fpss=" + this.ggg.gfps.text + "&ranked=" + _loc2_ + "&mods=" + this.ggg.gm_mods.text.split("=").join("[eq]") + "&phy=" + _loc4_ + "&region=" + _loc7_);
+            this.MP_socket_send("rq=game_make&channel=" + _loc5_ + "&gn=" + this.ggg.gtitle.text + "&maxplayers=" + _loc1_ + "&ttype=" + _loc3_ + "&mmap=" + this.ggg.gmap.text + "&att=" + this.ggg.gatt.text + "&fpss=" + this.ggg.gfps.text + "&ranked=" + _loc2_ + "&mods=" + this.ggg.gm_mods.text.split("=").join("[eq]") + "&phy=" + _loc4_ + "&region=" + _loc6_);
             this.ggg.visible = false;
          }
          else
@@ -40980,20 +41102,27 @@ package pb2_re34_fla
                         this.MP_game_server = this.serversList[this.ch_regions[this.i]][1];
                         this.MP_game_port = new int(this.serversList[this.ch_regions[this.i]][2]);
                         this.MP_spectator = false;
-                        if(mouseX > this.list2.x + 735 - 30)
+                        if(mouseX > this.list2.x + 140 && mouseX < this.list2.x + 150 && (mouseY > this.list2.y + this.xx + this.i * 32 && mouseY < this.list2.y + this.xx + this.i * 32 + 32 + 10) && this.MP_clan == "1")
                         {
-                           this.MP_spectator = true;
-                        }
-                        if(this.ch_pass[this.i] == "no")
-                        {
-                           this.list2.removeEventListener(MouseEvent.CLICK,this.gl_clk);
-                           removeEventListener(Event.ENTER_FRAME,this.onEnterFrame_ac2);
-                           this.MP_pass = "";
-                           this.connect_to_region();
+                           this.rmmatch.visible = true;
                         }
                         else
                         {
-                           this.ggpp.visible = true;
+                           if(mouseX > this.list2.x + 735 - 30)
+                           {
+                              this.MP_spectator = true;
+                           }
+                           if(this.ch_pass[this.i] == "no")
+                           {
+                              this.list2.removeEventListener(MouseEvent.CLICK,this.gl_clk);
+                              removeEventListener(Event.ENTER_FRAME,this.onEnterFrame_ac2);
+                              this.MP_pass = "";
+                              this.connect_to_region();
+                           }
+                           else
+                           {
+                              this.ggpp.visible = true;
+                           }
                         }
                         this.i = this.ch_total;
                      }
@@ -41901,7 +42030,7 @@ package pb2_re34_fla
       internal function frame1() : *
       {
          this.GAME_VERSION = "1.23";
-         this.GAME_VERSION_SIMPLE = "1.40 G";
+         this.GAME_VERSION_SIMPLE = "1.40 S";
          try
          {
             fscommand("trapallkeys","true");
@@ -42130,6 +42259,30 @@ package pb2_re34_fla
          this.MP_mainserver_port = 10015;
          this.lobby_chat_enabled = false;
          this.lobby_chat_log = "";
+         this.lobby_chat_last_sent = 0;
+         this.patternMasks = {
+            "=":"[eq]",
+            "|":"[i]",
+            ";":"[dc]",
+            "<":"[lt]",
+            ">":"[gt]",
+            "\"":"[2q]",
+            "/":"[sl]",
+            "\\":"[rsl]",
+            "&":"[amp]"
+         };
+         this.patternUnMasks = {
+            "=":"[eq]",
+            "|":"[i]",
+            ";":"[dc]",
+            "&lt;":"[lt]",
+            "&gt;":"[gt]",
+            "\"":"[2q]",
+            "/":"[sl]",
+            "\\":"[rsl]",
+            "&amp;":"[amp]"
+         };
+         this.CHATLOG_SIZE = 50;
          this.override_login_password = this.loaderInfo.parameters.l == undefined;
          this.def_login = this.loaderInfo.parameters.l;
          this.def_password = this.loaderInfo.parameters.p;
@@ -42296,8 +42449,11 @@ package pb2_re34_fla
          this.MP_socket.addEventListener(IOErrorEvent.IO_ERROR,this.MP_s_ioErrorHandler);
          this.MP_socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.MP_s_securityErrorHandler);
          this.MP_socket.addEventListener(ProgressEvent.SOCKET_DATA,this.MP_s_socketDataHandler);
-         this.MP_game_socket.addEventListener(ProgressEvent.SOCKET_DATA,this.MP_s_socketDataHandler);
+         this.MP_game_socket.timeout = 10;
          this.MP_game_socket.addEventListener(Event.CONNECT,this.MP_game_connectHandler);
+         this.MP_game_socket.addEventListener(IOErrorEvent.IO_ERROR,this.MP_game_ioErrorHandler);
+         this.MP_game_socket.addEventListener(SecurityErrorEvent.SECURITY_ERROR,this.MP_game_securityErrorHandler);
+         this.MP_game_socket.addEventListener(ProgressEvent.SOCKET_DATA,this.MP_s_socketDataHandler);
          this.spawn = true;
          stage.quality = "HIGH";
          this.allowedText = " ,.\'][{}:?!@#$%^*()_-+=1234567890qwertyuiopasdfghjklzxcvbnmQAZWSXEDCRFVBGTYHNMJUIKLOP;<>\"/\\|";
@@ -42405,7 +42561,6 @@ package pb2_re34_fla
          this.ch_app = new Array();
          this.ch_map = new Array();
          this.ch_regions = new Array();
-         this.ch_regions_uid = new Array();
          this.ch_netcode = new Array();
          this.chat_lastid = -1;
          this.skin_model = new Array();
@@ -43202,10 +43357,10 @@ package pb2_re34_fla
                "dying":this.LibSoundStringArray(2,["crossfire_sentinel_dying"])
             },
             "xin":{
-               "death":this.LibSoundStringArray(1,["xin_death"]),
-               "enemy_down":this.LibSoundStringArray(1,["xin_celebrate"]),
-               "enemy_spotted":this.LibSoundStringArray(1,["xin_enemy_spotted"]),
-               "hurt":this.LibSoundStringArray(2,["xin_hit"]),
+               "death":this.LibSoundStringArray(2,["xin_death"]),
+               "enemy_down":this.LibSoundStringArray(2,["xin_celebrate"]),
+               "enemy_spotted":this.LibSoundStringArray(2,["xin_enemy_spotted"]),
+               "hurt":this.LibSoundStringArray(2.5,["xin_hit"]),
                "dying":[],
                "always_enemy_down":true,
                "always_enemy_spotted":true
@@ -46121,7 +46276,10 @@ package pb2_re34_fla
          this.errmenu_mp.txt.text = "Can\'t connect to the match (Map not found?).";
          this.joinmenu_mp.visible = false;
          this.lobbywindow.visible = false;
+         this.rmmatch.visible = false;
+         this.lobbywindow.chatinput_glow.gotoAndStop(1);
          this.lobbywindow.chatmessages.htmlText = this.lobby_chat_log;
+         this.lobbywindow.onlinelist.htmlText = "";
          if(this.lobbywindow.chatmessages.numLines > 13)
          {
             this.lobbywindow.chatmessages.scrollV = this.lobbywindow.chatmessages.numLines;
@@ -46160,6 +46318,11 @@ package pb2_re34_fla
             {
                MP_game_socket.close();
             }
+            if(connectTimeIntervalId)
+            {
+               clearInterval(connectTimeIntervalId);
+            }
+            list2.addEventListener(MouseEvent.CLICK,gl_clk);
          });
          this.lobbyopen.addEventListener(MouseEvent.MOUSE_OVER,function():*
          {
@@ -46210,6 +46373,33 @@ package pb2_re34_fla
             {
                sendLobbyMessage();
             }
+         });
+         this.rmmatch.b_yes.addEventListener(MouseEvent.MOUSE_OVER,function():*
+         {
+            PlaySound_full(ss_info);
+         });
+         this.rmmatch.b_yes.addEventListener(MouseEvent.MOUSE_DOWN,function():*
+         {
+            PlaySound_full(ss_info_off);
+         });
+         this.rmmatch.b_yes.addEventListener(MouseEvent.CLICK,function():*
+         {
+            PlaySound_full(ss_info_act);
+            MP_socket_send("rq=game_del&match=" + MP_room);
+            rmmatch.visible = false;
+         });
+         this.rmmatch.b_close2.addEventListener(MouseEvent.MOUSE_OVER,function():*
+         {
+            PlaySound_full(ss_info);
+         });
+         this.rmmatch.b_close2.addEventListener(MouseEvent.MOUSE_DOWN,function():*
+         {
+            PlaySound_full(ss_info_off);
+         });
+         this.rmmatch.b_close2.addEventListener(MouseEvent.CLICK,function():*
+         {
+            PlaySound_full(ss_info_act);
+            rmmatch.visible = false;
          });
          this.DEBUG_MODE = false;
          this.MP_half_bot = false;
@@ -46336,7 +46526,6 @@ package pb2_re34_fla
          this.ch_map = new Array();
          this.ch_app = new Array();
          this.ch_regions = new Array();
-         this.ch_regions_uid = new Array();
          this.ch_netcode = new Array();
          this.temp2 = new Array();
          this.MP_total = 0;
@@ -46346,7 +46535,7 @@ package pb2_re34_fla
          this.nnew.addEventListener(MouseEvent.CLICK,function():*
          {
             PlaySound_full(ss_info_act);
-            MP_socket_send("rq=serverlist");
+            MP_socket_send("rq=servers");
             MP_spectator = false;
             errmenu_mp.visible = false;
             ggg.visible = true;
@@ -46376,12 +46565,12 @@ package pb2_re34_fla
             ggg.codenew.gotoAndStop(2);
             ggg.phyold.gotoAndStop(2);
             ggg.phynew.gotoAndStop(1);
-            ggg.server1.gotoAndStop(2);
+            ggg.server0.gotoAndStop(2);
+            ggg.server1.gotoAndStop(1);
             ggg.server2.gotoAndStop(1);
             ggg.server3.gotoAndStop(1);
             ggg.server4.gotoAndStop(1);
             ggg.server5.gotoAndStop(1);
-            ggg.server6.gotoAndStop(1);
             if(lobby_chat_enabled)
             {
                disableLobbyChat();
@@ -46488,6 +46677,11 @@ package pb2_re34_fla
             ggg.phynew.gotoAndStop(2);
             ggg.phyold.gotoAndStop(1);
          });
+         this.ggg.server0.addEventListener(MouseEvent.CLICK,function():*
+         {
+            location_reset();
+            ggg.server0.gotoAndStop(2);
+         });
          this.ggg.server1.addEventListener(MouseEvent.CLICK,function():*
          {
             location_reset();
@@ -46512,11 +46706,6 @@ package pb2_re34_fla
          {
             location_reset();
             ggg.server5.gotoAndStop(2);
-         });
-         this.ggg.server6.addEventListener(MouseEvent.CLICK,function():*
-         {
-            location_reset();
-            ggg.server6.gotoAndStop(2);
          });
          this.ggg.gnew.addEventListener(MouseEvent.CLICK,function():*
          {
@@ -46804,7 +46993,7 @@ package pb2_re34_fla
          this.sc_down2.addEventListener(MouseEvent.MOUSE_OUT,this.sc_downxB);
          this.sc_down2.addEventListener(MouseEvent.CLICK,this.sc_downxB);
          this.SetMPSets(this.MP_default_set);
-         this.MP_socket_send("rq=serverlist");
+         this.MP_socket_send("rq=servers");
          setTimeout(this.GL_Refresh,100);
          this.ggg.gmap.addEventListener(MouseEvent.MOUSE_DOWN,function():*
          {
@@ -47077,6 +47266,7 @@ package pb2_re34_fla
          catch(e:*)
          {
          }
+         this.lobbywindow.chatinput_glow.gotoAndStop(1);
          this.vc_fresh = true;
          this.KINETIC_MODULE_ENABLED = !this.MP_mode;
          this.MP_let_alive_players_hear_dead = true;
@@ -47140,6 +47330,7 @@ package pb2_re34_fla
             this.lobbywindow.chatmessages.scrollV = this.lobbywindow.chatmessages.numLines;
          }
          this.lobbywindow.chatinput.multiline = false;
+         this.lobbywindow.onlinelist.htmlText = "";
          this.PLAZMA_GAME = true;
          this.NOBASE = false;
          this.MP_startbarrels = new Array();
@@ -47325,59 +47516,58 @@ package pb2_re34_fla
             this.gamemenu.b_lobbychat.enabled = true;
             this.gamemenu.b_lobbychat.mouseEnabled = true;
             this.gamemenu.b_lobbychat.alpha = 1;
+            this.gamemenu.b_lobbychat.addEventListener(MouseEvent.MOUSE_OVER,function():*
+            {
+               PlaySound_full(ss_info);
+            });
+            this.gamemenu.b_lobbychat.addEventListener(MouseEvent.CLICK,function():*
+            {
+               PlaySound_full(ss_info_act);
+               lobbywindow.visible = true;
+               enableLobbyChat();
+            });
+            this.gamemenu.b_lobbychat.addEventListener(MouseEvent.MOUSE_DOWN,function():*
+            {
+               PlaySound_full(ss_info_off);
+            });
+            this.lobbywindow.b_close3.addEventListener(MouseEvent.MOUSE_OVER,function():*
+            {
+               PlaySound_full(ss_info);
+            });
+            this.lobbywindow.b_close3.addEventListener(MouseEvent.MOUSE_DOWN,function():*
+            {
+               PlaySound_full(ss_info_off);
+            });
+            this.lobbywindow.b_close3.addEventListener(MouseEvent.CLICK,function():*
+            {
+               PlaySound_full(ss_info_act);
+               lobbywindow.visible = false;
+               if(lobby_chat_enabled)
+               {
+                  disableLobbyChat();
+               }
+            });
+            this.lobbywindow.chat_send.addEventListener(MouseEvent.MOUSE_OVER,function():*
+            {
+               PlaySound_full(ss_info);
+            });
+            this.lobbywindow.chat_send.addEventListener(MouseEvent.MOUSE_DOWN,function():*
+            {
+               PlaySound_full(ss_info_off);
+            });
+            this.lobbywindow.chat_send.addEventListener(MouseEvent.CLICK,function():*
+            {
+               PlaySound_full(ss_info_act);
+               if(currentLabel == "gaming")
+               {
+                  sendLobbyMessage();
+               }
+            });
          }
          this.gamemenu.visible = false;
          this.herolist.visible = false;
          this.chat_win.visible = false;
          this.lobbywindow.visible = false;
-         this.toolswindow.visible = false;
-         this.gamemenu.b_lobbychat.addEventListener(MouseEvent.MOUSE_OVER,function():*
-         {
-            PlaySound_full(ss_info);
-         });
-         this.gamemenu.b_lobbychat.addEventListener(MouseEvent.CLICK,function():*
-         {
-            PlaySound_full(ss_info_act);
-            lobbywindow.visible = true;
-            enableLobbyChat();
-         });
-         this.gamemenu.b_lobbychat.addEventListener(MouseEvent.MOUSE_DOWN,function():*
-         {
-            PlaySound_full(ss_info_off);
-         });
-         this.lobbywindow.b_close3.addEventListener(MouseEvent.MOUSE_OVER,function():*
-         {
-            PlaySound_full(ss_info);
-         });
-         this.lobbywindow.b_close3.addEventListener(MouseEvent.MOUSE_DOWN,function():*
-         {
-            PlaySound_full(ss_info_off);
-         });
-         this.lobbywindow.b_close3.addEventListener(MouseEvent.CLICK,function():*
-         {
-            PlaySound_full(ss_info_act);
-            lobbywindow.visible = false;
-            if(lobby_chat_enabled)
-            {
-               disableLobbyChat();
-            }
-         });
-         this.lobbywindow.chat_send.addEventListener(MouseEvent.MOUSE_OVER,function():*
-         {
-            PlaySound_full(ss_info);
-         });
-         this.lobbywindow.chat_send.addEventListener(MouseEvent.MOUSE_DOWN,function():*
-         {
-            PlaySound_full(ss_info_off);
-         });
-         this.lobbywindow.chat_send.addEventListener(MouseEvent.CLICK,function():*
-         {
-            PlaySound_full(ss_info_act);
-            if(currentLabel == "gaming")
-            {
-               sendLobbyMessage();
-            }
-         });
          this.gamechatbox_text = "";
          if(this.LEVEL_END_FORCE == "" && this.MP_mode)
          {

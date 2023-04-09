@@ -1,6 +1,7 @@
 package
 {
    import flash.display.MovieClip;
+   import flash.display.SimpleButton;
    import flash.text.TextField;
    
    public dynamic class mp_room_list2 extends MovieClip
@@ -14,6 +15,10 @@ package
       public var phymode:TextField;
       
       public var pingtxt:TextField;
+      
+      public var removematch:SimpleButton;
+      
+      public var removematch_pic:MovieClip;
       
       public var servertxt:TextField;
       
