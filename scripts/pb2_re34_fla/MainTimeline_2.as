@@ -204,8 +204,6 @@ package pb2_re34_fla
       
       public var fpassword:TextField;
       
-      public var friends_online:TextField;
-      
       public var frr_1:MovieClip;
       
       public var frr_2:MovieClip;
@@ -377,6 +375,8 @@ package pb2_re34_fla
       public var nologin_start:SimpleButton;
       
       public var nrg:MovieClip;
+      
+      public var opensimplegui:SimpleButton;
       
       public var opt_controls:SimpleButton;
       
@@ -41150,49 +41150,52 @@ package pb2_re34_fla
       {
          if(currentFrameLabel == "channel")
          {
-            if(this.ok2)
+            if(!this.lobbywindow.visible)
             {
-               this.yy -= 2 * 30 / ((stage.frameRate + 30) / 2);
-            }
-            if(this.ok)
-            {
-               this.yy += 2 * 30 / ((stage.frameRate + 30) / 2);
-            }
-            this.xx += this.yy * 30 / ((stage.frameRate + 30) / 2);
-            if(this.xx < -this.ch_total * 32 + 220)
-            {
-               this.xx = -this.ch_total * 32 + 220;
-            }
-            if(this.xx > 0)
-            {
-               this.xx = 0;
-            }
-            this.i = 0;
-            while(this.i < this.ch_total)
-            {
-               this.temp2[this.i].y = this.xx + this.i * 32;
-               ++this.i;
-            }
-            this.sc_scrool.y = 112 + this.xx / (-this.ch_total * 32 + 220) * (225 - 112);
-            if(this.yy > 15)
-            {
-               this.yy = 15;
-            }
-            if(this.yy < -15)
-            {
-               this.yy = -15;
-            }
-            if(this.yy > 1)
-            {
-               --this.yy;
-            }
-            else if(this.yy < -1)
-            {
-               this.yy += 1;
-            }
-            else
-            {
-               this.yy = 0;
+               if(this.ok2)
+               {
+                  this.yy -= 2 * 30 / ((stage.frameRate + 30) / 2);
+               }
+               if(this.ok)
+               {
+                  this.yy += 2 * 30 / ((stage.frameRate + 30) / 2);
+               }
+               this.xx += this.yy * 30 / ((stage.frameRate + 30) / 2);
+               if(this.xx < -this.ch_total * 32 + 220)
+               {
+                  this.xx = -this.ch_total * 32 + 220;
+               }
+               if(this.xx > 0)
+               {
+                  this.xx = 0;
+               }
+               this.i = 0;
+               while(this.i < this.ch_total)
+               {
+                  this.temp2[this.i].y = this.xx + this.i * 32;
+                  this.sc_scrool.y = 112 + this.xx / (-this.ch_total * 32 + 220) * (225 - 112);
+                  ++this.i;
+               }
+               if(this.yy > 15)
+               {
+                  this.yy = 15;
+               }
+               if(this.yy < -15)
+               {
+                  this.yy = -15;
+               }
+               if(this.yy > 1)
+               {
+                  --this.yy;
+               }
+               else if(this.yy < -1)
+               {
+                  this.yy += 1;
+               }
+               else
+               {
+                  this.yy = 0;
+               }
             }
          }
          else
@@ -46401,6 +46404,20 @@ package pb2_re34_fla
             PlaySound_full(ss_info_act);
             rmmatch.visible = false;
          });
+         this.opensimplegui.addEventListener(MouseEvent.CLICK,function():*
+         {
+            PlaySound_full(ss_info_act);
+            DefaultMP();
+            simplegui.visible = true;
+         });
+         this.opensimplegui.addEventListener(MouseEvent.MOUSE_OVER,function():*
+         {
+            PlaySound_full(ss_info);
+         });
+         this.opensimplegui.addEventListener(MouseEvent.MOUSE_DOWN,function():*
+         {
+            PlaySound_full(ss_info_off);
+         });
          this.DEBUG_MODE = false;
          this.MP_half_bot = false;
          this.mupd.visible = false;
@@ -46935,19 +46952,22 @@ package pb2_re34_fla
             var scrolling:* = undefined;
             scrolling = function():void
             {
-               sc_scrool.y = scroll_offset_y + mouseY;
-               xx = (sc_scrool.y - 112) / (225 - 112) * (-ch_total * 32 + 220);
-               if(xx < -ch_total * 32 + 220)
+               if(!lobbywindow.visible)
                {
-                  xx = -ch_total * 32 + 220;
+                  sc_scrool.y = scroll_offset_y + mouseY;
+                  xx = (sc_scrool.y - 112) / (225 - 112) * (-ch_total * 32 + 220);
+                  if(xx < -ch_total * 32 + 220)
+                  {
+                     xx = -ch_total * 32 + 220;
+                  }
+                  if(xx > 0)
+                  {
+                     xx = 0;
+                  }
+                  ok = false;
+                  ok2 = false;
+                  onEnterFrame_ac2(null);
                }
-               if(xx > 0)
-               {
-                  xx = 0;
-               }
-               ok = false;
-               ok2 = false;
-               onEnterFrame_ac2(null);
             };
             scroll_drag = false;
             scroll_timer = 0;
@@ -46975,7 +46995,10 @@ package pb2_re34_fla
             {
                if(currentFrameLabel == "channel" || currentFrameLabel == "achiv")
                {
-                  yy += param1.delta * 5;
+                  if(!lobbywindow.visible)
+                  {
+                     yy += param1.delta * 5;
+                  }
                }
             });
          })();

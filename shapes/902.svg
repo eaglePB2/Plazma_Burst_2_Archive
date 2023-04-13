@@ -6,6 +6,6 @@
     <path d="M9.6 3.75 Q11.15 4.15 11.5 5.25 L11.55 6.45 9.4 6.45 M0.35 6.45 L-7.9 6.45 Q-8.7 5.0 -7.15 3.65 L-6.85 3.6 M-6.25 1.25 Q-6.85 -0.9 -6.5 -2.4 M-6.1 -4.5 L-5.25 -8.65 -3.0 -9.15" fill="none" stroke="#4a3624" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M5.15 -3.45 L6.05 -3.35 6.9 -0.5 6.7 1.25 Q7.65 1.4 8.3 1.9 9.25 2.65 9.6 3.75 L9.7 4.35 Q9.9 5.75 9.4 6.45 L0.35 6.45 -0.55 4.2 Q-5.25 4.4 -6.85 3.6 L-7.1 2.6 -7.3 1.4 -6.25 1.25 -3.9 0.8 -4.3 -2.25 -6.5 -2.4 -7.75 -2.45 -7.4 -4.6 -6.1 -4.5 -3.75 -4.35 -3.0 -9.15 0.85 -7.45 2.5 -3.75 3.55 -3.6 5.15 -3.45 M6.7 1.25 L5.5 1.2 4.9 1.25 4.25 1.35 Q2.4 1.45 -0.55 4.2 M4.9 1.25 L1.8 0.55" fill="none" stroke="#513c1e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M1.8 0.55 L0.45 -1.95" fill="none" stroke="#ab7a32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M5.15 -3.45 Q5.9 -6.75 9.0 -8.15 M3.55 -3.6 Q3.9 -5.55 4.8 -6.55" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8" stroke-width="1.0"/>
+    <path d="M3.55 -3.6 Q3.9 -5.55 4.8 -6.55 M5.15 -3.45 Q5.9 -6.75 9.0 -8.15" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8" stroke-width="1.0"/>
   </g>
 </svg>

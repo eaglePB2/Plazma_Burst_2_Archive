@@ -9,8 +9,8 @@
     <path d="M9.7 -12.7 L7.15 -11.2 7.55 -9.6 11.95 -8.2 M-3.65 -9.85 L-0.8 -8.8 -0.25 -7.05 1.4 -6.6 M-3.35 -5.6 L-2.05 -5.05" fill="none" stroke="#131313" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M-5.05 -4.6 L-4.95 -6.25 Q-4.6 -8.2 -3.65 -9.85 L-3.3 -10.3 -2.05 -11.2 0.2 -10.8 Q2.9 -10.1 5.35 -8.75 L5.65 -8.15 6.0 -6.7" fill="none" stroke="#242424" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M3.8 -8.15 Q3.95 -8.05 4.05 -8.0 M12.2 -11.75 L12.6 -11.75" fill="none" stroke="#df930b" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M3.05 -6.65 Q2.0 -3.45 3.1 -2.15 3.6 -1.55 4.85 -0.95 L6.8 -0.1 7.1 0.0 7.9 0.3" fill="none" stroke="#242424" stroke-linecap="round" stroke-linejoin="miter-clip" stroke-miterlimit="4.0" stroke-width="1.0"/>
     <path d="M6.0 -6.7 L10.65 -6.75 M10.55 -3.05 Q5.85 -1.5 4.0 -3.9 3.4 -4.65 3.2 -5.7 L3.05 -6.65 6.0 -6.7" fill="none" stroke="#1c1202" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M3.05 -6.65 Q2.0 -3.45 3.1 -2.15 3.6 -1.55 4.85 -0.95 L6.8 -0.1 7.1 0.0 7.9 0.3" fill="none" stroke="#242424" stroke-linecap="round" stroke-linejoin="miter-clip" stroke-miterlimit="4.0" stroke-width="1.0"/>
     <path d="M10.65 -6.75 L10.95 -5.5 Q11.0 -4.1 10.55 -3.05" fill="none" stroke="#6b4605" stroke-linecap="round" stroke-linejoin="miter-clip" stroke-miterlimit="4.0" stroke-width="1.0"/>
   </g>
   <defs>
