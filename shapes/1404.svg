@@ -21,7 +21,7 @@
     <path d="M0.9 -14.45 L-1.4 -13.85 -3.15 -9.55 0.1 -10.15 0.2 -10.95 0.5 -12.4 0.9 -13.7 0.9 -14.45 Z" fill="none" stroke="#0c041c" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.68235296" stroke-width="1.0"/>
     <path d="M-4.4 -16.2 L-1.55 -13.85 -2.35 -12.3 -4.05 -13.8 -5.45 -15.0 -4.4 -16.2" fill="#6999d5" fill-rule="evenodd" stroke="none"/>
     <path d="M-4.4 -16.2 L-5.45 -15.0 -4.05 -13.8 -2.35 -12.3 -1.55 -13.85 -4.4 -16.2 Z" fill="none" stroke="#0c041c" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.68235296" stroke-width="1.0"/>
-    <path d="M-3.1 -9.1 L-4.4 -9.05 -6.8 -5.9 -2.35 -8.05 1.25 -9.0 1.9 -8.3 2.0 -7.25 -1.95 -6.45 Q-2.35 -6.35 -2.35 -5.6 -2.35 -5.0 -2.6 -5.0 -5.6 -5.0 -6.85 -5.65 L-8.0 -6.65 Q-8.45 -7.25 -8.0 -7.75 -7.35 -8.65 -5.0 -9.0 L-4.4 -9.05" fill="none" stroke="#0b0b12" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.4627451" stroke-width="1.0"/>
+    <path d="M-4.4 -9.05 L-5.0 -9.0 Q-7.35 -8.65 -8.0 -7.75 -8.45 -7.25 -8.0 -6.65 L-6.85 -5.65 Q-5.6 -5.0 -2.6 -5.0 -2.35 -5.0 -2.35 -5.6 -2.35 -6.35 -1.95 -6.45 L2.0 -7.25 1.9 -8.3 1.25 -9.0 -2.35 -8.05 -6.8 -5.9 -4.4 -9.05 -3.1 -9.1" fill="none" stroke="#0b0b12" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.4627451" stroke-width="1.0"/>
   </g>
   <defs>
     <linearGradient gradientTransform="matrix(0.0019, 0.003, -0.003, 0.0019, 5.2, -12.85)" gradientUnits="userSpaceOnUse" id="gradient0" spreadMethod="pad" x1="-819.2" x2="819.2">

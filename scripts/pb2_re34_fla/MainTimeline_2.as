@@ -41942,10 +41942,6 @@ package pb2_re34_fla
          {
             this.hp_box.visible = true;
             this.tinted_hp_prog.visible = true;
-            if(this.in_car)
-            {
-               this.vehhp.visible = true;
-            }
             this.weps.visible = true;
             if(this.fps_counter)
             {
@@ -41973,10 +41969,6 @@ package pb2_re34_fla
          {
             this.hp_box.visible = true;
             this.tinted_hp_prog.visible = true;
-            if(this.in_car)
-            {
-               this.vehhp.visible = true;
-            }
             this.weps.visible = true;
             if(this.fps_counter)
             {
@@ -42006,13 +41998,21 @@ package pb2_re34_fla
             this.tinted_hp_prog.visible = false;
             this.vehhp.visible = false;
             this.weps.visible = false;
-            this.gamefps.visible = false;
-            this.gamefps_hint.visible = false;
             this.nrg.visible = false;
             this.pcg.visible = false;
             this.qmenu.visible = false;
             this.team_blue.visible = false;
             this.team_red.visible = false;
+            if(this.fps_counter)
+            {
+               this.gamefps.visible = true;
+               this.gamefps_hint.visible = true;
+            }
+            else
+            {
+               this.gamefps.visible = false;
+               this.gamefps_hint.visible = false;
+            }
          }
       }
       
