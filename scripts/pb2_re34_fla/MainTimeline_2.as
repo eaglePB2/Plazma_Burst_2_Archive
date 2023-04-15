@@ -204,6 +204,10 @@ package pb2_re34_fla
       
       public var fpassword:TextField;
       
+      public var fps_no:MovieClip;
+      
+      public var fps_yes:MovieClip;
+      
       public var frr_1:MovieClip;
       
       public var frr_2:MovieClip;
@@ -685,6 +689,8 @@ package pb2_re34_fla
       public var ui_type:int;
       
       public var in_car:Boolean;
+      
+      public var fps_counter:Boolean;
       
       public var override_login_password:Boolean;
       
@@ -6082,6 +6088,14 @@ package pb2_re34_fla
          {
             this.ui_type = int(this.my_so.data["ui_type"]);
          }
+         if(this.my_so.data["fps_counter"] == undefined)
+         {
+            this.fps_counter = 1;
+         }
+         else
+         {
+            this.ui_type = int(this.my_so.data["fps_counter"]);
+         }
       }
       
       public function nicknameproceed() : void
@@ -6249,6 +6263,7 @@ package pb2_re34_fla
          this.my_so.data["map_qp_sp"] = this.map_qp_sp;
          this.my_so.data["map_qp_mp"] = this.map_qp_mp;
          this.my_so.data["ui_type"] = this.ui_type;
+         this.my_so.data["fps_counter"] = this.fps_counter;
          try
          {
             this.my_so.flush();
@@ -13143,7 +13158,7 @@ package pb2_re34_fla
             }
             this.key_pick = false;
             this.in_car = true;
-            if(this.ui_type == 0)
+            if(this.ui_type == 0 || this.ui_type == 1)
             {
                this.vehhp.visible = true;
             }
@@ -13179,7 +13194,7 @@ package pb2_re34_fla
                this.game_scale = this.g_scale_outcar;
                this.key_pick = false;
                this.in_car = false;
-               if(this.ui_type == 0)
+               if(this.ui_type == 0 || this.ui_type == 1)
                {
                   this.vehhp.visible = false;
                }
@@ -41932,8 +41947,16 @@ package pb2_re34_fla
                this.vehhp.visible = true;
             }
             this.weps.visible = true;
-            this.gamefps.visible = true;
-            this.gamefps_hint.visible = true;
+            if(this.fps_counter)
+            {
+               this.gamefps.visible = true;
+               this.gamefps_hint.visible = true;
+            }
+            else
+            {
+               this.gamefps.visible = false;
+               this.gamefps_hint.visible = false;
+            }
             if(!this.MP_mode)
             {
                this.nrg.visible = true;
@@ -41955,8 +41978,16 @@ package pb2_re34_fla
                this.vehhp.visible = true;
             }
             this.weps.visible = true;
-            this.gamefps.visible = true;
-            this.gamefps_hint.visible = true;
+            if(this.fps_counter)
+            {
+               this.gamefps.visible = true;
+               this.gamefps_hint.visible = true;
+            }
+            else
+            {
+               this.gamefps.visible = false;
+               this.gamefps_hint.visible = false;
+            }
             if(!this.MP_mode)
             {
                this.nrg.visible = true;
@@ -42399,6 +42430,7 @@ package pb2_re34_fla
          this.prev_frames = 0;
          this.ui_type = 0;
          this.in_car = false;
+         this.fps_counter = true;
          this.override_login_password = this.loaderInfo.parameters.l == undefined;
          this.def_login = this.loaderInfo.parameters.l;
          this.def_password = this.loaderInfo.parameters.p;
@@ -46372,7 +46404,7 @@ package pb2_re34_fla
             ui_type = 2;
             ui_no.gotoAndStop(2);
             ui_mini.gotoAndStop(1);
-            ui_full.gotoAndStop(2);
+            ui_full.gotoAndStop(1);
          });
          this.ui_mini.addEventListener(MouseEvent.CLICK,function():*
          {
@@ -46387,6 +46419,28 @@ package pb2_re34_fla
             ui_no.gotoAndStop(1);
             ui_mini.gotoAndStop(1);
             ui_full.gotoAndStop(2);
+         });
+         this.fps_no.gotoAndStop(1);
+         this.fps_yes.gotoAndStop(1);
+         if(this.fps_counter)
+         {
+            this.fps_yes.gotoAndStop(2);
+         }
+         else
+         {
+            this.fps_no.gotoAndStop(2);
+         }
+         this.fps_no.addEventListener(MouseEvent.CLICK,function():*
+         {
+            fps_counter = 0;
+            fps_no.gotoAndStop(2);
+            fps_yes.gotoAndStop(1);
+         });
+         this.fps_yes.addEventListener(MouseEvent.CLICK,function():*
+         {
+            fps_counter = 1;
+            fps_no.gotoAndStop(1);
+            fps_yes.gotoAndStop(2);
          });
       }
       
@@ -48907,6 +48961,30 @@ package pb2_re34_fla
             conmenu_set.ui_no.gotoAndStop(1);
             conmenu_set.ui_mini.gotoAndStop(1);
             conmenu_set.ui_full.gotoAndStop(2);
+            update_ui();
+         });
+         this.conmenu_set.fps_no.gotoAndStop(1);
+         this.conmenu_set.fps_yes.gotoAndStop(1);
+         if(this.fps_counter)
+         {
+            this.conmenu_set.fps_yes.gotoAndStop(2);
+         }
+         else
+         {
+            this.conmenu_set.fps_no.gotoAndStop(2);
+         }
+         this.conmenu_set.fps_no.addEventListener(MouseEvent.CLICK,function():*
+         {
+            fps_counter = 0;
+            conmenu_set.fps_no.gotoAndStop(2);
+            conmenu_set.fps_yes.gotoAndStop(1);
+            update_ui();
+         });
+         this.conmenu_set.fps_yes.addEventListener(MouseEvent.CLICK,function():*
+         {
+            fps_counter = 1;
+            conmenu_set.fps_no.gotoAndStop(1);
+            conmenu_set.fps_yes.gotoAndStop(2);
             update_ui();
          });
          if(this.FORCE_CUSTOM_MAP)

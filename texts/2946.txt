@@ -1,1 +1,1 @@
-Game state data here
+Settings & Performance > Export game state

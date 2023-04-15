@@ -32,7 +32,7 @@
       <stop offset="0.6313725490196078" stop-color="#393939"/>
       <stop offset="1.0" stop-color="#5e5e5e"/>
     </radialGradient>
-    <radialGradient cx="0" cy="0" fx="-713.6" fy="0" gradientTransform="matrix(0.0186, -0.0221, 0.0525, 0.0441, -49.6, -30.3)" gradientUnits="userSpaceOnUse" id="gradient3" r="819.2" spreadMethod="pad">
+    <radialGradient cx="0" cy="0" fx="-707.2" fy="0" gradientTransform="matrix(0.0186, -0.0221, 0.0525, 0.0441, -49.6, -30.3)" gradientUnits="userSpaceOnUse" id="gradient3" r="819.2" spreadMethod="pad">
       <stop offset="0.0" stop-color="#565656"/>
       <stop offset="1.0" stop-color="#000000"/>
     </radialGradient>
