@@ -1,1 +1,3 @@
-Game state data here
+This game contains scenes of violence. 
+--- RECORDSEPARATOR ---
+You can disable blood and gore in the game settings.

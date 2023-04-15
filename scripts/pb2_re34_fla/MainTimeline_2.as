@@ -216,6 +216,10 @@ package pb2_re34_fla
       
       public var gamechatbox2:MovieClip;
       
+      public var gamefps:TextField;
+      
+      public var gamefps_hint:TextField;
+      
       public var gamemenu:MovieClip;
       
       public var ggg:MovieClip;
@@ -486,6 +490,12 @@ package pb2_re34_fla
       
       public var txt:TextField;
       
+      public var ui_full:MovieClip;
+      
+      public var ui_mini:MovieClip;
+      
+      public var ui_no:MovieClip;
+      
       public var v_1:MovieClip;
       
       public var v_1x:MovieClip;
@@ -667,6 +677,14 @@ package pb2_re34_fla
       public var patternUnMasks:Object;
       
       public var CHATLOG_SIZE:int;
+      
+      public var frames_display:int;
+      
+      public var prev_frames:int;
+      
+      public var ui_type:int;
+      
+      public var in_car:Boolean;
       
       public var override_login_password:Boolean;
       
@@ -2533,6 +2551,8 @@ package pb2_re34_fla
       public var mouse_x:Number;
       
       public var mouse_y:Number;
+      
+      public var temp_fps:int;
       
       public var set_timeouts:Vector.<Object>;
       
@@ -6054,6 +6074,14 @@ package pb2_re34_fla
          {
             this.map_qp_mp = this.my_so.data["map_qp_mp"];
          }
+         if(this.my_so.data["ui_type"] == undefined)
+         {
+            this.ui_type = 0;
+         }
+         else
+         {
+            this.ui_type = int(this.my_so.data["ui_type"]);
+         }
       }
       
       public function nicknameproceed() : void
@@ -6220,6 +6248,7 @@ package pb2_re34_fla
          this.my_so.data["menu_hue"] = this.menu_hue;
          this.my_so.data["map_qp_sp"] = this.map_qp_sp;
          this.my_so.data["map_qp_mp"] = this.map_qp_mp;
+         this.my_so.data["ui_type"] = this.ui_type;
          try
          {
             this.my_so.flush();
@@ -13113,7 +13142,11 @@ package pb2_re34_fla
                this.game_scale = 0.5;
             }
             this.key_pick = false;
-            this.vehhp.visible = true;
+            this.in_car = true;
+            if(this.ui_type == 0)
+            {
+               this.vehhp.visible = true;
+            }
             this.vehicles[param2].gui.txt1.textColor = this.color_player;
          }
          else if(this.mens[param1].team == this.mens[this.MP_myid].team)
@@ -13145,7 +13178,11 @@ package pb2_re34_fla
             {
                this.game_scale = this.g_scale_outcar;
                this.key_pick = false;
-               this.vehhp.visible = false;
+               this.in_car = false;
+               if(this.ui_type == 0)
+               {
+                  this.vehhp.visible = false;
+               }
                this.UpdateWeps();
             }
             this.ChangedGun(this.vehicles[param1].master);
@@ -34712,6 +34749,14 @@ package pb2_re34_fla
                   }
                }
             }
+            ++this.frames_display;
+            if(getTimer() - this.prev_frames >= 1000)
+            {
+               this.temp_fps = this.frames_display * 1000 / (getTimer() - this.prev_frames);
+               this.gamefps.text = Math.round(this.temp_fps * 10) / 10;
+               this.prev_frames = getTimer();
+               this.frames_display = 0;
+            }
             if(mouseX != 0 || mouseY != 0)
             {
                this.mouse_x = mouseX;
@@ -37272,7 +37317,7 @@ package pb2_re34_fla
                   this.vehhp.hp.scaleX = Math.max(this.vehicles[this.mens[this.MP_myid].incar].hea / this.vehicles[this.mens[this.MP_myid].incar].hmax,0);
                   this.vehhp.hp_txt.text = Math.ceil(Math.max(this.vehicles[this.mens[this.MP_myid].incar].hea,0)).toString();
                }
-               if(this.nrg.visible)
+               if(this.ALLOW_TIMESHIFT)
                {
                   this.xx = Math.max(this.energy / this.energy_max,0);
                   this.nrg.en_txt.text = Math.ceil(Math.ceil(this.xx * this.energy_max)).toString();
@@ -41876,6 +41921,70 @@ package pb2_re34_fla
          }
       }
       
+      public function update_ui() : void
+      {
+         if(this.ui_type == 0)
+         {
+            this.hp_box.visible = true;
+            this.tinted_hp_prog.visible = true;
+            if(this.in_car)
+            {
+               this.vehhp.visible = true;
+            }
+            this.weps.visible = true;
+            this.gamefps.visible = true;
+            this.gamefps_hint.visible = true;
+            if(!this.MP_mode)
+            {
+               this.nrg.visible = true;
+            }
+            this.pcg.visible = true;
+            this.qmenu.visible = true;
+            if(this.MP_type == 3)
+            {
+               this.team_blue.visible = true;
+               this.team_red.visible = true;
+            }
+         }
+         else if(this.ui_type == 1)
+         {
+            this.hp_box.visible = true;
+            this.tinted_hp_prog.visible = true;
+            if(this.in_car)
+            {
+               this.vehhp.visible = true;
+            }
+            this.weps.visible = true;
+            this.gamefps.visible = true;
+            this.gamefps_hint.visible = true;
+            if(!this.MP_mode)
+            {
+               this.nrg.visible = true;
+            }
+            this.pcg.visible = false;
+            this.qmenu.visible = false;
+            if(this.MP_type == 3)
+            {
+               this.team_blue.visible = true;
+               this.team_red.visible = true;
+            }
+         }
+         else
+         {
+            this.hp_box.visible = false;
+            this.tinted_hp_prog.visible = false;
+            this.vehhp.visible = false;
+            this.weps.visible = false;
+            this.gamefps.visible = false;
+            this.gamefps_hint.visible = false;
+            this.nrg.visible = false;
+            this.pcg.visible = false;
+            this.qmenu.visible = false;
+            this.team_blue.visible = false;
+            this.team_red.visible = false;
+         }
+      }
+      
       public function k_down_space3(param1:Event) : void
       {
          if(param1.keyCode == 32 || param1.keyCode == 82)
@@ -42286,6 +42395,10 @@ package pb2_re34_fla
             "&amp;":"[amp]"
          };
          this.CHATLOG_SIZE = 50;
+         this.frames_display = 0;
+         this.prev_frames = 0;
+         this.ui_type = 0;
+         this.in_car = false;
          this.override_login_password = this.loaderInfo.parameters.l == undefined;
          this.def_login = this.loaderInfo.parameters.l;
          this.def_password = this.loaderInfo.parameters.p;
@@ -43759,6 +43872,7 @@ package pb2_re34_fla
          this.vs_salt = Math.floor(Math.random() * 10);
          this.mouse_x = 0;
          this.mouse_y = 0;
+         this.temp_fps = 0;
          this.set_timeouts = new Vector.<Object>();
          this.respawn_logic_last_addr = 0;
          this.gravitatorTransform = new SoundTransform(0);
@@ -46238,6 +46352,42 @@ package pb2_re34_fla
             UpdateGravitatorVol();
             m2_1x.gotoAndStop(2);
          });
+         this.ui_no.gotoAndStop(1);
+         this.ui_mini.gotoAndStop(1);
+         this.ui_full.gotoAndStop(1);
+         if(this.ui_type == 0)
+         {
+            this.ui_full.gotoAndStop(2);
+         }
+         else if(this.ui_type == 1)
+         {
+            this.ui_mini.gotoAndStop(2);
+         }
+         else
+         {
+            this.ui_no.gotoAndStop(2);
+         }
+         this.ui_no.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ui_type = 2;
+            ui_no.gotoAndStop(2);
+            ui_mini.gotoAndStop(1);
+            ui_full.gotoAndStop(2);
+         });
+         this.ui_mini.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ui_type = 1;
+            ui_no.gotoAndStop(1);
+            ui_mini.gotoAndStop(2);
+            ui_full.gotoAndStop(1);
+         });
+         this.ui_full.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ui_type = 0;
+            ui_no.gotoAndStop(1);
+            ui_mini.gotoAndStop(1);
+            ui_full.gotoAndStop(2);
+         });
       }
       
       internal function frame14() : *
@@ -48038,6 +48188,21 @@ package pb2_re34_fla
          {
             this.conmenu_set.ph_1.gotoAndStop(2);
          }
+         this.conmenu_set.ui_no.gotoAndStop(1);
+         this.conmenu_set.ui_mini.gotoAndStop(1);
+         this.conmenu_set.ui_full.gotoAndStop(1);
+         if(this.ui_type == 0)
+         {
+            this.conmenu_set.ui_full.gotoAndStop(2);
+         }
+         else if(this.ui_type == 1)
+         {
+            this.conmenu_set.ui_mini.gotoAndStop(2);
+         }
+         else
+         {
+            this.conmenu_set.ui_no.gotoAndStop(2);
+         }
          this.conmenu_set.n_2.addEventListener(MouseEvent.CLICK,function():*
          {
             AUTO_PICK_NEW_WEPS = true;
@@ -48720,6 +48885,30 @@ package pb2_re34_fla
          this.TakeScreenShot_allow = true;
          this.TakeScreenShot_delay = 1000;
          this.can_get_exp_for_level = true;
+         this.conmenu_set.ui_no.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ui_type = 2;
+            conmenu_set.ui_no.gotoAndStop(2);
+            conmenu_set.ui_mini.gotoAndStop(1);
+            conmenu_set.ui_full.gotoAndStop(1);
+            update_ui();
+         });
+         this.conmenu_set.ui_mini.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ui_type = 1;
+            conmenu_set.ui_no.gotoAndStop(1);
+            conmenu_set.ui_mini.gotoAndStop(2);
+            conmenu_set.ui_full.gotoAndStop(1);
+            update_ui();
+         });
+         this.conmenu_set.ui_full.addEventListener(MouseEvent.CLICK,function():*
+         {
+            ui_type = 0;
+            conmenu_set.ui_no.gotoAndStop(1);
+            conmenu_set.ui_mini.gotoAndStop(1);
+            conmenu_set.ui_full.gotoAndStop(2);
+            update_ui();
+         });
          if(this.FORCE_CUSTOM_MAP)
          {
             if(!this.MP_mode)
@@ -48731,6 +48920,7 @@ package pb2_re34_fla
                }
             }
          }
+         this.update_ui();
       }
       
       internal function frame19() : *

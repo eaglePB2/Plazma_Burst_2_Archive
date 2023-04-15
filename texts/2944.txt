@@ -1,1 +1,1 @@
-Clear all saved data
+Settings & Performance > Export game state
