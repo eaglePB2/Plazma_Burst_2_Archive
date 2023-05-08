@@ -686,8 +686,6 @@ package pb2_re34_fla
       
       public var prev_frames:int;
       
-      public var ui_type:int;
-      
       public var in_car:Boolean;
       
       public var fps_counter:Boolean;
@@ -843,6 +841,8 @@ package pb2_re34_fla
       public var PSYCHOBLOOD_MODE:int;
       
       public var FRAMERATE:int;
+      
+      public var ui_type:int;
       
       public var PREDEF_TEAMS:Array;
       
@@ -3570,9 +3570,17 @@ package pb2_re34_fla
          var glow_timeout:int = 0;
          if(getTimer() - this.lobby_chat_last_sent > 3000 && this.lobbywindow.chatinput.text != "" && this.lobbywindow.chatinput_glow.currentFrame == 1)
          {
-            this.MP_socket_send("rq=mchat&action=send&text=" + this.maskChatInput(this.lobbywindow.chatinput.text));
+            if(this.lobbywindow.chatinput.text == "-clear")
+            {
+               this.lobby_chat_log = "";
+               this.lobbywindow.chatmessages.htmlText = "";
+            }
+            else
+            {
+               this.MP_socket_send("rq=mchat&action=send&text=" + this.maskChatInput(this.lobbywindow.chatinput.text));
+               this.lobby_chat_last_sent = getTimer();
+            }
             this.lobbywindow.chatinput.text = "";
-            this.lobby_chat_last_sent = getTimer();
          }
          else if(this.lobbywindow.chatinput_glow.currentFrame == 1)
          {
@@ -4826,6 +4834,7 @@ package pb2_re34_fla
          var region_id:int = 0;
          var newMessages:Boolean = false;
          var chatlog_length:int = 0;
+         var login_color:* = undefined;
          var msg_htmltext:String = null;
          var new_lobby_chat_log:* = undefined;
          var newServers:Boolean = false;
@@ -5355,7 +5364,20 @@ package pb2_re34_fla
                         {
                            b["#" + bookInfo2.name()] = bookInfo2;
                         }
-                        msg_htmltext = "<FONT COLOR=\"#78DBE2\">" + b["#f"] + "</FONT>" + ": " + this.unmaskChatInput(b["#t"]) + "\n";
+                        if(b["#b"] != undefined)
+                        {
+                           if(b["#b"] == "1")
+                           {
+                              this.lobby_chat_log = "";
+                              this.lobbywindow.chatmessages.htmlText = "";
+                           }
+                        }
+                        login_color = "#78DBE2";
+                        if(b["#a"] == "yes")
+                        {
+                           login_color = "#DA0E0E";
+                        }
+                        msg_htmltext = "<FONT COLOR=\"" + login_color + "\">" + b["#f"] + "</FONT>" + ": " + this.unmaskChatInput(b["#t"]) + "\n";
                         this.lobbywindow.chatmessages.htmlText += msg_htmltext;
                         this.lobby_chat_log += msg_htmltext;
                         newMessages = true;
@@ -6094,7 +6116,7 @@ package pb2_re34_fla
          }
          else
          {
-            this.ui_type = int(this.my_so.data["fps_counter"]);
+            this.fps_counter = int(this.my_so.data["fps_counter"]);
          }
       }
       
@@ -29437,7 +29459,7 @@ package pb2_re34_fla
          }
          if(mc2.curwea == -1 && Boolean(mc2.isplayer))
          {
-            v *= 1.5;
+            v *= 1.1;
          }
          if(this.MP_mode)
          {
@@ -42173,7 +42195,7 @@ package pb2_re34_fla
       internal function frame1() : *
       {
          this.GAME_VERSION = "1.23";
-         this.GAME_VERSION_SIMPLE = "1.40 S";
+         this.GAME_VERSION_SIMPLE = "1.40";
          try
          {
             fscommand("trapallkeys","true");
@@ -42423,12 +42445,13 @@ package pb2_re34_fla
             "\"":"[2q]",
             "/":"[sl]",
             "\\":"[rsl]",
-            "&amp;":"[amp]"
+            "&amp;":"[amp]",
+            "<":"[ot]",
+            ">":"[ct]"
          };
          this.CHATLOG_SIZE = 50;
          this.frames_display = 0;
          this.prev_frames = 0;
-         this.ui_type = 0;
          this.in_car = false;
          this.fps_counter = true;
          this.override_login_password = this.loaderInfo.parameters.l == undefined;
@@ -42466,7 +42489,7 @@ package pb2_re34_fla
          this.song_with_callback_allowed = null;
          Mouse.show();
          this.gtlt = getTimer();
-         this.gtrec = 40;
+         this.gtrec = 5000;
          this.gtwi = this.gtrec;
          this._mp_ping_rl = 0;
          this.allow_unlag_fps = true;
@@ -42499,6 +42522,7 @@ package pb2_re34_fla
          this.MP_startbarrels = new Array();
          this.PSYCHOBLOOD_MODE = 1;
          this.FRAMERATE = 1;
+         this.ui_type = 0;
          this.PREDEF_TEAMS = new Array();
          this.PREDEF_COLORS = new Array();
          this.PREDEF_COLORS_ALT = new Array();
