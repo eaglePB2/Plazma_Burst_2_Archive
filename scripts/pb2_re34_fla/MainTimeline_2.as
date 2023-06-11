@@ -10258,14 +10258,7 @@ package pb2_re34_fla
             {
                this.dm_slots_on_spawn = [6,1,4,2,3,8,5,9,7];
             }
-            if(!this.MP_spectator)
-            {
-               Mouse.hide();
-            }
-            else
-            {
-               Mouse.show();
-            }
+            Mouse.hide();
             loadmap_stage += "; " + MovieClip(root).mapdata.slice(0,3);
             loadmap_stage += "; " + (MovieClip(root).mapdata.slice(0,3) == "<q.");
             if(MovieClip(root).mapdata.slice(0,3) == "<q.")
@@ -42960,26 +42953,16 @@ package pb2_re34_fla
                         {
                            myCursor.gotoAndStop(7);
                         }
-                        if(!MP_spectator)
+                        if(mouseX != 0 || mouseY != 0)
                         {
-                           if(mouseX != 0 || mouseY != 0)
-                           {
-                              myCursor.x = mouseX;
-                              myCursor.y = mouseY;
-                           }
+                           myCursor.x = mouseX;
+                           myCursor.y = mouseY;
                         }
                         ++m_dist;
                         if(m_dist > 200)
                         {
                            m_dist = 0;
-                           if(!MP_spectator)
-                           {
-                              Mouse.hide();
-                           }
-                           else
-                           {
-                              Mouse.show();
-                           }
+                           Mouse.hide();
                         }
                      }
                   }

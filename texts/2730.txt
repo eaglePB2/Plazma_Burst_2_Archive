@@ -1,1 +1,5 @@
-Change slot
+PRESS "
+--- RECORDSEPARATOR ---
+I'm ready
+--- RECORDSEPARATOR ---
+" TO VOTE FOR GAME START.

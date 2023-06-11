@@ -1,1 +1,1 @@
-Clear all saved data
+Apply game state

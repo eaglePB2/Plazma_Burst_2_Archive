@@ -1,1 +1,5 @@
-Apply game state
+WARNING: "Apply game state" will override any settings as well as game progress and achievements. 
+--- RECORDSEPARATOR ---
+         This can not be reverted unless you save current game state somewhere. 
+--- RECORDSEPARATOR ---
+         Press Ctrl+C / Ctrl+V to copy and paste game state text between game instances.

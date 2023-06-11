@@ -2,7 +2,7 @@
 <svg xmlns:xlink="http://www.w3.org/1999/xlink" height="12.4px" width="28.95px" xmlns="http://www.w3.org/2000/svg">
   <g transform="matrix(1.0, 0.0, 0.0, 1.0, -4.5, 5.6)">
     <path d="M32.9 2.9 L31.4 6.3 22.7 6.3 22.15 6.3 17.45 2.8 32.95 2.8 32.9 2.9" fill="#808080" fill-rule="evenodd" stroke="none"/>
-    <path d="M9.1 -5.0 L20.85 -5.1 Q18.75 -1.35 15.4 -0.75 L11.25 -0.45 7.85 -0.8 5.0 -2.95 9.1 -5.0" fill="#1a85b3" fill-rule="evenodd" stroke="none"/>
+    <path d="M20.85 -5.1 Q18.75 -1.35 15.4 -0.75 L11.25 -0.45 7.85 -0.8 5.0 -2.95 9.1 -5.0 20.85 -5.1" fill="#1a85b3" fill-rule="evenodd" stroke="none"/>
     <path d="M32.9 2.9 L31.4 6.3 22.7 6.3 22.15 6.3 17.45 2.8 32.95 2.8 32.9 2.9" fill="none" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M20.85 -5.1 L9.1 -5.0" fill="none" stroke="#162b36" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
     <path d="M9.1 -5.0 L5.0 -2.95 7.85 -0.8 11.25 -0.45 15.4 -0.75 Q18.75 -1.35 20.85 -5.1" fill="none" stroke="#5e5e5e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
