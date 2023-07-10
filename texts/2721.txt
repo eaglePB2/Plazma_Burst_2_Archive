@@ -1,1 +1,1 @@
-MATCH INFO
+Are you sure you want to delete this match?(Match will be deleted in 10 seconds)

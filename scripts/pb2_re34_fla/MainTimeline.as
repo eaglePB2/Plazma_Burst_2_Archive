@@ -482,6 +482,8 @@ package pb2_re34_fla
       
       public var tinted_hp_prog:MovieClip;
       
+      public var title_quickpick:MovieClip;
+      
       public var tooltip_dif:TextField;
       
       public var tooltip_dif2:TextField;
@@ -19991,7 +19993,7 @@ package pb2_re34_fla
          _loc3_ = this.mens[param1];
          if(_loc2_["p" + param1 + "nk"] != undefined)
          {
-            if(_loc3_.hea <= 0 && this.MP_type == 2 && this.MP_allow_leaderboard_details)
+            if(_loc3_ && _loc3_.hea <= 0 && this.MP_type == 2 && this.MP_allow_leaderboard_details)
             {
                this.hero[param1].f1.text = _loc2_["p" + param1 + "nk"].split("[i]").join("|").split("[e]").join("&").split("[eq]").join("=").split("&lt;").join("<").split("&gt;").join(">").split("&quot;").join("\"") + " [ dead ]";
             }
@@ -20725,724 +20727,727 @@ package pb2_re34_fla
                      this.i = 0;
                      while(this.i < this.MP_playerstotal)
                      {
-                        if(this.i != this.MP_myid || this.MP_spectator)
+                        if(this.mens[this.i] != undefined)
                         {
-                           this.i2 = this.mens[this.i].mp_packets;
-                           this.mens[this.i].mp_packets = this.param["p" + this.i + "_"];
-                           this.mc = this.mens[this.i];
-                           if(this.mens[this.i].io)
+                           if(this.i != this.MP_myid || this.MP_spectator)
                            {
-                              if(!this.mens[this.i].dead)
+                              this.i2 = this.mens[this.i].mp_packets;
+                              this.mens[this.i].mp_packets = this.param["p" + this.i + "_"];
+                              this.mc = this.mens[this.i];
+                              if(this.mens[this.i].io)
                               {
-                                 if(this.mens[this.i].mp_aliveping + 350 < this.MP_ping_last)
+                                 if(!this.mens[this.i].dead)
                                  {
-                                    this.mens[this.i].act_fire = false;
-                                    if(this.MP_giveguns)
+                                    if(this.mens[this.i].mp_aliveping + 350 < this.MP_ping_last)
                                     {
-                                       if(this.mens[this.i].mp_aliveping + 500 < this.MP_ping_last)
+                                       this.mens[this.i].act_fire = false;
+                                       if(this.MP_giveguns)
                                        {
-                                          if(this.mens[this.i].alpha > 0.4)
+                                          if(this.mens[this.i].mp_aliveping + 500 < this.MP_ping_last)
                                           {
-                                             this.mens[this.i].alpha = 0.4;
+                                             if(this.mens[this.i].alpha > 0.4)
+                                             {
+                                                this.mens[this.i].alpha = 0.4;
+                                             }
                                           }
                                        }
                                     }
                                  }
                               }
-                           }
-                           if(this.mens[this.i].mp_aliveping + 4000 > this.MP_ping_last)
-                           {
-                              this.mens[this.i].io = true;
-                              this.mens[this.i].visible = true;
-                           }
-                           else if(this.mens[this.i].io)
-                           {
-                              this.mens[this.i].hea = 0;
-                              this.mens[this.i].dead = true;
-                              this.mens[this.i].alpha = 1;
-                              this.mens[this.i].io = false;
-                              this.mens[this.i].visible = false;
-                              if(this.MP_giveguns)
+                              if(this.mens[this.i].mp_aliveping + 4000 > this.MP_ping_last)
                               {
-                                 if(this.mens[this.i].lastshotby == this.MP_myid)
+                                 this.mens[this.i].io = true;
+                                 this.mens[this.i].visible = true;
+                              }
+                              else if(this.mens[this.i].io)
+                              {
+                                 this.mens[this.i].hea = 0;
+                                 this.mens[this.i].dead = true;
+                                 this.mens[this.i].alpha = 1;
+                                 this.mens[this.i].io = false;
+                                 this.mens[this.i].visible = false;
+                                 if(this.MP_giveguns)
                                  {
-                                    this.ExpTask(this.EXP_TYPE_DEATH_IN_APPROVED,this.mens[this.MP_myid].nick,true);
+                                    if(this.mens[this.i].lastshotby == this.MP_myid)
+                                    {
+                                       this.ExpTask(this.EXP_TYPE_DEATH_IN_APPROVED,this.mens[this.MP_myid].nick,true);
+                                    }
                                  }
                               }
-                           }
-                           if(this.mens[this.i].mp_packets != this.i2)
-                           {
-                              if(this.param["p" + this.i + "lo"] != undefined)
+                              if(this.mens[this.i].mp_packets != this.i2)
                               {
-                                 this.mc.login_name = this.param["p" + this.i + "lo"];
-                                 this.CheckIfPlayerInfoUpdateNeeded(this.mc);
+                                 if(this.param["p" + this.i + "lo"] != undefined)
+                                 {
+                                    this.mc.login_name = this.param["p" + this.i + "lo"];
+                                    this.CheckIfPlayerInfoUpdateNeeded(this.mc);
+                                    if(this.herolist.visible)
+                                    {
+                                       if(this.mc.login_name == "" || this.mc.login_name == ".guest")
+                                       {
+                                          this.hero[this.i].vbtn1.visible = false;
+                                          this.hero[this.i].vbtn2.visible = false;
+                                          this.hero[this.i].vbtn3.visible = false;
+                                       }
+                                       else
+                                       {
+                                          this.hero[this.i].vbtn1.visible = true;
+                                          this.hero[this.i].vbtn2.visible = true;
+                                          this.hero[this.i].vbtn3.visible = true;
+                                       }
+                                    }
+                                 }
+                                 if(this.param["p" + this.i + "nk"] != "Empty" && this.param["p" + this.i + "nk"] != undefined)
+                                 {
+                                    this.mc.mp_aliveping = getTimer();
+                                    this.mc.ping = int(this.param["p" + this.i + "p"]);
+                                    if(!this.mc.dead)
+                                    {
+                                       if(this.mc.idd < this.mens[this.MP_myid].idd)
+                                       {
+                                          this.ENEMY_SENDER_lowestping = false;
+                                       }
+                                    }
+                                    this.xx = Math.min(250,this.MP_ping2 + this.mc.ping) / 1000 * this.MP_fps;
+                                 }
+                                 if(this.param["p" + this.i + "nk"])
+                                 {
+                                    this.mc.nick = this.param["p" + this.i + "nk"].split("[eq]").join("=").split("[i]").join("|").split("[e]").join("&").split("&quot;").join("\"").split("&lt;").join("<").split("&gt;").join(">");
+                                 }
+                                 else
+                                 {
+                                    this.mc.nick = "pending nickname...";
+                                 }
                                  if(this.herolist.visible)
                                  {
-                                    if(this.mc.login_name == "" || this.mc.login_name == ".guest")
-                                    {
-                                       this.hero[this.i].vbtn1.visible = false;
-                                       this.hero[this.i].vbtn2.visible = false;
-                                       this.hero[this.i].vbtn3.visible = false;
-                                    }
-                                    else
-                                    {
-                                       this.hero[this.i].vbtn1.visible = true;
-                                       this.hero[this.i].vbtn2.visible = true;
-                                       this.hero[this.i].vbtn3.visible = true;
-                                    }
+                                    this.UpdateHeroList(this.i);
                                  }
-                              }
-                              if(this.param["p" + this.i + "nk"] != "Empty" && this.param["p" + this.i + "nk"] != undefined)
-                              {
-                                 this.mc.mp_aliveping = getTimer();
-                                 this.mc.ping = int(this.param["p" + this.i + "p"]);
-                                 if(!this.mc.dead)
+                                 if(this.param["p" + this.i + "x"] != undefined && this.param["p" + this.i + "sx"] != undefined && this.param["p" + this.i + "y"] != undefined && this.param["p" + this.i + "sy"] != undefined)
                                  {
-                                    if(this.mc.idd < this.mens[this.MP_myid].idd)
+                                    if(this.param["p" + this.i + "nk"] != "Empty")
                                     {
-                                       this.ENEMY_SENDER_lowestping = false;
-                                    }
-                                 }
-                                 this.xx = Math.min(250,this.MP_ping2 + this.mc.ping) / 1000 * this.MP_fps;
-                              }
-                              if(this.param["p" + this.i + "nk"])
-                              {
-                                 this.mc.nick = this.param["p" + this.i + "nk"].split("[eq]").join("=").split("[i]").join("|").split("[e]").join("&").split("&quot;").join("\"").split("&lt;").join("<").split("&gt;").join(">");
-                              }
-                              else
-                              {
-                                 this.mc.nick = "pending nickname...";
-                              }
-                              if(this.herolist.visible)
-                              {
-                                 this.UpdateHeroList(this.i);
-                              }
-                              if(this.param["p" + this.i + "x"] != undefined && this.param["p" + this.i + "sx"] != undefined && this.param["p" + this.i + "y"] != undefined && this.param["p" + this.i + "sy"] != undefined)
-                              {
-                                 if(this.param["p" + this.i + "nk"] != "Empty")
-                                 {
-                                    this.xx = Math.min(250,this.MP_ping2 + this.mc.ping) / 1000 * this.MP_fps;
-                                    if(Boolean(this.mc.isplayer) && this.MP_myid != this.i)
-                                    {
-                                       if(this.INTRUDER_DATABASE[this.mc.login_name] == undefined || this.INTRUDER_DATABASE[this.mc.login_name] == null)
+                                       this.xx = Math.min(250,this.MP_ping2 + this.mc.ping) / 1000 * this.MP_fps;
+                                       if(Boolean(this.mc.isplayer) && this.MP_myid != this.i)
                                        {
-                                          if(this.INTRUDER_DATABASE_length > 128)
+                                          if(this.INTRUDER_DATABASE[this.mc.login_name] == undefined || this.INTRUDER_DATABASE[this.mc.login_name] == null)
                                           {
-                                             this.SEND_INTRUDER_LIST();
-                                          }
-                                          ++this.INTRUDER_DATABASE_length;
-                                          this.INTRUDER_DATABASE[this.mc.login_name] = new Object();
-                                          this.INTRUDER_DATABASE[this.mc.login_name].unregistered_shots = 0;
-                                          this.INTRUDER_DATABASE[this.mc.login_name].registered_shots = 0;
-                                          this.INTRUDER_DATABASE[this.mc.login_name].seen_deaths = 0;
-                                          this.INTRUDER_DATABASE[this.mc.login_name].activity_start = getTimer();
-                                          this.INTRUDER_DATABASE[this.mc.login_name].activity_end = getTimer();
-                                          this.INTRUDER_DATABASE[this.mc.login_name].ping_min = this.mc.ping;
-                                          this.INTRUDER_DATABASE[this.mc.login_name].ping_max = this.mc.ping;
-                                          this.INTRUDER_DATABASE[this.mc.login_name].seen_deaths = 0;
-                                          this.INTRUDER_DATABASE[this.mc.login_name].max_hea = this.mc.hea;
-                                          this.INTRUDER_DATABASE[this.mc.login_name].min_hea = this.mc.hea;
-                                       }
-                                       else
-                                       {
-                                          this.INTRUDER_DATABASE[this.mc.login_name].activity_end = getTimer();
-                                          this.INTRUDER_DATABASE[this.mc.login_name].ping_min = Math.min(this.INTRUDER_DATABASE[this.mc.login_name].ping_min,this.mc.ping);
-                                          this.INTRUDER_DATABASE[this.mc.login_name].ping_max = Math.max(this.INTRUDER_DATABASE[this.mc.login_name].ping_max,this.mc.ping);
-                                          this.INTRUDER_DATABASE[this.mc.login_name].max_hea = Math.max(this.INTRUDER_DATABASE[this.mc.login_name].max_hea,this.mc.hea);
-                                          this.INTRUDER_DATABASE[this.mc.login_name].min_hea = Math.min(this.INTRUDER_DATABASE[this.mc.login_name].min_hea,this.mc.hea);
-                                       }
-                                    }
-                                    this.xx2 = Number(this.param["p" + this.i + "x"]);
-                                    this.yy2 = Number(this.param["p" + this.i + "y"]);
-                                    this.u = this.xx2 + Number(this.param["p" + this.i + "sx"]) * this.xx;
-                                    if(Boolean(this.mc.inwater) || Boolean(this.mc.stand))
-                                    {
-                                       this.v = this.yy2;
-                                       this.u2 = Number(this.param["p" + this.i + "sy"]);
-                                    }
-                                    else
-                                    {
-                                       this.v = Number(this.param["p" + this.i + "y"]) + Number(this.param["p" + this.i + "sy"]) * this.xx + this.gravity * this.xx * this.xx / 2;
-                                       this.u2 = Number(this.param["p" + this.i + "sy"]) + this.gravity * this.xx;
-                                    }
-                                    if(this.TraceLineF_nopushers(this.mc.x - 5,this.mc.y - 21,this.u,this.v - 21))
-                                    {
-                                       if(this.TraceLineF_nopushers(this.mc.x - 5,this.mc.y - 61,this.u,this.v - 61))
-                                       {
-                                          if(this.TraceLineF_nopushers(this.mc.x + 5,this.mc.y - 21,this.u,this.v - 21))
-                                          {
-                                             if(this.TraceLineF_nopushers(this.mc.x + 5,this.mc.y - 61,this.u,this.v - 61))
+                                             if(this.INTRUDER_DATABASE_length > 128)
                                              {
-                                                this.param["p" + this.i + "x"] = this.u;
-                                                if(!this.mc.stand && !this.mc.inwater)
-                                                {
-                                                   this.param["p" + this.i + "y"] = this.v;
-                                                   this.param["p" + this.i + "sy"] = this.u2;
-                                                }
+                                                this.SEND_INTRUDER_LIST();
                                              }
+                                             ++this.INTRUDER_DATABASE_length;
+                                             this.INTRUDER_DATABASE[this.mc.login_name] = new Object();
+                                             this.INTRUDER_DATABASE[this.mc.login_name].unregistered_shots = 0;
+                                             this.INTRUDER_DATABASE[this.mc.login_name].registered_shots = 0;
+                                             this.INTRUDER_DATABASE[this.mc.login_name].seen_deaths = 0;
+                                             this.INTRUDER_DATABASE[this.mc.login_name].activity_start = getTimer();
+                                             this.INTRUDER_DATABASE[this.mc.login_name].activity_end = getTimer();
+                                             this.INTRUDER_DATABASE[this.mc.login_name].ping_min = this.mc.ping;
+                                             this.INTRUDER_DATABASE[this.mc.login_name].ping_max = this.mc.ping;
+                                             this.INTRUDER_DATABASE[this.mc.login_name].seen_deaths = 0;
+                                             this.INTRUDER_DATABASE[this.mc.login_name].max_hea = this.mc.hea;
+                                             this.INTRUDER_DATABASE[this.mc.login_name].min_hea = this.mc.hea;
+                                          }
+                                          else
+                                          {
+                                             this.INTRUDER_DATABASE[this.mc.login_name].activity_end = getTimer();
+                                             this.INTRUDER_DATABASE[this.mc.login_name].ping_min = Math.min(this.INTRUDER_DATABASE[this.mc.login_name].ping_min,this.mc.ping);
+                                             this.INTRUDER_DATABASE[this.mc.login_name].ping_max = Math.max(this.INTRUDER_DATABASE[this.mc.login_name].ping_max,this.mc.ping);
+                                             this.INTRUDER_DATABASE[this.mc.login_name].max_hea = Math.max(this.INTRUDER_DATABASE[this.mc.login_name].max_hea,this.mc.hea);
+                                             this.INTRUDER_DATABASE[this.mc.login_name].min_hea = Math.min(this.INTRUDER_DATABASE[this.mc.login_name].min_hea,this.mc.hea);
                                           }
                                        }
-                                    }
-                                    if(this.param["p" + this.i + "xb"] != "" && this.param["p" + this.i + "xb"] != undefined && this.param["p" + this.i + "yb"] != "" && this.param["p" + this.i + "yb"] != undefined)
-                                    {
-                                       this.u = Number(this.param["p" + this.i + "xb"]) + Number(this.param["p" + this.i + "sxb"]) * this.xx;
+                                       this.xx2 = Number(this.param["p" + this.i + "x"]);
+                                       this.yy2 = Number(this.param["p" + this.i + "y"]);
+                                       this.u = this.xx2 + Number(this.param["p" + this.i + "sx"]) * this.xx;
                                        if(Boolean(this.mc.inwater) || Boolean(this.mc.stand))
                                        {
-                                          this.v = Number(this.param["p" + this.i + "yb"]) + Number(this.param["p" + this.i + "syb"]) * this.xx;
-                                          this.u2 = Number(this.param["p" + this.i + "syb"]);
+                                          this.v = this.yy2;
+                                          this.u2 = Number(this.param["p" + this.i + "sy"]);
                                        }
                                        else
                                        {
-                                          this.v = Number(this.param["p" + this.i + "yb"]) + Number(this.param["p" + this.i + "syb"]) * this.xx + this.gravity * this.xx * this.xx / 2;
-                                          this.u2 = Number(this.param["p" + this.i + "syb"]) + this.gravity * this.xx;
+                                          this.v = Number(this.param["p" + this.i + "y"]) + Number(this.param["p" + this.i + "sy"]) * this.xx + this.gravity * this.xx * this.xx / 2;
+                                          this.u2 = Number(this.param["p" + this.i + "sy"]) + this.gravity * this.xx;
                                        }
-                                       if(!this.MP_favor_the_shooter)
+                                       if(this.TraceLineF_nopushers(this.mc.x - 5,this.mc.y - 21,this.u,this.v - 21))
                                        {
-                                          this.u2 = Number(this.param["p" + this.i + "syb"]);
-                                          this.u2 = Number(this.param["p" + this.i + "syb"]) + this.gravity * this.xx;
-                                       }
-                                       if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe] - 5,this.ay[this.mc.b_toe],this.u,this.v))
-                                       {
-                                          if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe],this.ay[this.mc.b_toe] - 5,this.u,this.v))
+                                          if(this.TraceLineF_nopushers(this.mc.x - 5,this.mc.y - 61,this.u,this.v - 61))
                                           {
-                                             if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe] + 5,this.ay[this.mc.b_toe],this.u,this.v))
+                                             if(this.TraceLineF_nopushers(this.mc.x + 5,this.mc.y - 21,this.u,this.v - 21))
                                              {
-                                                if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe],this.ay[this.mc.b_toe] + 5,this.u,this.v))
+                                                if(this.TraceLineF_nopushers(this.mc.x + 5,this.mc.y - 61,this.u,this.v - 61))
                                                 {
-                                                   this.param["p" + this.i + "xb"] = this.u;
+                                                   this.param["p" + this.i + "x"] = this.u;
                                                    if(!this.mc.stand && !this.mc.inwater)
                                                    {
-                                                      this.param["p" + this.i + "yb"] = this.v;
-                                                      this.param["p" + this.i + "syb"] = this.u2;
+                                                      this.param["p" + this.i + "y"] = this.v;
+                                                      this.param["p" + this.i + "sy"] = this.u2;
                                                    }
                                                 }
                                              }
                                           }
                                        }
-                                    }
-                                    this.xx2 = this.param["p" + this.i + "x"] - this.xx2;
-                                    this.yy2 = this.param["p" + this.i + "y"] - this.yy2;
-                                    if(!this.MP_favor_the_shooter)
-                                    {
-                                       this.mc.mp_offset_x = this.xx2;
-                                       this.mc.mp_offset_y = this.yy2;
-                                    }
-                                    if(this.mc.hunt != int(this.param["p" + this.i + "hn"]))
-                                    {
-                                       if(int(this.param["p" + this.i + "hn"]) == -1)
+                                       if(this.param["p" + this.i + "xb"] != "" && this.param["p" + this.i + "xb"] != undefined && this.param["p" + this.i + "yb"] != "" && this.param["p" + this.i + "yb"] != undefined)
                                        {
-                                          if(this.mens[this.mc.hunt])
+                                          this.u = Number(this.param["p" + this.i + "xb"]) + Number(this.param["p" + this.i + "sxb"]) * this.xx;
+                                          if(Boolean(this.mc.inwater) || Boolean(this.mc.stand))
                                           {
-                                             if(this.mens[this.mc.hunt].hea <= 0)
-                                             {
-                                                if(this.MP_myid == -1 || this.mc.team == this.mens[this.MP_myid].team || Boolean(this.mc.voice.always_enemy_down))
-                                                {
-                                                   this.MakeHappy(this.mc);
-                                                }
-                                             }
-                                          }
-                                       }
-                                       else
-                                       {
-                                          this.Alerted(this.mc);
-                                       }
-                                       this.mc.hunt = int(this.param["p" + this.i + "hn"]);
-                                    }
-                                    if(this.param["p" + this.i + "nk"] != "")
-                                    {
-                                       if(this.mc.gui.txt1.text != this.mc.nick)
-                                       {
-                                          this.SpawnPlayerImmediately(this.mc);
-                                       }
-                                    }
-                                    if(this.param["p" + this.i + "cc"] != undefined)
-                                    {
-                                       mdl = this.param["p" + this.i + "cc"].split(",");
-                                       this.i3 = mdl[0];
-                                       if(this.mc.char != this.i3)
-                                       {
-                                          if(this.MP_app)
-                                          {
-                                             if(this.i3 == 5 || this.i3 == 10)
-                                             {
-                                                this.i3 = 2;
-                                             }
-                                          }
-                                          this.mc.char = this.i3;
-                                          this.mc.mdl_head = this.i3;
-                                          if(this.i3 >= 40 && this.i3 <= 48)
-                                          {
-                                             this.i3 = 1;
-                                          }
-                                          if(this.i3 == 61)
-                                          {
-                                             this.i3 = 3;
-                                          }
-                                          this.mc.mdl_leg1_upper = this.i3;
-                                          this.mc.mdl_leg1_middle = this.i3;
-                                          this.mc.mdl_leg1_lower = this.i3;
-                                          this.mc.mdl_leg2_upper = this.i3;
-                                          this.mc.mdl_leg2_middle = this.i3;
-                                          this.mc.mdl_leg2_lower = this.i3;
-                                          this.mc.mdl_arm1_upper = this.i3;
-                                          this.mc.mdl_arm1_lower = this.i3;
-                                          this.mc.mdl_arm2_upper = this.i3;
-                                          this.mc.mdl_arm2_lower = this.i3;
-                                          this.mc.mdl_toe = this.i3;
-                                          this.mc.mdl_body = this.i3;
-                                          old_nick = this.mc.nick;
-                                          this.UpdateCharProps(this.mc);
-                                          this.SpawnPlayerImmediately(this.mc);
-                                          this.mc.nick = old_nick;
-                                       }
-                                       if(mdl[1] != undefined)
-                                       {
-                                          if(mdl[1].charAt(0) != this.mc.palette[0] || mdl[1].charAt(1) != this.mc.palette[1] || mdl[1].charAt(2) != this.mc.palette[2] || mdl[1].charAt(3) != this.mc.palette[3])
-                                          {
-                                             this.mc.palette[0] = mdl[1].charAt(0);
-                                             this.mc.palette[1] = mdl[1].charAt(1);
-                                             this.mc.palette[2] = mdl[1].charAt(2);
-                                             this.mc.palette[3] = mdl[1].charAt(3);
-                                             this.UpdatePlayerColorMP(this.mc);
-                                          }
-                                       }
-                                    }
-                                    if(this.param["p" + this.i + "ha"] != "")
-                                    {
-                                       if(this.param["p" + this.i + "hl"] != "")
-                                       {
-                                          if(this.param["p" + this.i + "hb"] != "")
-                                          {
-                                             if(this.param["p" + this.i + "hh"] != "")
-                                             {
-                                                if(this.GetPlayerAllowLimbHPStabChange(this.mc))
-                                                {
-                                                   i4 = 0;
-                                                   if((this.mc.hp_arms <= 0 || this.mc.brk_arms) && Number(this.param["p" + this.i + "ha"]) > 0)
-                                                   {
-                                                      i4 = 1;
-                                                   }
-                                                   else if((this.mc.hp_legs <= 0 || this.mc.brk_legs) && Number(this.param["p" + this.i + "hl"]) > 0)
-                                                   {
-                                                      i4 = 1;
-                                                   }
-                                                   else if((this.mc.hp_body <= 0 || this.mc.brk_body) && Number(this.param["p" + this.i + "hb"]) > 0)
-                                                   {
-                                                      i4 = 1;
-                                                   }
-                                                   else if((this.mc.hp_head <= 0 || this.mc.brk_head) && Number(this.param["p" + this.i + "hh"]) > 0)
-                                                   {
-                                                      i4 = 1;
-                                                   }
-                                                   if(this.mc.hp_arms > 0 && Number(this.param["p" + this.i + "ha"]) <= 0)
-                                                   {
-                                                      i4 = 2;
-                                                   }
-                                                   else if(this.mc.hp_legs > 0 && Number(this.param["p" + this.i + "hl"]) <= 0)
-                                                   {
-                                                      i4 = 2;
-                                                   }
-                                                   else if(this.mc.hp_body > 0 && Number(this.param["p" + this.i + "hb"]) <= 0)
-                                                   {
-                                                      i4 = 2;
-                                                   }
-                                                   else if(this.mc.hp_head > 0 && Number(this.param["p" + this.i + "hh"]) <= 0)
-                                                   {
-                                                      i4 = 2;
-                                                   }
-                                                   if(i4 == 1)
-                                                   {
-                                                      this.SpawnPlayerImmediately(this.mc);
-                                                      this.Hurt_nopain(this.i);
-                                                   }
-                                                   this.mc.hp_arms = Number(this.param["p" + this.i + "ha"]);
-                                                   this.mc.hp_legs = Number(this.param["p" + this.i + "hl"]);
-                                                   this.mc.hp_body = Number(this.param["p" + this.i + "hb"]);
-                                                   this.mc.hp_head = Number(this.param["p" + this.i + "hh"]);
-                                                   if(i4 == 2)
-                                                   {
-                                                      this.Hurt(this.i);
-                                                   }
-                                                }
-                                             }
-                                          }
-                                       }
-                                    }
-                                    if(this.param["p" + this.i + "he"] != "")
-                                    {
-                                       if(this.mc.real_hea > 0 && Number(this.param["p" + this.i + "he"]) <= 0)
-                                       {
-                                          this.mc.last_shoot_chance = true;
-                                       }
-                                       this.mc.hea = this.AdjustToPlayerAllowedHP(this.mc,Number(this.param["p" + this.i + "he"]));
-                                       if(this.mc.real_hea <= 0 && Number(this.param["p" + this.i + "he"]) > 0)
-                                       {
-                                          this.mc.effects.length = 0;
-                                       }
-                                       this.mc.real_hea = Number(this.param["p" + this.i + "he"]);
-                                    }
-                                    if(this.MP_giveguns)
-                                    {
-                                       if(this.mc.hea > this.mc.hmax)
-                                       {
-                                          this.AnnoyPL(this.i,"hp+");
-                                       }
-                                    }
-                                    if(this.mc.hea > 0)
-                                    {
-                                       if(!this.mc.io || !this.mc.visible)
-                                       {
-                                          this.mc.dead = true;
-                                       }
-                                       else
-                                       {
-                                          this.mc.dead = false;
-                                       }
-                                       this.mc.io = true;
-                                       this.mc.visible = true;
-                                       if(this.mc.isGhost && !this.MP_giveguns && !this.mens[this.MP_myid].dead && !this.mens[this.MP_myid].dead)
-                                       {
-                                          if(this.mc.team == this.mens[this.MP_myid].team)
-                                          {
-                                             this.mc.alpha = 0.5;
-                                          }
-                                       }
-                                       else
-                                       {
-                                          this.mc.alpha = 1;
-                                       }
-                                       this.mc.deadtim = 0;
-                                       if(this.param["p" + this.i + "st"] != undefined)
-                                       {
-                                          this.mc.sit = new Number(this.param["p" + this.i + "st"]);
-                                       }
-                                       if(Boolean(isNaN(this.mc.sit)) || this.mc.sit == undefined)
-                                       {
-                                       }
-                                       if(this.param["p" + this.i + "sb"] != "")
-                                       {
-                                          if(this.GetPlayerAllowLimbHPStabChange(this.mc))
-                                          {
-                                             this.mc.stability = Number(this.param["p" + this.i + "sb"]);
-                                          }
-                                       }
-                                       this.mc.mp_controlled = false;
-                                       if(Number(this.param["p" + this.i + "sb"]) <= 0)
-                                       {
-                                          if(this.param["p" + this.i + "x"] != "" && this.param["p" + this.i + "x"] != undefined)
-                                          {
-                                             if(this.param["p" + this.i + "y"] != "" && this.param["p" + this.i + "y"] != undefined)
-                                             {
-                                                if(this.param["p" + this.i + "sx"] != "" && this.param["p" + this.i + "sx"] != undefined)
-                                                {
-                                                   if(this.param["p" + this.i + "sy"] != "" && this.param["p" + this.i + "sy"] != undefined)
-                                                   {
-                                                      if(this.param["p" + this.i + "xb"] != "" && this.param["p" + this.i + "xb"] != undefined)
-                                                      {
-                                                         if(this.param["p" + this.i + "yb"] != "" && this.param["p" + this.i + "yb"] != undefined)
-                                                         {
-                                                            if(this.param["p" + this.i + "sxb"] != "" && this.param["p" + this.i + "sxb"] != undefined)
-                                                            {
-                                                               if(this.param["p" + this.i + "syb"] != "" && this.param["p" + this.i + "syb"] != undefined)
-                                                               {
-                                                                  this.mc.mp_controlled = !this.mc.dead || this.GetPlayerAllowLimbHPStabChange(this.mc);
-                                                                  this.mc.mp_time = 0;
-                                                                  this.mc.mp_x = Number(this.param["p" + this.i + "x"]);
-                                                                  this.mc.mp_y = Number(this.param["p" + this.i + "y"]);
-                                                                  this.mc.mp_tox = Number(this.param["p" + this.i + "sx"]);
-                                                                  this.mc.mp_toy = Number(this.param["p" + this.i + "sy"]);
-                                                                  this.mc.mp_x2 = Number(this.param["p" + this.i + "xb"]);
-                                                                  this.mc.mp_y2 = Number(this.param["p" + this.i + "yb"]);
-                                                                  this.mc.mp_tox2 = Number(this.param["p" + this.i + "sxb"]);
-                                                                  this.mc.mp_toy2 = Number(this.param["p" + this.i + "syb"]);
-                                                               }
-                                                            }
-                                                         }
-                                                      }
-                                                   }
-                                                }
-                                             }
-                                          }
-                                       }
-                                       if(this.param["p" + this.i + "dy"] != "")
-                                       {
-                                          if(this.param["p" + this.i + "dy"] == "true" || this.GetPlayerShouldBeDying(this.mc))
-                                          {
-                                             this.MakeDying(this.mc);
+                                             this.v = Number(this.param["p" + this.i + "yb"]) + Number(this.param["p" + this.i + "syb"]) * this.xx;
+                                             this.u2 = Number(this.param["p" + this.i + "syb"]);
                                           }
                                           else
                                           {
-                                             this.mc.dying = false;
+                                             this.v = Number(this.param["p" + this.i + "yb"]) + Number(this.param["p" + this.i + "syb"]) * this.xx + this.gravity * this.xx * this.xx / 2;
+                                             this.u2 = Number(this.param["p" + this.i + "syb"]) + this.gravity * this.xx;
                                           }
-                                       }
-                                       if(Number(this.param["p" + this.i + "sb"]) > 0)
-                                       {
-                                          if(this.param["p" + this.i + "x"] != "" && this.param["p" + this.i + "x"] != undefined)
+                                          if(!this.MP_favor_the_shooter)
                                           {
-                                             if(this.param["p" + this.i + "y"] != "" && this.param["p" + this.i + "y"] != undefined)
+                                             this.u2 = Number(this.param["p" + this.i + "syb"]);
+                                             this.u2 = Number(this.param["p" + this.i + "syb"]) + this.gravity * this.xx;
+                                          }
+                                          if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe] - 5,this.ay[this.mc.b_toe],this.u,this.v))
+                                          {
+                                             if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe],this.ay[this.mc.b_toe] - 5,this.u,this.v))
                                              {
-                                                if(this.param["p" + this.i + "sx"] != "" && this.param["p" + this.i + "sx"] != undefined)
+                                                if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe] + 5,this.ay[this.mc.b_toe],this.u,this.v))
                                                 {
-                                                   if(this.param["p" + this.i + "sy"] != "" && this.param["p" + this.i + "sy"] != undefined)
+                                                   if(this.TraceLineF_nopushers(this.ax[this.mc.b_toe],this.ay[this.mc.b_toe] + 5,this.u,this.v))
                                                    {
-                                                      this.mc.x = Number(this.param["p" + this.i + "x"]);
-                                                      this.mc.y = Number(this.param["p" + this.i + "y"]);
-                                                      this.mc.tox = Number(this.param["p" + this.i + "sx"]);
-                                                      this.mc.toy = Number(this.param["p" + this.i + "sy"]);
-                                                      this.u = this.mc.x - this.ax[this.mc.b_toe];
-                                                      this.v = this.mc.y - this.ay[this.mc.b_toe];
-                                                      this.xx = this.VectorDist2D(this.u,this.v);
-                                                      if(this.xx > 600 * this.mc.scale || !this.TraceLineF_nopushers(this.mc.x,this.mc.y - 41 * this.mc.scale,this.ax[this.mc.b_toe],this.ay[this.mc.b_toe]))
+                                                      this.param["p" + this.i + "xb"] = this.u;
+                                                      if(!this.mc.stand && !this.mc.inwater)
                                                       {
-                                                         this.ax[this.mc.b_toe] += this.u;
-                                                         this.ay[this.mc.b_toe] += this.v;
-                                                         this.ax[this.mc.b_body] += this.u;
-                                                         this.ay[this.mc.b_body] += this.v;
-                                                         this.ax[this.mc.b_head_start] += this.u;
-                                                         this.ay[this.mc.b_head_start] += this.v;
-                                                         this.ax[this.mc.b_head_end] += this.u;
-                                                         this.ay[this.mc.b_head_end] += this.v;
-                                                         this.ax[this.mc.b_arm1] += this.u;
-                                                         this.ay[this.mc.b_arm1] += this.v;
-                                                         this.ax[this.mc.b_arm2] += this.u;
-                                                         this.ay[this.mc.b_arm2] += this.v;
-                                                         this.ax[this.mc.b_leg1] += this.u;
-                                                         this.ay[this.mc.b_leg1] += this.v;
-                                                         this.ax[this.mc.b_leg2] += this.u;
-                                                         this.ay[this.mc.b_leg2] += this.v;
-                                                         if(this.GET_LITE_PHYS())
-                                                         {
-                                                            this.lax[this.mc.b_toe] += this.u;
-                                                            this.lay[this.mc.b_toe] += this.v;
-                                                            this.lax[this.mc.b_body] += this.u;
-                                                            this.lay[this.mc.b_body] += this.v;
-                                                            this.lax[this.mc.b_head_start] += this.u;
-                                                            this.lay[this.mc.b_head_start] += this.v;
-                                                            this.lax[this.mc.b_head_end] += this.u;
-                                                            this.lay[this.mc.b_head_end] += this.v;
-                                                            this.lax[this.mc.b_arm1] += this.u;
-                                                            this.lay[this.mc.b_arm1] += this.v;
-                                                            this.lax[this.mc.b_arm2] += this.u;
-                                                            this.lay[this.mc.b_arm2] += this.v;
-                                                            this.lax[this.mc.b_leg1] += this.u;
-                                                            this.lay[this.mc.b_leg1] += this.v;
-                                                            this.lax[this.mc.b_leg2] += this.u;
-                                                            this.lay[this.mc.b_leg2] += this.v;
-                                                         }
-                                                      }
-                                                      if(this.mc.hea >= this.dying_after)
-                                                      {
-                                                         this.mc.dying = false;
+                                                         this.param["p" + this.i + "yb"] = this.v;
+                                                         this.param["p" + this.i + "syb"] = this.u2;
                                                       }
                                                    }
                                                 }
                                              }
                                           }
                                        }
-                                       if(!this.ANONYMOUS_MODE)
+                                       this.xx2 = this.param["p" + this.i + "x"] - this.xx2;
+                                       this.yy2 = this.param["p" + this.i + "y"] - this.yy2;
+                                       if(!this.MP_favor_the_shooter)
                                        {
-                                          this.mc.gui.visible = true;
-                                          this.mc.gui.alpha = 1;
+                                          this.mc.mp_offset_x = this.xx2;
+                                          this.mc.mp_offset_y = this.yy2;
                                        }
-                                       if(this.param["p" + this.i + "ix"] != "")
+                                       if(this.mc.hunt != int(this.param["p" + this.i + "hn"]))
                                        {
-                                          if(this.param["p" + this.i + "iy"] != "")
+                                          if(int(this.param["p" + this.i + "hn"]) == -1)
                                           {
-                                             this.mc.tarx = Number(this.param["p" + this.i + "ix"]);
-                                             this.mc.tary = Number(this.param["p" + this.i + "iy"]);
-                                          }
-                                       }
-                                       if(this.mens[this.i].mp_aliveping + 200 > this.MP_ping_last)
-                                       {
-                                          if(this.param["p" + this.i + "f"] != "")
-                                          {
-                                             if(this.param["p" + this.i + "f"] == "true")
+                                             if(this.mens[this.mc.hunt])
                                              {
-                                                this.mc.act_fire = true;
-                                             }
-                                             else
-                                             {
-                                                this.mc.act_fire = false;
-                                             }
-                                          }
-                                          if(this.param["p" + this.i + "ax"] != "")
-                                          {
-                                             if(this.param["p" + this.i + "ay"] != "")
-                                             {
-                                                this.mc.act_movex = int(this.param["p" + this.i + "ax"]);
-                                                this.mc.act_movey = int(this.param["p" + this.i + "ay"]);
-                                             }
-                                          }
-                                       }
-                                       else
-                                       {
-                                          this.mc.act_fire = false;
-                                          this.mc.act_movex = 0;
-                                          this.mc.act_movey = 0;
-                                       }
-                                       if(this.param["p" + this.i + "ic"] != "")
-                                       {
-                                          this.i2 = int(this.param["p" + this.i + "ic"]);
-                                          this.i3 = 0;
-                                          while(this.i3 < this.vehiclestotal)
-                                          {
-                                             if(this.vehicles[this.i3].typ == 6)
-                                             {
-                                                if(this.vehicles[this.i3].master == this.i)
+                                                if(this.mens[this.mc.hunt].hea <= 0)
                                                 {
-                                                   if(this.i2 != this.i3)
+                                                   if(this.MP_myid == -1 || this.mc.team == this.mens[this.MP_myid].team || Boolean(this.mc.voice.always_enemy_down))
                                                    {
-                                                      this.vehicles[this.i3].master = -1;
+                                                      this.MakeHappy(this.mc);
                                                    }
                                                 }
-                                             }
-                                             ++this.i3;
-                                          }
-                                          if(this.i2 == -1)
-                                          {
-                                             this.mc.incar = -1;
-                                          }
-                                          else if(this.vehicles[this.i2].typ == 6)
-                                          {
-                                             if(this.vehicles[this.i2].master != this.MP_myid || this.MP_spectator)
-                                             {
-                                                this.vehicles[this.i2].master = this.i;
                                              }
                                           }
                                           else
                                           {
-                                             this.mc.incar = this.i2;
+                                             this.Alerted(this.mc);
+                                          }
+                                          this.mc.hunt = int(this.param["p" + this.i + "hn"]);
+                                       }
+                                       if(this.param["p" + this.i + "nk"] != "")
+                                       {
+                                          if(this.mc.gui.txt1.text != this.mc.nick)
+                                          {
+                                             this.SpawnPlayerImmediately(this.mc);
                                           }
                                        }
-                                       this.i3 = this.mc.curwea;
-                                       if(this.param["p" + this.i + "cw"] != undefined && this.param["p" + this.i + "cw"] != "")
+                                       if(this.param["p" + this.i + "cc"] != undefined)
                                        {
-                                          this.i2 = int(this.param["p" + this.i + "cw"]);
-                                          if(this.i2 >= -1 && this.i2 < this.gunstotal)
+                                          mdl = this.param["p" + this.i + "cc"].split(",");
+                                          this.i3 = mdl[0];
+                                          if(this.mc.char != this.i3)
                                           {
-                                             if(this.MP_gamestate == 0 || this.i2 == -1 || this.i2 != -1 && this.guns[this.i2].picken_by == this.i)
+                                             if(this.MP_app)
                                              {
-                                                this.mc.curwea = this.i2;
-                                             }
-                                          }
-                                       }
-                                       if(this.MP_gamestate == 0)
-                                       {
-                                          i4 = 0;
-                                          while(i4 < this.gunstotal)
-                                          {
-                                             if(this.guns[i4].picken_by == this.i && i4 != this.mc.curwea)
-                                             {
-                                                this.guns[i4].picken_by = -1;
-                                             }
-                                             i4++;
-                                          }
-                                          i4 = 0;
-                                          while(i4 < 10)
-                                          {
-                                             if(this.param["p" + this.i + "g" + i4] != undefined)
-                                             {
-                                                if(this.param["p" + this.i + "g" + i4] != "")
+                                                if(this.i3 == 5 || this.i3 == 10)
                                                 {
-                                                   if(this.param["p" + this.i + "g" + i4] != "-1")
+                                                   this.i3 = 2;
+                                                }
+                                             }
+                                             this.mc.char = this.i3;
+                                             this.mc.mdl_head = this.i3;
+                                             if(this.i3 >= 40 && this.i3 <= 48)
+                                             {
+                                                this.i3 = 1;
+                                             }
+                                             if(this.i3 == 61)
+                                             {
+                                                this.i3 = 3;
+                                             }
+                                             this.mc.mdl_leg1_upper = this.i3;
+                                             this.mc.mdl_leg1_middle = this.i3;
+                                             this.mc.mdl_leg1_lower = this.i3;
+                                             this.mc.mdl_leg2_upper = this.i3;
+                                             this.mc.mdl_leg2_middle = this.i3;
+                                             this.mc.mdl_leg2_lower = this.i3;
+                                             this.mc.mdl_arm1_upper = this.i3;
+                                             this.mc.mdl_arm1_lower = this.i3;
+                                             this.mc.mdl_arm2_upper = this.i3;
+                                             this.mc.mdl_arm2_lower = this.i3;
+                                             this.mc.mdl_toe = this.i3;
+                                             this.mc.mdl_body = this.i3;
+                                             old_nick = this.mc.nick;
+                                             this.UpdateCharProps(this.mc);
+                                             this.SpawnPlayerImmediately(this.mc);
+                                             this.mc.nick = old_nick;
+                                          }
+                                          if(mdl[1] != undefined)
+                                          {
+                                             if(mdl[1].charAt(0) != this.mc.palette[0] || mdl[1].charAt(1) != this.mc.palette[1] || mdl[1].charAt(2) != this.mc.palette[2] || mdl[1].charAt(3) != this.mc.palette[3])
+                                             {
+                                                this.mc.palette[0] = mdl[1].charAt(0);
+                                                this.mc.palette[1] = mdl[1].charAt(1);
+                                                this.mc.palette[2] = mdl[1].charAt(2);
+                                                this.mc.palette[3] = mdl[1].charAt(3);
+                                                this.UpdatePlayerColorMP(this.mc);
+                                             }
+                                          }
+                                       }
+                                       if(this.param["p" + this.i + "ha"] != "")
+                                       {
+                                          if(this.param["p" + this.i + "hl"] != "")
+                                          {
+                                             if(this.param["p" + this.i + "hb"] != "")
+                                             {
+                                                if(this.param["p" + this.i + "hh"] != "")
+                                                {
+                                                   if(this.GetPlayerAllowLimbHPStabChange(this.mc))
                                                    {
-                                                      if(this.param["p" + this.i + "g" + i4] != "-")
+                                                      i4 = 0;
+                                                      if((this.mc.hp_arms <= 0 || this.mc.brk_arms) && Number(this.param["p" + this.i + "ha"]) > 0)
                                                       {
-                                                         this.i2 = int(this.param["p" + this.i + "g" + i4]);
-                                                         if(this.i2 >= 0 && this.i2 < this.gunstotal)
+                                                         i4 = 1;
+                                                      }
+                                                      else if((this.mc.hp_legs <= 0 || this.mc.brk_legs) && Number(this.param["p" + this.i + "hl"]) > 0)
+                                                      {
+                                                         i4 = 1;
+                                                      }
+                                                      else if((this.mc.hp_body <= 0 || this.mc.brk_body) && Number(this.param["p" + this.i + "hb"]) > 0)
+                                                      {
+                                                         i4 = 1;
+                                                      }
+                                                      else if((this.mc.hp_head <= 0 || this.mc.brk_head) && Number(this.param["p" + this.i + "hh"]) > 0)
+                                                      {
+                                                         i4 = 1;
+                                                      }
+                                                      if(this.mc.hp_arms > 0 && Number(this.param["p" + this.i + "ha"]) <= 0)
+                                                      {
+                                                         i4 = 2;
+                                                      }
+                                                      else if(this.mc.hp_legs > 0 && Number(this.param["p" + this.i + "hl"]) <= 0)
+                                                      {
+                                                         i4 = 2;
+                                                      }
+                                                      else if(this.mc.hp_body > 0 && Number(this.param["p" + this.i + "hb"]) <= 0)
+                                                      {
+                                                         i4 = 2;
+                                                      }
+                                                      else if(this.mc.hp_head > 0 && Number(this.param["p" + this.i + "hh"]) <= 0)
+                                                      {
+                                                         i4 = 2;
+                                                      }
+                                                      if(i4 == 1)
+                                                      {
+                                                         this.SpawnPlayerImmediately(this.mc);
+                                                         this.Hurt_nopain(this.i);
+                                                      }
+                                                      this.mc.hp_arms = Number(this.param["p" + this.i + "ha"]);
+                                                      this.mc.hp_legs = Number(this.param["p" + this.i + "hl"]);
+                                                      this.mc.hp_body = Number(this.param["p" + this.i + "hb"]);
+                                                      this.mc.hp_head = Number(this.param["p" + this.i + "hh"]);
+                                                      if(i4 == 2)
+                                                      {
+                                                         this.Hurt(this.i);
+                                                      }
+                                                   }
+                                                }
+                                             }
+                                          }
+                                       }
+                                       if(this.param["p" + this.i + "he"] != "")
+                                       {
+                                          if(this.mc.real_hea > 0 && Number(this.param["p" + this.i + "he"]) <= 0)
+                                          {
+                                             this.mc.last_shoot_chance = true;
+                                          }
+                                          this.mc.hea = this.AdjustToPlayerAllowedHP(this.mc,Number(this.param["p" + this.i + "he"]));
+                                          if(this.mc.real_hea <= 0 && Number(this.param["p" + this.i + "he"]) > 0)
+                                          {
+                                             this.mc.effects.length = 0;
+                                          }
+                                          this.mc.real_hea = Number(this.param["p" + this.i + "he"]);
+                                       }
+                                       if(this.MP_giveguns)
+                                       {
+                                          if(this.mc.hea > this.mc.hmax)
+                                          {
+                                             this.AnnoyPL(this.i,"hp+");
+                                          }
+                                       }
+                                       if(this.mc.hea > 0)
+                                       {
+                                          if(!this.mc.io || !this.mc.visible)
+                                          {
+                                             this.mc.dead = true;
+                                          }
+                                          else
+                                          {
+                                             this.mc.dead = false;
+                                          }
+                                          this.mc.io = true;
+                                          this.mc.visible = true;
+                                          if(this.mc.isGhost && !this.MP_giveguns && !this.mens[this.MP_myid].dead && !this.mens[this.MP_myid].dead)
+                                          {
+                                             if(this.mc.team == this.mens[this.MP_myid].team)
+                                             {
+                                                this.mc.alpha = 0.5;
+                                             }
+                                          }
+                                          else
+                                          {
+                                             this.mc.alpha = 1;
+                                          }
+                                          this.mc.deadtim = 0;
+                                          if(this.param["p" + this.i + "st"] != undefined)
+                                          {
+                                             this.mc.sit = new Number(this.param["p" + this.i + "st"]);
+                                          }
+                                          if(Boolean(isNaN(this.mc.sit)) || this.mc.sit == undefined)
+                                          {
+                                          }
+                                          if(this.param["p" + this.i + "sb"] != "")
+                                          {
+                                             if(this.GetPlayerAllowLimbHPStabChange(this.mc))
+                                             {
+                                                this.mc.stability = Number(this.param["p" + this.i + "sb"]);
+                                             }
+                                          }
+                                          this.mc.mp_controlled = false;
+                                          if(Number(this.param["p" + this.i + "sb"]) <= 0)
+                                          {
+                                             if(this.param["p" + this.i + "x"] != "" && this.param["p" + this.i + "x"] != undefined)
+                                             {
+                                                if(this.param["p" + this.i + "y"] != "" && this.param["p" + this.i + "y"] != undefined)
+                                                {
+                                                   if(this.param["p" + this.i + "sx"] != "" && this.param["p" + this.i + "sx"] != undefined)
+                                                   {
+                                                      if(this.param["p" + this.i + "sy"] != "" && this.param["p" + this.i + "sy"] != undefined)
+                                                      {
+                                                         if(this.param["p" + this.i + "xb"] != "" && this.param["p" + this.i + "xb"] != undefined)
                                                          {
-                                                            if(this.guns[this.i2].picken_by != -1)
+                                                            if(this.param["p" + this.i + "yb"] != "" && this.param["p" + this.i + "yb"] != undefined)
                                                             {
-                                                               if(this.guns[this.i2].picken_by != this.i)
+                                                               if(this.param["p" + this.i + "sxb"] != "" && this.param["p" + this.i + "sxb"] != undefined)
                                                                {
-                                                                  if(this.mens[this.guns[this.i2].picken_by].curwea == this.i2)
+                                                                  if(this.param["p" + this.i + "syb"] != "" && this.param["p" + this.i + "syb"] != undefined)
                                                                   {
-                                                                     this.mens[this.guns[this.i2].picken_by].curwea = -1;
-                                                                     this.ChangedGun(this.guns[this.i2].picken_by);
+                                                                     this.mc.mp_controlled = !this.mc.dead || this.GetPlayerAllowLimbHPStabChange(this.mc);
+                                                                     this.mc.mp_time = 0;
+                                                                     this.mc.mp_x = Number(this.param["p" + this.i + "x"]);
+                                                                     this.mc.mp_y = Number(this.param["p" + this.i + "y"]);
+                                                                     this.mc.mp_tox = Number(this.param["p" + this.i + "sx"]);
+                                                                     this.mc.mp_toy = Number(this.param["p" + this.i + "sy"]);
+                                                                     this.mc.mp_x2 = Number(this.param["p" + this.i + "xb"]);
+                                                                     this.mc.mp_y2 = Number(this.param["p" + this.i + "yb"]);
+                                                                     this.mc.mp_tox2 = Number(this.param["p" + this.i + "sxb"]);
+                                                                     this.mc.mp_toy2 = Number(this.param["p" + this.i + "syb"]);
                                                                   }
                                                                }
                                                             }
-                                                            if(this.guns[this.i2].picken_by == this.MP_myid && this.i != this.MP_myid)
-                                                            {
-                                                               if(this.mens[this.MP_myid].curwea == this.i2)
-                                                               {
-                                                                  this.mens[this.MP_myid].curwea = -1;
-                                                                  this.ChangedGun(this.MP_myid);
-                                                               }
-                                                               this.guns[this.i2].picken_by = this.i;
-                                                               this.UpdateWeps();
-                                                            }
-                                                            else
-                                                            {
-                                                               this.guns[this.i2].picken_by = this.i;
-                                                            }
                                                          }
                                                       }
                                                    }
                                                 }
                                              }
-                                             i4++;
                                           }
-                                       }
-                                       if(this.i3 != this.mc.curwea || this.mc.curwea == -1 && !this.mc.arm1.lower.psi.visible)
-                                       {
-                                          this.ChangedGun(this.i);
-                                       }
-                                       if(this.param["p" + this.i + "t"] != "")
-                                       {
-                                          if(this.mc.team != int(this.param["p" + this.i + "t"]))
+                                          if(this.param["p" + this.i + "dy"] != "")
                                           {
-                                             this.mc.team = int(this.param["p" + this.i + "t"]);
-                                             this.UpdateTeamColor(this.mc);
-                                          }
-                                       }
-                                       this.RedrawPsi(this.mc.idd);
-                                    }
-                                    else
-                                    {
-                                       this.mc.mp_controlled = false;
-                                       if(this.param["p" + this.i + "x"] != "")
-                                       {
-                                          if(this.param["p" + this.i + "y"] != "")
-                                          {
-                                             if(this.param["p" + this.i + "sx"] != "")
+                                             if(this.param["p" + this.i + "dy"] == "true" || this.GetPlayerShouldBeDying(this.mc))
                                              {
-                                                if(this.param["p" + this.i + "sy"] != "")
+                                                this.MakeDying(this.mc);
+                                             }
+                                             else
+                                             {
+                                                this.mc.dying = false;
+                                             }
+                                          }
+                                          if(Number(this.param["p" + this.i + "sb"]) > 0)
+                                          {
+                                             if(this.param["p" + this.i + "x"] != "" && this.param["p" + this.i + "x"] != undefined)
+                                             {
+                                                if(this.param["p" + this.i + "y"] != "" && this.param["p" + this.i + "y"] != undefined)
                                                 {
-                                                   if(this.param["p" + this.i + "x"] != undefined)
+                                                   if(this.param["p" + this.i + "sx"] != "" && this.param["p" + this.i + "sx"] != undefined)
                                                    {
-                                                      if(this.param["p" + this.i + "y"] != undefined)
+                                                      if(this.param["p" + this.i + "sy"] != "" && this.param["p" + this.i + "sy"] != undefined)
                                                       {
-                                                         if(this.param["p" + this.i + "sx"] != undefined)
+                                                         this.mc.x = Number(this.param["p" + this.i + "x"]);
+                                                         this.mc.y = Number(this.param["p" + this.i + "y"]);
+                                                         this.mc.tox = Number(this.param["p" + this.i + "sx"]);
+                                                         this.mc.toy = Number(this.param["p" + this.i + "sy"]);
+                                                         this.u = this.mc.x - this.ax[this.mc.b_toe];
+                                                         this.v = this.mc.y - this.ay[this.mc.b_toe];
+                                                         this.xx = this.VectorDist2D(this.u,this.v);
+                                                         if(this.xx > 600 * this.mc.scale || !this.TraceLineF_nopushers(this.mc.x,this.mc.y - 41 * this.mc.scale,this.ax[this.mc.b_toe],this.ay[this.mc.b_toe]))
                                                          {
-                                                            if(this.param["p" + this.i + "sy"] != undefined)
+                                                            this.ax[this.mc.b_toe] += this.u;
+                                                            this.ay[this.mc.b_toe] += this.v;
+                                                            this.ax[this.mc.b_body] += this.u;
+                                                            this.ay[this.mc.b_body] += this.v;
+                                                            this.ax[this.mc.b_head_start] += this.u;
+                                                            this.ay[this.mc.b_head_start] += this.v;
+                                                            this.ax[this.mc.b_head_end] += this.u;
+                                                            this.ay[this.mc.b_head_end] += this.v;
+                                                            this.ax[this.mc.b_arm1] += this.u;
+                                                            this.ay[this.mc.b_arm1] += this.v;
+                                                            this.ax[this.mc.b_arm2] += this.u;
+                                                            this.ay[this.mc.b_arm2] += this.v;
+                                                            this.ax[this.mc.b_leg1] += this.u;
+                                                            this.ay[this.mc.b_leg1] += this.v;
+                                                            this.ax[this.mc.b_leg2] += this.u;
+                                                            this.ay[this.mc.b_leg2] += this.v;
+                                                            if(this.GET_LITE_PHYS())
                                                             {
-                                                               if(this.param["p" + this.i + "xb"] != "")
+                                                               this.lax[this.mc.b_toe] += this.u;
+                                                               this.lay[this.mc.b_toe] += this.v;
+                                                               this.lax[this.mc.b_body] += this.u;
+                                                               this.lay[this.mc.b_body] += this.v;
+                                                               this.lax[this.mc.b_head_start] += this.u;
+                                                               this.lay[this.mc.b_head_start] += this.v;
+                                                               this.lax[this.mc.b_head_end] += this.u;
+                                                               this.lay[this.mc.b_head_end] += this.v;
+                                                               this.lax[this.mc.b_arm1] += this.u;
+                                                               this.lay[this.mc.b_arm1] += this.v;
+                                                               this.lax[this.mc.b_arm2] += this.u;
+                                                               this.lay[this.mc.b_arm2] += this.v;
+                                                               this.lax[this.mc.b_leg1] += this.u;
+                                                               this.lay[this.mc.b_leg1] += this.v;
+                                                               this.lax[this.mc.b_leg2] += this.u;
+                                                               this.lay[this.mc.b_leg2] += this.v;
+                                                            }
+                                                         }
+                                                         if(this.mc.hea >= this.dying_after)
+                                                         {
+                                                            this.mc.dying = false;
+                                                         }
+                                                      }
+                                                   }
+                                                }
+                                             }
+                                          }
+                                          if(!this.ANONYMOUS_MODE)
+                                          {
+                                             this.mc.gui.visible = true;
+                                             this.mc.gui.alpha = 1;
+                                          }
+                                          if(this.param["p" + this.i + "ix"] != "")
+                                          {
+                                             if(this.param["p" + this.i + "iy"] != "")
+                                             {
+                                                this.mc.tarx = Number(this.param["p" + this.i + "ix"]);
+                                                this.mc.tary = Number(this.param["p" + this.i + "iy"]);
+                                             }
+                                          }
+                                          if(this.mens[this.i].mp_aliveping + 200 > this.MP_ping_last)
+                                          {
+                                             if(this.param["p" + this.i + "f"] != "")
+                                             {
+                                                if(this.param["p" + this.i + "f"] == "true")
+                                                {
+                                                   this.mc.act_fire = true;
+                                                }
+                                                else
+                                                {
+                                                   this.mc.act_fire = false;
+                                                }
+                                             }
+                                             if(this.param["p" + this.i + "ax"] != "")
+                                             {
+                                                if(this.param["p" + this.i + "ay"] != "")
+                                                {
+                                                   this.mc.act_movex = int(this.param["p" + this.i + "ax"]);
+                                                   this.mc.act_movey = int(this.param["p" + this.i + "ay"]);
+                                                }
+                                             }
+                                          }
+                                          else
+                                          {
+                                             this.mc.act_fire = false;
+                                             this.mc.act_movex = 0;
+                                             this.mc.act_movey = 0;
+                                          }
+                                          if(this.param["p" + this.i + "ic"] != "")
+                                          {
+                                             this.i2 = int(this.param["p" + this.i + "ic"]);
+                                             this.i3 = 0;
+                                             while(this.i3 < this.vehiclestotal)
+                                             {
+                                                if(this.vehicles[this.i3].typ == 6)
+                                                {
+                                                   if(this.vehicles[this.i3].master == this.i)
+                                                   {
+                                                      if(this.i2 != this.i3)
+                                                      {
+                                                         this.vehicles[this.i3].master = -1;
+                                                      }
+                                                   }
+                                                }
+                                                ++this.i3;
+                                             }
+                                             if(this.i2 == -1)
+                                             {
+                                                this.mc.incar = -1;
+                                             }
+                                             else if(this.vehicles[this.i2].typ == 6)
+                                             {
+                                                if(this.vehicles[this.i2].master != this.MP_myid || this.MP_spectator)
+                                                {
+                                                   this.vehicles[this.i2].master = this.i;
+                                                }
+                                             }
+                                             else
+                                             {
+                                                this.mc.incar = this.i2;
+                                             }
+                                          }
+                                          this.i3 = this.mc.curwea;
+                                          if(this.param["p" + this.i + "cw"] != undefined && this.param["p" + this.i + "cw"] != "")
+                                          {
+                                             this.i2 = int(this.param["p" + this.i + "cw"]);
+                                             if(this.i2 >= -1 && this.i2 < this.gunstotal)
+                                             {
+                                                if(this.MP_gamestate == 0 || this.i2 == -1 || this.i2 != -1 && this.guns[this.i2].picken_by == this.i)
+                                                {
+                                                   this.mc.curwea = this.i2;
+                                                }
+                                             }
+                                          }
+                                          if(this.MP_gamestate == 0)
+                                          {
+                                             i4 = 0;
+                                             while(i4 < this.gunstotal)
+                                             {
+                                                if(this.guns[i4].picken_by == this.i && i4 != this.mc.curwea)
+                                                {
+                                                   this.guns[i4].picken_by = -1;
+                                                }
+                                                i4++;
+                                             }
+                                             i4 = 0;
+                                             while(i4 < 10)
+                                             {
+                                                if(this.param["p" + this.i + "g" + i4] != undefined)
+                                                {
+                                                   if(this.param["p" + this.i + "g" + i4] != "")
+                                                   {
+                                                      if(this.param["p" + this.i + "g" + i4] != "-1")
+                                                      {
+                                                         if(this.param["p" + this.i + "g" + i4] != "-")
+                                                         {
+                                                            this.i2 = int(this.param["p" + this.i + "g" + i4]);
+                                                            if(this.i2 >= 0 && this.i2 < this.gunstotal)
+                                                            {
+                                                               if(this.guns[this.i2].picken_by != -1)
                                                                {
-                                                                  if(this.param["p" + this.i + "yb"] != "")
+                                                                  if(this.guns[this.i2].picken_by != this.i)
                                                                   {
-                                                                     if(this.param["p" + this.i + "sxb"] != "")
+                                                                     if(this.mens[this.guns[this.i2].picken_by].curwea == this.i2)
                                                                      {
-                                                                        if(this.param["p" + this.i + "syb"] != "")
+                                                                        this.mens[this.guns[this.i2].picken_by].curwea = -1;
+                                                                        this.ChangedGun(this.guns[this.i2].picken_by);
+                                                                     }
+                                                                  }
+                                                               }
+                                                               if(this.guns[this.i2].picken_by == this.MP_myid && this.i != this.MP_myid)
+                                                               {
+                                                                  if(this.mens[this.MP_myid].curwea == this.i2)
+                                                                  {
+                                                                     this.mens[this.MP_myid].curwea = -1;
+                                                                     this.ChangedGun(this.MP_myid);
+                                                                  }
+                                                                  this.guns[this.i2].picken_by = this.i;
+                                                                  this.UpdateWeps();
+                                                               }
+                                                               else
+                                                               {
+                                                                  this.guns[this.i2].picken_by = this.i;
+                                                               }
+                                                            }
+                                                         }
+                                                      }
+                                                   }
+                                                }
+                                                i4++;
+                                             }
+                                          }
+                                          if(this.i3 != this.mc.curwea || this.mc.curwea == -1 && !this.mc.arm1.lower.psi.visible)
+                                          {
+                                             this.ChangedGun(this.i);
+                                          }
+                                          if(this.param["p" + this.i + "t"] != "")
+                                          {
+                                             if(this.mc.team != int(this.param["p" + this.i + "t"]))
+                                             {
+                                                this.mc.team = int(this.param["p" + this.i + "t"]);
+                                                this.UpdateTeamColor(this.mc);
+                                             }
+                                          }
+                                          this.RedrawPsi(this.mc.idd);
+                                       }
+                                       else
+                                       {
+                                          this.mc.mp_controlled = false;
+                                          if(this.param["p" + this.i + "x"] != "")
+                                          {
+                                             if(this.param["p" + this.i + "y"] != "")
+                                             {
+                                                if(this.param["p" + this.i + "sx"] != "")
+                                                {
+                                                   if(this.param["p" + this.i + "sy"] != "")
+                                                   {
+                                                      if(this.param["p" + this.i + "x"] != undefined)
+                                                      {
+                                                         if(this.param["p" + this.i + "y"] != undefined)
+                                                         {
+                                                            if(this.param["p" + this.i + "sx"] != undefined)
+                                                            {
+                                                               if(this.param["p" + this.i + "sy"] != undefined)
+                                                               {
+                                                                  if(this.param["p" + this.i + "xb"] != "")
+                                                                  {
+                                                                     if(this.param["p" + this.i + "yb"] != "")
+                                                                     {
+                                                                        if(this.param["p" + this.i + "sxb"] != "")
                                                                         {
-                                                                           if(this.param["p" + this.i + "xb"] != undefined)
+                                                                           if(this.param["p" + this.i + "syb"] != "")
                                                                            {
-                                                                              if(this.param["p" + this.i + "yb"] != undefined)
+                                                                              if(this.param["p" + this.i + "xb"] != undefined)
                                                                               {
-                                                                                 if(this.param["p" + this.i + "sxb"] != undefined)
+                                                                                 if(this.param["p" + this.i + "yb"] != undefined)
                                                                                  {
-                                                                                    if(this.param["p" + this.i + "syb"] != undefined)
+                                                                                    if(this.param["p" + this.i + "sxb"] != undefined)
                                                                                     {
-                                                                                       this.mc.mp_controlled = !this.mc.dead || this.GetPlayerAllowLimbHPStabChange(this.mc);
-                                                                                       this.mc.mp_time = 0;
-                                                                                       this.mc.mp_x = Number(this.param["p" + this.i + "x"]);
-                                                                                       this.mc.mp_y = Number(this.param["p" + this.i + "y"]);
-                                                                                       this.mc.mp_tox = Number(this.param["p" + this.i + "sx"]);
-                                                                                       this.mc.mp_toy = Number(this.param["p" + this.i + "sy"]);
-                                                                                       this.mc.mp_x2 = Number(this.param["p" + this.i + "xb"]);
-                                                                                       this.mc.mp_y2 = Number(this.param["p" + this.i + "yb"]);
-                                                                                       this.mc.mp_tox2 = Number(this.param["p" + this.i + "sxb"]);
-                                                                                       this.mc.mp_toy2 = Number(this.param["p" + this.i + "syb"]);
+                                                                                       if(this.param["p" + this.i + "syb"] != undefined)
+                                                                                       {
+                                                                                          this.mc.mp_controlled = !this.mc.dead || this.GetPlayerAllowLimbHPStabChange(this.mc);
+                                                                                          this.mc.mp_time = 0;
+                                                                                          this.mc.mp_x = Number(this.param["p" + this.i + "x"]);
+                                                                                          this.mc.mp_y = Number(this.param["p" + this.i + "y"]);
+                                                                                          this.mc.mp_tox = Number(this.param["p" + this.i + "sx"]);
+                                                                                          this.mc.mp_toy = Number(this.param["p" + this.i + "sy"]);
+                                                                                          this.mc.mp_x2 = Number(this.param["p" + this.i + "xb"]);
+                                                                                          this.mc.mp_y2 = Number(this.param["p" + this.i + "yb"]);
+                                                                                          this.mc.mp_tox2 = Number(this.param["p" + this.i + "sxb"]);
+                                                                                          this.mc.mp_toy2 = Number(this.param["p" + this.i + "syb"]);
+                                                                                       }
                                                                                     }
                                                                                  }
                                                                               }
@@ -21459,18 +21464,18 @@ package pb2_re34_fla
                                              }
                                           }
                                        }
+                                       if(Boolean(isNaN(this.mc.mp_tox)) || Boolean(isNaN(this.mc.mp_x)) || Boolean(isNaN(this.mc.x)) || Boolean(isNaN(this.mc.tox)))
+                                       {
+                                       }
                                     }
-                                    if(Boolean(isNaN(this.mc.mp_tox)) || Boolean(isNaN(this.mc.mp_x)) || Boolean(isNaN(this.mc.x)) || Boolean(isNaN(this.mc.tox)))
+                                    else if(this.mc.io)
                                     {
+                                       this.mc.hea = 0;
+                                       this.mc.dead = true;
+                                       this.mc.alpha = 1;
+                                       this.mc.io = false;
+                                       this.mc.visible = false;
                                     }
-                                 }
-                                 else if(this.mc.io)
-                                 {
-                                    this.mc.hea = 0;
-                                    this.mc.dead = true;
-                                    this.mc.alpha = 1;
-                                    this.mc.io = false;
-                                    this.mc.visible = false;
                                  }
                               }
                            }
@@ -22900,19 +22905,12 @@ package pb2_re34_fla
                         if(!this.MP_force_disconnect)
                         {
                            this.MP_ping2 = (getTimer() - this.MP_ping1 + this.MP_ping2 * 10) / 11;
-                           if(getTimer() - this.MP_ping1 > 15)
+                           setTimeout(function():*
                            {
-                              this.MP_get();
-                           }
-                           else
-                           {
-                              setTimeout(function():*
-                              {
-                                 VarChangePreventStart();
-                                 MP_get();
-                                 VarChangePreventEnd();
-                              },15 - (getTimer() - this.MP_ping1));
-                           }
+                              VarChangePreventStart();
+                              MP_get();
+                              VarChangePreventEnd();
+                           },1);
                         }
                      }
                   }
@@ -25495,9 +25493,9 @@ package pb2_re34_fla
                         this.MP_half_bot = true;
                         if(this.MP_mode)
                         {
-                           this.EASY_MODE = true;
                            this.PRO_BOTS = false;
-                           this.LOW_HPS = false;
+                           this.EASY_MODE = false;
+                           this.PRO_BOTS = false;
                         }
                      }
                      if(this.gamechat_input_text == "bot 0")
@@ -42539,6 +42537,7 @@ package pb2_re34_fla
          this.mh = "";
          this.serversList = new Array();
          this.map_quickpick.visible = false;
+         this.title_quickpick.visible = false;
          this.map_quick_picks_max = 7;
          this.map_qp_ani = -1;
          this.map_qp_sp = "";
