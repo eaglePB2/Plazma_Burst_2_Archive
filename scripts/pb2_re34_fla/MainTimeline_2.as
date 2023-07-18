@@ -644,9 +644,13 @@ package pb2_re34_fla
       
       public var map_qp_ani;
       
+      public var title_qp_ani;
+      
       public var map_qp_sp:String;
       
       public var map_qp_mp:String;
+      
+      public var title_qp_mp:String;
       
       public var time_start:Array;
       
@@ -3609,22 +3613,26 @@ package pb2_re34_fla
       
       public function updatePingInfo() : void
       {
+         var _loc1_:int = 0;
          var _loc2_:* = undefined;
          var _loc3_:int = 0;
-         var _loc1_:int = 1;
-         while(_loc1_ < this.list2.numChildren)
+         if(currentLabel == "channel")
          {
-            _loc2_ = this.list2.getChildAt(_loc1_);
-            _loc3_ = 0;
-            while(_loc3_ < this.serversList.length)
+            _loc1_ = 1;
+            while(_loc1_ < this.list2.numChildren)
             {
-               if(this.serversList[_loc3_][0] == _loc2_.servertxt.text)
+               _loc2_ = this.list2.getChildAt(_loc1_);
+               _loc3_ = 0;
+               while(_loc3_ < this.serversList.length)
                {
-                  _loc2_.pingtxt.text = this.Censored(this.serversList[_loc3_][3]);
+                  if(this.serversList[_loc3_][0] == _loc2_.servertxt.text)
+                  {
+                     _loc2_.pingtxt.text = this.Censored(this.serversList[_loc3_][3]);
+                  }
+                  _loc3_++;
                }
-               _loc3_++;
+               _loc1_++;
             }
-            _loc1_++;
          }
       }
       
@@ -4120,6 +4128,193 @@ package pb2_re34_fla
                clearInterval(map_qp_ani);
                map_qp_ani = -1;
                map_quickpick.visible = false;
+               stage.stageFocusRect = true;
+            }
+         },16);
+      }
+      
+      public function RememberTitle(param1:*) : void
+      {
+         var _loc3_:* = undefined;
+         var _loc2_:* = param1.split(",").join("\x01");
+         _loc3_ = this.title_qp_mp.split(",");
+         if(_loc3_.indexOf(_loc2_) != -1)
+         {
+            _loc3_.splice(_loc3_.indexOf(_loc2_),1);
+         }
+         _loc3_.unshift(_loc2_);
+         if(_loc3_.length > 20)
+         {
+            _loc3_ = _loc3_.slice(0,20);
+         }
+         this.title_qp_mp = _loc3_.join(",");
+         this.SaveGame();
+      }
+      
+      public function CallQuickTitlePick(param1:*, param2:*, param3:*) : void
+      {
+         var titles:* = undefined;
+         var appear:* = undefined;
+         var i:* = undefined;
+         var x:* = param1;
+         var y:* = param2;
+         var paste_target:* = param3;
+         var SaveBack:* = function():*
+         {
+            title_qp_mp = titles.join(",");
+            SaveGame();
+         };
+         if(this.title_quickpick.visible)
+         {
+            return;
+         }
+         this.title_quickpick.gotoAndStop(2);
+         this.title_quickpick.gotoAndStop(1);
+         this.title_quickpick.visible = true;
+         this.title_quickpick.alpha = 0;
+         this.title_quickpick.x = x;
+         this.title_quickpick.y = y;
+         titles = this.title_qp_mp.split(",");
+         appear = true;
+         while(titles.indexOf("") != -1)
+         {
+            titles.splice(titles.indexOf(""),1);
+         }
+         i = 0;
+         while(i < this.map_quick_picks_max)
+         {
+            if(i < titles.length)
+            {
+               (function(param1:*):*
+               {
+                  var list_element:* = param1;
+                  list_element.visible = true;
+                  list_element.txt.text = titles[i].split("\x01").join(",");
+                  list_element.scaleY = 1;
+                  list_element.y = i * 18 + 5;
+                  list_element.map_id = titles[i];
+                  NoMouse2(list_element.txt);
+                  list_element.btn.addEventListener(MouseEvent.CLICK,function():*
+                  {
+                     paste_target.text = list_element.map_id.split("\x01").join(",");
+                     appear = false;
+                  });
+                  list_element.del.addEventListener(MouseEvent.CLICK,function():*
+                  {
+                     titles.splice(titles.indexOf(list_element.map_id),1);
+                     SaveBack();
+                     var _loc1_:* = title_quickpick.alpha;
+                     title_quickpick.visible = false;
+                     CallQuickTitlePick(x,y,paste_target);
+                     title_quickpick.alpha = _loc1_;
+                     stage.stageFocusRect = false;
+                     stage.focus = title_quickpick;
+                  });
+               })(this.title_quickpick["qp" + i]);
+            }
+            else
+            {
+               this.title_quickpick["qp" + i].visible = false;
+            }
+            i++;
+         }
+         this.title_quickpick.bg.scaleY = (titles.length * 18 + 10) / 136;
+         if(this.title_qp_ani != -1)
+         {
+            clearInterval(this.title_qp_ani);
+            this.title_qp_ani = -1;
+         }
+         this.title_qp_ani = setInterval(function():*
+         {
+            if(appear)
+            {
+               if(title_quickpick.alpha < 1)
+               {
+                  title_quickpick.alpha = Math.min(1,title_quickpick.alpha + 0.2);
+               }
+               if(stage.focus != paste_target)
+               {
+                  if(stage.focus != title_quickpick)
+                  {
+                     if(stage.focus != title_quickpick.bg)
+                     {
+                        if(stage.focus != title_quickpick.qp0)
+                        {
+                           if(stage.focus != title_quickpick.qp1)
+                           {
+                              if(stage.focus != title_quickpick.qp2)
+                              {
+                                 if(stage.focus != title_quickpick.qp3)
+                                 {
+                                    if(stage.focus != title_quickpick.qp4)
+                                    {
+                                       if(stage.focus != title_quickpick.qp5)
+                                       {
+                                          if(stage.focus != title_quickpick.qp6)
+                                          {
+                                             if(stage.focus != title_quickpick.qp0.btn)
+                                             {
+                                                if(stage.focus != title_quickpick.qp1.btn)
+                                                {
+                                                   if(stage.focus != title_quickpick.qp2.btn)
+                                                   {
+                                                      if(stage.focus != title_quickpick.qp3.btn)
+                                                      {
+                                                         if(stage.focus != title_quickpick.qp4.btn)
+                                                         {
+                                                            if(stage.focus != title_quickpick.qp5.btn)
+                                                            {
+                                                               if(stage.focus != title_quickpick.qp6.btn)
+                                                               {
+                                                                  if(stage.focus != title_quickpick.qp0.del)
+                                                                  {
+                                                                     if(stage.focus != title_quickpick.qp1.del)
+                                                                     {
+                                                                        if(stage.focus != title_quickpick.qp2.del)
+                                                                        {
+                                                                           if(stage.focus != title_quickpick.qp3.del)
+                                                                           {
+                                                                              if(stage.focus != title_quickpick.qp4.del)
+                                                                              {
+                                                                                 if(stage.focus != title_quickpick.qp5.del)
+                                                                                 {
+                                                                                    if(stage.focus != title_quickpick.qp6.del)
+                                                                                    {
+                                                                                       appear = false;
+                                                                                    }
+                                                                                 }
+                                                                              }
+                                                                           }
+                                                                        }
+                                                                     }
+                                                                  }
+                                                               }
+                                                            }
+                                                         }
+                                                      }
+                                                   }
+                                                }
+                                             }
+                                          }
+                                       }
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+            else if(title_quickpick.alpha > 0)
+            {
+               title_quickpick.alpha = Math.max(0,title_quickpick.alpha - 0.2);
+            }
+            else
+            {
+               clearInterval(title_qp_ani);
+               title_qp_ani = -1;
+               title_quickpick.visible = false;
                stage.stageFocusRect = true;
             }
          },16);
@@ -6108,6 +6303,10 @@ package pb2_re34_fla
          {
             this.map_qp_mp = this.my_so.data["map_qp_mp"];
          }
+         if(this.my_so.data["title_qp_mp"] != undefined)
+         {
+            this.title_qp_mp = this.my_so.data["title_qp_mp"];
+         }
          if(this.my_so.data["ui_type"] == undefined)
          {
             this.ui_type = 0;
@@ -6290,6 +6489,7 @@ package pb2_re34_fla
          this.my_so.data["menu_hue"] = this.menu_hue;
          this.my_so.data["map_qp_sp"] = this.map_qp_sp;
          this.my_so.data["map_qp_mp"] = this.map_qp_mp;
+         this.my_so.data["title_qp_mp"] = this.title_qp_mp;
          this.my_so.data["ui_type"] = this.ui_type;
          this.my_so.data["fps_counter"] = this.fps_counter;
          try
@@ -9885,6 +10085,13 @@ package pb2_re34_fla
             param1.blood_red = 155 / 255;
             param1.blood_green = 19 / 255;
             param1.blood_blue = 58 / 255;
+         }
+         else if(param1.char == 162)
+         {
+            param1.armored = 1;
+            param1.voice = this.voices.marine;
+            this.RedrawPsi(param1.idd);
+            param1.nick = "Pinkine";
          }
          else
          {
@@ -22635,6 +22842,12 @@ package pb2_re34_fla
                                     {
                                        if(this.mens[int(this.array3[0])])
                                        {
+                                          this.param["p" + int(this.array3[0]) + "cw"] = int(this.array3[3]);
+                                          this.RedrawPsi(int(this.array3[0]));
+                                          this.mens[int(this.array3[0])].act_fire = true;
+                                          this.param["p" + int(this.array3[0]) + "f"] = "true";
+                                          this.param["p" + int(this.array3[0]) + "ix"] = Number(this.array3[1]);
+                                          this.param["p" + int(this.array3[0]) + "iy"] = Number(this.array3[2]);
                                           this.mens[int(this.array3[0])].mp_must_shoot_once = getTimer();
                                        }
                                     }
@@ -24960,116 +25173,113 @@ package pb2_re34_fla
             }
             if(this.MP_spectator && this.MP_mode)
             {
-               if(this.MP_clan == "1")
+               if(this.MP_chat_input)
                {
-                  if(this.MP_chat_input)
+                  if(param1.keyCode == 13)
                   {
-                     if(param1.keyCode == 13)
-                     {
-                        this.MP_chat_input = false;
-                        this.chat_win.gamechat_input.text = "";
-                        if(this.gamechat_input_text.length > 0)
-                        {
-                           this.MP_last_message_patience -= (getTimer() - this.MP_last_message) / 550;
-                           if(this.MP_last_message_patience < 0)
-                           {
-                              this.MP_last_message_patience = 0;
-                           }
-                           this.MP_last_message_patience += 20000 / Math.max(300,getTimer() - this.MP_last_message);
-                           this.MP_last_message = getTimer();
-                           if(this.MP_pass == "")
-                           {
-                              if(this.MP_last_message_patience > 110)
-                              {
-                                 if(this.mens[this.MP_myid].dead || this.mens[this.MP_myid].lastshotby == -1 || getTimer() - this.mens[this.MP_myid].whenlastshot > 7000)
-                                 {
-                                    this.DialogSay("Disconnected. You didn\'t stopped it, so we are sorry","#FF0000");
-                                    this.MP_force_disconnect = true;
-                                 }
-                              }
-                              else if(this.MP_last_message_patience > 90)
-                              {
-                                 this.DialogSay("Please don\'t send messages so quickly. You will be disconnected if you will continue","#FFFF00");
-                              }
-                              else if(this.MP_last_message_patience > 80)
-                              {
-                                 this.DialogSay("Please don\'t send messages so quickly. It is not allowed","#FFFF00");
-                              }
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace("=","[eq]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace("=","[eq]");
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace("|","[i]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace("|","[i]");
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace(";","[dc]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace(";","[dc]");
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace("<","[lt]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace("<","[lt]");
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace(">","[gt]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace(">","[gt]");
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace("\"","[2q]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace("\"","[2q]");
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace("/","[sl]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace("/","[sl]");
-                           }
-                           while(this.gamechat_input_text != this.gamechat_input_text.replace("\\","[rsl]"))
-                           {
-                              this.gamechat_input_text = this.gamechat_input_text.replace("\\","[rsl]");
-                           }
-                           if(this.MP_chat_input_for == "all")
-                           {
-                              this.MP_custom_events += ";chat|" + this.gamechat_input_text;
-                           }
-                           else if(this.MP_chat_input_for == "team")
-                           {
-                              this.MP_custom_events += ";tchat|" + this.gamechat_input_text;
-                           }
-                           if(this.DISPLAY_CHAT < 1)
-                           {
-                              if(this.MP_mode)
-                              {
-                                 this.DialogSay("Note: You\'ve said something, but you have \'\'DISPLAY CHAT\'\' set to \'\'NO\'\' in your Graphics & Gameplay settings.","#FFFF00");
-                              }
-                           }
-                        }
-                        this.chat_win.visible = false;
-                     }
-                     if(param1.keyCode == 8)
-                     {
-                        this.gamechat_input_text = this.gamechat_input_text.slice(0,this.gamechat_input_text.length - 1);
-                        this.chat_win.gamechat_input.htmlText = "<b>" + this.gamechat_input_text + "</b>";
-                     }
-                     else
-                     {
-                        _loc3_ = String.fromCharCode(param1.charCode);
-                        if(this.allowedText.indexOf(_loc3_) != -1)
-                        {
-                           this.gamechat_input_text += _loc3_;
-                           this.chat_win.gamechat_input.htmlText = "<b>" + this.gamechat_input_text.split("<").join("&lt;").split(">").join("&gt;") + "</b>";
-                        }
-                     }
-                  }
-                  else if(param1.keyCode == 13)
-                  {
-                     this.MP_chat_input = true;
-                     this.MP_chat_input_for = "all";
+                     this.MP_chat_input = false;
                      this.chat_win.gamechat_input.text = "";
-                     this.gamechat_input_text = "";
-                     this.chat_win.chatmode.gotoAndStop(this.MP_chat_input_for);
-                     this.chat_win.visible = true;
+                     if(this.gamechat_input_text.length > 0)
+                     {
+                        this.MP_last_message_patience -= (getTimer() - this.MP_last_message) / 550;
+                        if(this.MP_last_message_patience < 0)
+                        {
+                           this.MP_last_message_patience = 0;
+                        }
+                        this.MP_last_message_patience += 20000 / Math.max(300,getTimer() - this.MP_last_message);
+                        this.MP_last_message = getTimer();
+                        if(this.MP_pass == "")
+                        {
+                           if(this.MP_last_message_patience > 110)
+                           {
+                              if(this.mens[this.MP_myid].dead || this.mens[this.MP_myid].lastshotby == -1 || getTimer() - this.mens[this.MP_myid].whenlastshot > 7000)
+                              {
+                                 this.DialogSay("Disconnected. You didn\'t stopped it, so we are sorry","#FF0000");
+                                 this.MP_force_disconnect = true;
+                              }
+                           }
+                           else if(this.MP_last_message_patience > 90)
+                           {
+                              this.DialogSay("Please don\'t send messages so quickly. You will be disconnected if you will continue","#FFFF00");
+                           }
+                           else if(this.MP_last_message_patience > 80)
+                           {
+                              this.DialogSay("Please don\'t send messages so quickly. It is not allowed","#FFFF00");
+                           }
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace("=","[eq]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace("=","[eq]");
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace("|","[i]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace("|","[i]");
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace(";","[dc]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace(";","[dc]");
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace("<","[lt]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace("<","[lt]");
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace(">","[gt]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace(">","[gt]");
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace("\"","[2q]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace("\"","[2q]");
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace("/","[sl]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace("/","[sl]");
+                        }
+                        while(this.gamechat_input_text != this.gamechat_input_text.replace("\\","[rsl]"))
+                        {
+                           this.gamechat_input_text = this.gamechat_input_text.replace("\\","[rsl]");
+                        }
+                        if(this.MP_chat_input_for == "all")
+                        {
+                           this.MP_custom_events += ";chat|" + this.gamechat_input_text;
+                        }
+                        else if(this.MP_chat_input_for == "team")
+                        {
+                           this.MP_custom_events += ";tchat|" + this.gamechat_input_text;
+                        }
+                        if(this.DISPLAY_CHAT < 1)
+                        {
+                           if(this.MP_mode)
+                           {
+                              this.DialogSay("Note: You\'ve said something, but you have \'\'DISPLAY CHAT\'\' set to \'\'NO\'\' in your Graphics & Gameplay settings.","#FFFF00");
+                           }
+                        }
+                     }
+                     this.chat_win.visible = false;
                   }
+                  if(param1.keyCode == 8)
+                  {
+                     this.gamechat_input_text = this.gamechat_input_text.slice(0,this.gamechat_input_text.length - 1);
+                     this.chat_win.gamechat_input.htmlText = "<b>" + this.gamechat_input_text + "</b>";
+                  }
+                  else
+                  {
+                     _loc3_ = String.fromCharCode(param1.charCode);
+                     if(this.allowedText.indexOf(_loc3_) != -1)
+                     {
+                        this.gamechat_input_text += _loc3_;
+                        this.chat_win.gamechat_input.htmlText = "<b>" + this.gamechat_input_text.split("<").join("&lt;").split(">").join("&gt;") + "</b>";
+                     }
+                  }
+               }
+               else if(param1.keyCode == 13)
+               {
+                  this.MP_chat_input = true;
+                  this.MP_chat_input_for = "all";
+                  this.chat_win.gamechat_input.text = "";
+                  this.gamechat_input_text = "";
+                  this.chat_win.chatmode.gotoAndStop(this.MP_chat_input_for);
+                  this.chat_win.visible = true;
                }
                this.VarChangePreventEnd();
                return;
@@ -25493,9 +25703,9 @@ package pb2_re34_fla
                         this.MP_half_bot = true;
                         if(this.MP_mode)
                         {
+                           this.EASY_MODE = true;
                            this.PRO_BOTS = false;
-                           this.EASY_MODE = false;
-                           this.PRO_BOTS = false;
+                           this.LOW_HPS = false;
                         }
                      }
                      if(this.gamechat_input_text == "bot 0")
@@ -30839,14 +31049,14 @@ package pb2_re34_fla
                            this.mc.tary = (this.mouse_y - this.game.y) / this.game_scale;
                            if(Boolean(is_firing) && this.MP_gamestate == 0)
                            {
-                              if(this.mc.act_fire == false)
+                              if(this.mc.curwea == -1 || this.guns[this.mc.curwea].ready && this.mc.wep_pause <= 0)
                               {
-                                 if(!this.MP_favor_the_shooter)
+                                 if(this.mc.act_fire == false)
                                  {
-                                    this.MP_custom_events += ";ss|" + this.MP_myid + "#" + this.mc.tarx + "#" + this.mc.tary;
+                                    this.MP_custom_events += ";ss|" + this.MP_myid + "#" + this.mc.tarx + "#" + this.mc.tary + "#" + this.mc.curwea;
                                  }
+                                 this.mc.act_fire = true;
                               }
-                              this.mc.act_fire = true;
                            }
                            else
                            {
@@ -41260,6 +41470,7 @@ package pb2_re34_fla
          this.MP_game_server = this.serversList[_loc6_][1];
          this.MP_game_port = new int(this.serversList[_loc6_][2]);
          this.RememberMapID(this.MP_map_name,2);
+         this.RememberTitle(this.MP_room_name);
          if(this.MP_socket.connected)
          {
             this.MP_pass = this.ggg.gatt.text;
@@ -42320,7 +42531,7 @@ package pb2_re34_fla
       internal function frame1() : *
       {
          this.GAME_VERSION = "1.23";
-         this.GAME_VERSION_SIMPLE = "1.42";
+         this.GAME_VERSION_SIMPLE = "1.42 S";
          try
          {
             fscommand("trapallkeys","true");
@@ -42540,8 +42751,10 @@ package pb2_re34_fla
          this.title_quickpick.visible = false;
          this.map_quick_picks_max = 7;
          this.map_qp_ani = -1;
+         this.title_qp_ani = -1;
          this.map_qp_sp = "";
          this.map_qp_mp = "";
+         this.title_qp_mp = "";
          this.time_start = new Array();
          this.game_socket_passed = false;
          this.connectTime = 0;
@@ -47384,6 +47597,10 @@ package pb2_re34_fla
          this.ggg.gmap.addEventListener(MouseEvent.MOUSE_DOWN,function():*
          {
             CallQuickPick(316,156 + 18,2,ggg.gmap);
+         });
+         this.ggg.gtitle.addEventListener(MouseEvent.MOUSE_DOWN,function():*
+         {
+            CallQuickTitlePick(272,63,ggg.gtitle);
          });
          if(!this.stable)
          {

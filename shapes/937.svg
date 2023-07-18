@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="10.4px" width="18.65px" xmlns="http://www.w3.org/2000/svg">
-  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 6.7, 4.05)">
-    <path d="M-1.75 -2.8 L2.6 -2.8 2.9 -1.7 Q2.9 -0.75 1.55 0.25 L-0.7 0.25 Q-2.05 -0.75 -2.5 -1.75 L-1.75 -2.8" fill="#302f23" fill-rule="evenodd" stroke="none"/>
-    <path d="M3.55 -1.05 L7.55 -0.65 10.9 2.8 11.45 5.85 10.25 5.6 9.4 5.4 6.85 4.55 6.85 3.85 5.2 1.95 4.4 1.95 Q3.6 0.5 3.35 -0.35 L3.55 -1.05" fill="#565545" fill-rule="evenodd" stroke="none"/>
-    <path d="M2.9 -1.7 L3.55 -1.05 3.35 -0.35 Q3.6 0.5 4.4 1.95 L5.2 1.95 6.85 3.85 6.85 4.55 9.4 5.4 10.25 5.6 11.45 5.85 5.55 5.75 4.8 3.8 3.5 3.8 2.55 2.15 0.8 2.15 0.2 3.2 2.15 5.7 0.75 5.25 -0.7 5.7 -1.0 4.25 -2.15 3.75 -1.4 2.25 -1.65 1.0 -2.95 -0.7 -2.5 -1.75 Q-2.05 -0.75 -0.7 0.25 L1.55 0.25 Q2.9 -0.75 2.9 -1.7" fill="#3b3a30" fill-rule="evenodd" stroke="none"/>
-    <path d="M-0.7 5.7 L-5.35 5.7 -6.2 3.9 -4.8 1.1 -5.8 -1.35 -3.65 -3.55 -1.75 -2.8 -2.5 -1.75 -2.95 -0.7 -1.65 1.0 -1.4 2.25 -2.15 3.75 -1.0 4.25 -0.7 5.7 M-4.8 1.1 L-2.95 -0.7 -4.8 1.1" fill="#7b7963" fill-rule="evenodd" stroke="none"/>
-    <path d="M5.55 5.75 L2.15 5.7 0.2 3.2 0.8 2.15 2.55 2.15 3.5 3.8 4.8 3.8 5.55 5.75" fill="#464537" fill-rule="evenodd" stroke="none"/>
-    <path d="M2.9 -1.7 L3.55 -1.05 M11.45 5.85 L5.55 5.75 M2.15 5.7 L0.75 5.25 -0.7 5.7 M-1.75 -2.8 L2.6 -2.8 2.9 -1.7" fill="none" stroke="#2b2a1f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M-2.95 -0.7 L-4.8 1.1" fill="none" stroke="#5e5c48" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M-2.5 -1.75 L-1.75 -2.8" fill="none" stroke="#434233" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M-0.7 5.7 L-5.35 5.7 -6.2 3.9 -4.8 1.1 -5.8 -1.35 -3.65 -3.55 -1.75 -2.8" fill="none" stroke="#3c3b31" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M3.55 -1.05 L7.55 -0.65 10.9 2.8 11.45 5.85" fill="none" stroke="#313027" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M5.55 5.75 L2.15 5.7 M3.55 -1.05 L3.35 -0.35 Q3.6 0.5 4.4 1.95 L5.2 1.95 6.85 3.85 6.85 4.55 9.4 5.4 10.25 5.6 11.45 5.85" fill="none" stroke="#2c2b24" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M-2.5 -1.75 L-2.95 -0.7 -1.65 1.0 -1.4 2.25 -2.15 3.75 -1.0 4.25 -0.7 5.7" fill="none" stroke="#312f24" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
-    <path d="M2.15 5.7 L0.2 3.2 0.8 2.15 2.55 2.15 3.5 3.8 4.8 3.8 5.55 5.75" fill="none" stroke="#33332a" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="9.45px" width="20.4px" xmlns="http://www.w3.org/2000/svg">
+  <g transform="matrix(1.0, 0.0, 0.0, 1.0, 10.45, 2.6)">
+    <path d="M-5.7 1.75 L-1.95 -1.0 -1.95 -2.1 2.15 -2.1 2.15 -1.0 5.45 1.45 4.55 2.9 2.2 1.35 -2.0 1.35 -4.8 3.25 -5.7 1.75" fill="#4d4844" fill-rule="evenodd" stroke="none"/>
+    <path d="M5.45 1.45 L5.9 0.7 6.9 1.6 8.6 3.1 9.45 3.75 8.05 6.35 2.35 6.35 2.35 4.5 3.95 3.75 4.55 2.9 5.45 1.45 M-4.8 3.25 L-4.45 3.75 -2.9 4.5 -2.9 6.35 -8.55 6.35 -9.95 3.75 -9.1 3.05 -7.75 1.85 -6.4 0.7 -5.7 1.75 -4.8 3.25" fill="#97856f" fill-rule="evenodd" stroke="none"/>
+    <path d="M-5.7 1.75 L-1.95 -1.0 -1.95 -2.1 2.15 -2.1 2.15 -1.0 5.45 1.45 M4.55 2.9 L2.2 1.35 -2.0 1.35 -4.8 3.25" fill="none" stroke="#2b2a29" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M5.45 1.45 L5.9 0.7 6.9 1.6 M8.6 3.1 L9.45 3.75 8.05 6.35 2.35 6.35 2.35 4.5 3.95 3.75 4.55 2.9 5.45 1.45 M-4.8 3.25 L-4.45 3.75 -2.9 4.5 -2.9 6.35 -8.55 6.35 -9.95 3.75 -9.1 3.05 M-7.75 1.85 L-6.4 0.7 -5.7 1.75 -4.8 3.25" fill="none" stroke="#655447" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
+    <path d="M6.9 1.6 L8.6 3.1 M-9.1 3.05 L-7.75 1.85" fill="none" stroke="#ecbe3e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.0"/>
   </g>
 </svg>
