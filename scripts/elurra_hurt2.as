@@ -1,0 +1,14 @@
+package
+{
+   import flash.media.Sound;
+   
+   [Embed(source="/_assets/389_elurra_hurt2.mp3")]
+   public dynamic class elurra_hurt2 extends Sound
+   {
+      public function elurra_hurt2()
+      {
+         super();
+      }
+   }
+}
+
