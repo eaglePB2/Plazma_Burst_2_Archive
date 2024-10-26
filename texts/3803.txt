@@ -1,0 +1,29 @@
+Only Approved Maps can be 
+--- RECORDSEPARATOR ---
+Ranked
+--- RECORDSEPARATOR ---
+. | Approved Rank Matches Ping Limit : 
+--- RECORDSEPARATOR ---
+250ms
+--- RECORDSEPARATOR ---
+Ranked Matches
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+have
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+Ping Limit 
+--- RECORDSEPARATOR ---
+and 
+--- RECORDSEPARATOR ---
+NO Match Owner
+--- RECORDSEPARATOR ---
+.   
+--- RECORDSEPARATOR ---
+Guest's Lobby Chat/Gameplay Chat function is 
+--- RECORDSEPARATOR ---
+Disabled
+--- RECORDSEPARATOR ---
+.

@@ -1,0 +1,27 @@
+WARNING:
+--- RECORDSEPARATOR ---
+「
+--- RECORDSEPARATOR ---
+Apply game state
+--- RECORDSEPARATOR ---
+」
+--- RECORDSEPARATOR ---
+ 
+--- RECORDSEPARATOR ---
+will overwrite all settings, game progress, and achievements, and cannot be 
+--- RECORDSEPARATOR ---
+reverted (unless you have a backup).|| You can directly copy/paste the game state code.
+--- RECORDSEPARATOR ---
+警告：「
+--- RECORDSEPARATOR ---
+Apply game state
+--- RECORDSEPARATOR ---
+」将覆盖所有设置、游戏进度和成就，且无法恢复（除非你备份过了）
+--- RECORDSEPARATOR ---
+,
+--- RECORDSEPARATOR ---
+你可以直接复制
+--- RECORDSEPARATOR ---
+/
+--- RECORDSEPARATOR ---
+粘贴存档代码。
