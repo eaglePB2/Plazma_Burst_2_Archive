@@ -1,0 +1,1 @@
+-cursor.static 0/1 - Toggle crosshair mode

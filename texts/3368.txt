@@ -1,0 +1,1 @@
+-show.frags 0 : Disable Frag messages-show.frags 1 : Enable Frag messages-cursor.size 1-100 - Resize crosshair-cursor.style 1-3 - Change crosshair-cursor.reset - Reset crosshair

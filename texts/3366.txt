@@ -1,0 +1,1 @@
+COOP Commands• Match Owner/Moderator/Event Staff-admin.restart: restart the current round• Event Staff/Moderator-admin.pause : Pause the current round (duration: 10 minutes)-admin.resume : Resume the current round (new round starts after 10 seconds)-admin.sc :Display team IDs and scores in the current room-admin.set [team ID] [score] : Modify the score of the specified team

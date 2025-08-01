@@ -1,0 +1,1 @@
+• Multiplayer General Commands-fps : Example -fps 37-kill : Suicide-ping : Set ping-blue : Switch to blue team (TDM only)-red : Switch to red team (TDM noly)
